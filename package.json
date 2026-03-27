@@ -4,11 +4,19 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "echo 'wired in T7'",
-    "lint": "echo 'wired in T2'",
-    "format": "echo 'wired in T2'"
+    "lint": "eslint packages/",
+    "format": "prettier --write 'packages/**/*.{ts,tsx,json}'",
+    "format:check": "prettier --check 'packages/**/*.{ts,tsx,json}'"
   },
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.1.0",
+    "prettier": "3.8.1",
+    "typescript": "5.7.3",
+    "typescript-eslint": "8.57.2"
   }
 }
