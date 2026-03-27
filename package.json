@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "echo 'wired in T7'",
+    "dev": "concurrently -n api,web -c cyan,magenta \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
     "lint": "eslint packages/",
     "format": "prettier --write 'packages/**/*.{ts,tsx,json}'",
     "format:check": "prettier --check 'packages/**/*.{ts,tsx,json}'"
@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "concurrently": "9.2.1",
     "eslint": "10.1.0",
     "prettier": "3.8.1",
     "typescript": "5.7.3",
