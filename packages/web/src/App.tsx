@@ -3,5 +3,5 @@ export function App() {
     <div>
       <h1>Qcontabil</h1>
     </div>
-  );
+  )
 }
