@@ -12,11 +12,11 @@
 
 ### Features
 
-**Project Scaffolding** - PLANNED
+**Project Scaffolding** - COMPLETE
 
 - Monorepo setup (NestJS + React/Vite)
-- PostgreSQL local (Docker Compose)
-- Configuracao base (ESLint, Prettier, TypeScript)
+- PostgreSQL local (Docker Compose, porta 5433)
+- Configuracao base (ESLint, Prettier, TypeScript strict)
 - CI basico (lint + typecheck)
 
 **Auth** - PLANNED
