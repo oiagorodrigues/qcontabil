@@ -1,7 +1,13 @@
-import { Controller, Get } from '@nestjs/common'
-import { HealthCheck, HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus'
+import { Controller, Get } from "@nestjs/common"
+import {
+  HealthCheck,
+  HealthCheckService,
+  TypeOrmHealthIndicator,
+} from "@nestjs/terminus"
+import { Public } from "../auth/decorators/public.decorator"
 
-@Controller('health')
+@Public()
+@Controller("health")
 export class HealthController {
   constructor(
     private health: HealthCheckService,
