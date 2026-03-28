@@ -10,26 +10,26 @@ import { User } from "./user.entity"
 @Entity("refresh_tokens")
 export class RefreshToken {
   @PrimaryGeneratedColumn("uuid")
-  id!: string
+  declare id: string
 
   @Column()
-  tokenHash!: string
+  declare tokenHash: string
 
   @Column()
-  family!: string
+  declare family: string
 
   @Column({ default: false })
-  revoked!: boolean
+  declare revoked: boolean
 
   @Column({ type: "timestamp" })
-  expiresAt!: Date
+  declare expiresAt: Date
 
   @CreateDateColumn()
-  createdAt!: Date
+  declare createdAt: Date
 
   @ManyToOne(() => User, (user) => user.refreshTokens, { onDelete: "CASCADE" })
-  user!: User
+  declare user: User
 
   @Column()
-  userId!: string
+  declare userId: string
 }

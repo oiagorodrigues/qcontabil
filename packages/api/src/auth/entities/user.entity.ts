@@ -11,29 +11,29 @@ import { RefreshToken } from "./refresh-token.entity"
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  id!: string
+  declare id: string
 
   @Column({ unique: true })
-  email!: string
+  declare email: string
 
   @Column()
-  passwordHash!: string
+  declare passwordHash: string
 
   @Column({ default: false })
-  emailVerified!: boolean
+  declare emailVerified: boolean
 
   @Column({ type: "int", default: 0 })
-  failedLoginAttempts!: number
+  declare failedLoginAttempts: number
 
   @Column({ type: "timestamp", nullable: true })
-  lockedUntil!: Date | null
+  declare lockedUntil: Date | null
 
   @CreateDateColumn()
-  createdAt!: Date
+  declare createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt!: Date
+  declare updatedAt: Date
 
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user)
-  refreshTokens!: RefreshToken[]
+  declare refreshTokens: RefreshToken[]
 }

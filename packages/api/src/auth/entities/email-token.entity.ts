@@ -10,26 +10,26 @@ import { User } from "./user.entity"
 @Entity("email_tokens")
 export class EmailToken {
   @PrimaryGeneratedColumn("uuid")
-  id!: string
+  declare id: string
 
   @Column()
-  tokenHash!: string
+  declare tokenHash: string
 
   @Column({ type: "enum", enum: ["verification", "password_reset"] })
-  type!: "verification" | "password_reset"
+  declare type: "verification" | "password_reset"
 
   @Column({ default: false })
-  used!: boolean
+  declare used: boolean
 
   @Column({ type: "timestamp" })
-  expiresAt!: Date
+  declare expiresAt: Date
 
   @CreateDateColumn()
-  createdAt!: Date
+  declare createdAt: Date
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })
-  user!: User
+  declare user: User
 
   @Column()
-  userId!: string
+  declare userId: string
 }
