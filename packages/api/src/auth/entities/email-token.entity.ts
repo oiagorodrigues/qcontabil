@@ -1,35 +1,29 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  ManyToOne,
-} from "typeorm"
-import { User } from "./user.entity"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm'
+import { User } from './user.entity'
 
-@Entity("email_tokens")
+@Entity('email_tokens')
 export class EmailToken {
-  @PrimaryGeneratedColumn("uuid")
-  declare id: string
+  @PrimaryGeneratedColumn('uuid')
+  id!: string
 
   @Column()
-  declare tokenHash: string
+  tokenHash!: string
 
-  @Column({ type: "enum", enum: ["verification", "password_reset"] })
-  declare type: "verification" | "password_reset"
+  @Column({ type: 'enum', enum: ['verification', 'password_reset'] })
+  type!: 'verification' | 'password_reset'
 
   @Column({ default: false })
-  declare used: boolean
+  used!: boolean
 
-  @Column({ type: "timestamp" })
-  declare expiresAt: Date
+  @Column({ type: 'timestamp' })
+  expiresAt!: Date
 
   @CreateDateColumn()
-  declare createdAt: Date
+  createdAt!: Date
 
-  @ManyToOne(() => User, { onDelete: "CASCADE" })
-  declare user: User
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  user!: User
 
   @Column()
-  declare userId: string
+  userId!: string
 }

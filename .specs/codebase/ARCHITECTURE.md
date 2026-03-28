@@ -69,7 +69,7 @@ packages/api/src/
 - Services: business logic pura, sem acesso a Request/Response (exceto TokenService pra cookies)
 - Repositories: TypeORM repositories injetados via `TypeOrmModule.forFeature()` — encapsulam acesso ao DB
 - DTOs: Zod schemas no shared, tipos inferidos com `z.infer`
-- **Proibido null assertions (`!`)**: Nunca usar non-null assertion operator. Preferir `declare` pra campos inicializados externamente (ex: TypeORM entities), early returns, nullish coalescing (`??`), optional chaining (`?.`), ou narrowing com type guards. Aplica-se a todo o codebase (frontend e backend).
+- **Non-null assertion (`!`)**: Permitido em declaracao de campos de entities/classes inicializadas externamente (ex: TypeORM `id!: string`). Proibido em acesso a propriedades (ex: `user.address!.street`) — usar early returns, `??`, `?.`, ou type guards.
 
 ---
 

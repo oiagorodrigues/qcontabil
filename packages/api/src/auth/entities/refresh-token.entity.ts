@@ -1,35 +1,29 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  ManyToOne,
-} from "typeorm"
-import { User } from "./user.entity"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm'
+import { User } from './user.entity'
 
-@Entity("refresh_tokens")
+@Entity('refresh_tokens')
 export class RefreshToken {
-  @PrimaryGeneratedColumn("uuid")
-  declare id: string
+  @PrimaryGeneratedColumn('uuid')
+  id!: string
 
   @Column()
-  declare tokenHash: string
+  tokenHash!: string
 
   @Column()
-  declare family: string
+  family!: string
 
   @Column({ default: false })
-  declare revoked: boolean
+  revoked!: boolean
 
-  @Column({ type: "timestamp" })
-  declare expiresAt: Date
+  @Column({ type: 'timestamp' })
+  expiresAt!: Date
 
   @CreateDateColumn()
-  declare createdAt: Date
+  createdAt!: Date
 
-  @ManyToOne(() => User, (user) => user.refreshTokens, { onDelete: "CASCADE" })
-  declare user: User
+  @ManyToOne(() => User, (user) => user.refreshTokens, { onDelete: 'CASCADE' })
+  user!: User
 
   @Column()
-  declare userId: string
+  userId!: string
 }

@@ -5,35 +5,35 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-} from "typeorm"
-import { RefreshToken } from "./refresh-token.entity"
+} from 'typeorm'
+import { RefreshToken } from './refresh-token.entity'
 
-@Entity("users")
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  declare id: string
+  @PrimaryGeneratedColumn('uuid')
+  id!: string
 
   @Column({ unique: true })
-  declare email: string
+  email!: string
 
   @Column()
-  declare passwordHash: string
+  passwordHash!: string
 
   @Column({ default: false })
-  declare emailVerified: boolean
+  emailVerified!: boolean
 
-  @Column({ type: "int", default: 0 })
-  declare failedLoginAttempts: number
+  @Column({ type: 'int', default: 0 })
+  failedLoginAttempts!: number
 
-  @Column({ type: "timestamp", nullable: true })
-  declare lockedUntil: Date | null
+  @Column({ type: 'timestamp', nullable: true })
+  lockedUntil!: Date | null
 
   @CreateDateColumn()
-  declare createdAt: Date
+  createdAt!: Date
 
   @UpdateDateColumn()
-  declare updatedAt: Date
+  updatedAt!: Date
 
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user)
-  declare refreshTokens: RefreshToken[]
+  refreshTokens!: RefreshToken[]
 }
