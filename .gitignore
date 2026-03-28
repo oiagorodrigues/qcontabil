@@ -34,3 +34,6 @@ docker-compose.override.yml
 
 # Testing
 coverage/
+
+# Claude Code worktrees
+.claude/worktrees/
