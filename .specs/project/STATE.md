@@ -61,7 +61,7 @@ User ↔ RefreshToken cria circular import. O `tsc` resolve, mas SWC (CJS output
 
 ## Deferred Ideas
 
-_(none)_
+- **Upgrade @zxcvbn-ts/core pra v4**: Atualmente em v3 (set/2023). A v4 beta.3 (mar/2026) muda a API pra `ZxcvbnFactory` mas tem problemas de exports no runtime (beta). Monitorar releases estáveis e migrar quando v4 stable sair. PasswordStrengthMeter precisa ser reescrito pra nova API.
 
 ## Preferences
 
