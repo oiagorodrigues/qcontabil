@@ -31,7 +31,7 @@ export default function LoginPage() {
   const [serverError, setServerError] = useState('')
 
   const mutation = useMutation({
-    mutationFn: (data: LoginInput) => authApi.login(data),
+    mutationFn: authApi.login,
     onSuccess: (response) => {
       useAuthStore.getState().setUser(response.data.user)
       const redirectTo = searchParams.get('redirect') || '/'

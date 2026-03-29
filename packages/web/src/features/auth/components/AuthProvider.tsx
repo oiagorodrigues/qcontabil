@@ -8,33 +8,34 @@ import { setOnAuthError } from '@/lib/http-client'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
+  const { setUser, setLoading, clearAuth } = useAuthStore.getState()
 
-  const { data, error, isSuccess, isError } = useQuery({
+  const { data, isSuccess, isError } = useQuery({
     queryKey: ['auth', 'me'],
-    queryFn: () => authApi.me(),
-    retry: false,
+    queryFn: authApi.me,
+    retry: 1,
   })
 
   useEffect(() => {
     if (isSuccess && data) {
-      useAuthStore.getState().setUser(data.data.user)
-      useAuthStore.getState().setLoading(false)
+      setUser(data.data.user)
+      setLoading(false)
     }
-  }, [isSuccess, data])
+  }, [isSuccess, data, setUser, setLoading])
 
   useEffect(() => {
     if (isError) {
-      useAuthStore.getState().clearAuth()
-      useAuthStore.getState().setLoading(false)
+      clearAuth()
+      setLoading(false)
     }
-  }, [isError, error])
+  }, [isError, clearAuth, setLoading])
 
   useEffect(() => {
     setOnAuthError(() => {
-      useAuthStore.getState().clearAuth()
+      clearAuth()
       navigate('/login')
     })
-  }, [navigate])
+  }, [navigate, clearAuth])
 
   return <>{children}</>
 }

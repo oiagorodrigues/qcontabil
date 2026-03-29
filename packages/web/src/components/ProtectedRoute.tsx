@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router'
 import { useAuthStore } from '@/features/auth/stores/auth.store'
+import { Loading } from '@/components/Loading'
 
 export function ProtectedRoute() {
   const isAuthenticated = useAuthStore((s) => s.user !== null)
@@ -7,11 +8,7 @@ export function ProtectedRoute() {
   const location = useLocation()
 
   if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    )
+    return <Loading />
   }
 
   if (!isAuthenticated) {

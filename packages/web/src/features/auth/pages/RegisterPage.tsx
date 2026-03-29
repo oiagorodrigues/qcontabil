@@ -31,7 +31,7 @@ export default function RegisterPage() {
   const [submitted, setSubmitted] = useState(false)
 
   const mutation = useMutation({
-    mutationFn: (data: RegisterInput) => authApi.register(data),
+    mutationFn: authApi.register,
     onSuccess: () => {
       setSubmitted(true)
     },

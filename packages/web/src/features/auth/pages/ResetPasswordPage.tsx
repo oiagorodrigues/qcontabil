@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
   const [passwordScore, setPasswordScore] = useState(0)
 
   const mutation = useMutation({
-    mutationFn: (data: ResetPasswordInput) => authApi.resetPassword(data),
+    mutationFn: authApi.resetPassword,
     onSuccess: () => {
       navigate('/login', {
         state: { message: 'Password reset successfully. You can now log in.' },

@@ -18,7 +18,7 @@ import { authApi } from '../api/auth.api'
 
 export default function ForgotPasswordPage() {
   const mutation = useMutation({
-    mutationFn: (data: ForgotPasswordInput) => authApi.forgotPassword(data),
+    mutationFn: authApi.forgotPassword,
   })
 
   const form = useForm({
