@@ -4,7 +4,13 @@ import {
   BadRequestException,
   ForbiddenException,
 } from '@nestjs/common'
+import type { Repository, ObjectLiteral } from 'typeorm'
 import { AuthService } from '../auth.service'
+import type { TokenService } from '../token.service'
+import type { MailService } from '../../mail/mail.service'
+import type { User } from '../entities/user.entity'
+import type { RefreshToken } from '../entities/refresh-token.entity'
+import type { EmailToken } from '../entities/email-token.entity'
 import * as bcrypt from 'bcrypt'
 
 vi.mock('bcrypt', () => ({
@@ -12,34 +18,41 @@ vi.mock('bcrypt', () => ({
   compare: vi.fn().mockResolvedValue(true),
 }))
 
+type MockRepo<T extends ObjectLiteral> = Pick<Repository<T>, 'findOne' | 'create' | 'save' | 'update'>
+
+function createMockRepo<T extends ObjectLiteral>(): MockRepo<T> & {
+  findOne: ReturnType<typeof vi.fn>
+  create: ReturnType<typeof vi.fn>
+  save: ReturnType<typeof vi.fn>
+  update: ReturnType<typeof vi.fn>
+} {
+  return {
+    findOne: vi.fn(),
+    create: vi.fn((data: Partial<T>) => data),
+    save: vi.fn().mockImplementation((entity: T) => Promise.resolve(entity)),
+    update: vi.fn(),
+  } as MockRepo<T> & {
+    findOne: ReturnType<typeof vi.fn>
+    create: ReturnType<typeof vi.fn>
+    save: ReturnType<typeof vi.fn>
+    update: ReturnType<typeof vi.fn>
+  }
+}
+
 describe('AuthService', () => {
   let service: AuthService
-  let userRepo: any
-  let refreshTokenRepo: any
-  let emailTokenRepo: any
-  let tokenService: any
-  let mailService: any
+  let userRepo: ReturnType<typeof createMockRepo<User>>
+  let refreshTokenRepo: ReturnType<typeof createMockRepo<RefreshToken>>
+  let emailTokenRepo: ReturnType<typeof createMockRepo<EmailToken>>
+  let tokenService: Pick<TokenService, 'generateAccessToken' | 'generateRefreshToken' | 'hashToken' | 'getRefreshTokenExpiresAt'>
+  let mailService: Pick<MailService, 'sendVerificationEmail' | 'sendPasswordResetEmail'>
 
   beforeEach(() => {
-    userRepo = {
-      findOne: vi.fn(),
-      create: vi.fn((data: any) => ({ id: 'user-1', ...data })),
-      save: vi.fn().mockImplementation((entity: any) => Promise.resolve(entity)),
-      update: vi.fn(),
-    }
+    userRepo = createMockRepo<User>()
+    userRepo.create.mockImplementation((data: Partial<User>) => ({ id: 'user-1', ...data }))
 
-    refreshTokenRepo = {
-      findOne: vi.fn(),
-      create: vi.fn((data: any) => data),
-      save: vi.fn(),
-      update: vi.fn(),
-    }
-
-    emailTokenRepo = {
-      findOne: vi.fn(),
-      create: vi.fn((data: any) => data),
-      save: vi.fn(),
-    }
+    refreshTokenRepo = createMockRepo<RefreshToken>()
+    emailTokenRepo = createMockRepo<EmailToken>()
 
     tokenService = {
       generateAccessToken: vi.fn().mockReturnValue('access-token'),
@@ -56,11 +69,11 @@ describe('AuthService', () => {
     }
 
     service = new AuthService(
-      userRepo,
-      refreshTokenRepo,
-      emailTokenRepo,
-      tokenService,
-      mailService,
+      userRepo as unknown as Repository<User>,
+      refreshTokenRepo as unknown as Repository<RefreshToken>,
+      emailTokenRepo as unknown as Repository<EmailToken>,
+      tokenService as TokenService,
+      mailService as MailService,
     )
   })
 
@@ -95,7 +108,7 @@ describe('AuthService', () => {
   // --- login ---
 
   describe('login', () => {
-    const validUser = {
+    const validUser: Partial<User> = {
       id: 'user-1',
       email: 'a@b.com',
       passwordHash: 'hashed',
@@ -195,7 +208,7 @@ describe('AuthService', () => {
         family: 'family-1',
         userId: 'user-1',
         expiresAt: new Date(Date.now() + 60000),
-        user: { id: 'user-1', email: 'a@b.com' },
+        user: { id: 'user-1', email: 'a@b.com' } as User,
       }
       refreshTokenRepo.findOne.mockResolvedValue(storedToken)
 
@@ -218,7 +231,7 @@ describe('AuthService', () => {
         revoked: true,
         family: 'family-1',
         userId: 'user-1',
-        user: { id: 'user-1' },
+        user: { id: 'user-1' } as User,
       }
       refreshTokenRepo.findOne.mockResolvedValue(storedToken)
 
@@ -236,7 +249,7 @@ describe('AuthService', () => {
         revoked: false,
         family: 'family-1',
         expiresAt: new Date(Date.now() - 60000),
-        user: { id: 'user-1' },
+        user: { id: 'user-1' } as User,
       }
       refreshTokenRepo.findOne.mockResolvedValue(storedToken)
 
@@ -250,7 +263,7 @@ describe('AuthService', () => {
     it('marks email as verified and token as used', async () => {
       const emailToken = {
         tokenHash: 'hashed-token',
-        type: 'verification',
+        type: 'verification' as const,
         used: false,
         userId: 'user-1',
         expiresAt: new Date(Date.now() + 60000),
@@ -289,7 +302,7 @@ describe('AuthService', () => {
     it('updates password and revokes all refresh tokens', async () => {
       const emailToken = {
         tokenHash: 'hashed-token',
-        type: 'password_reset',
+        type: 'password_reset' as const,
         used: false,
         userId: 'user-1',
         expiresAt: new Date(Date.now() + 60000),

@@ -1,15 +1,18 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import type { JwtService } from '@nestjs/jwt'
+import type { ConfigService } from '@nestjs/config'
 import { TokenService } from '../token.service'
+import type { User } from '../entities/user.entity'
 import { createHash } from 'crypto'
 
 describe('TokenService', () => {
   let service: TokenService
 
-  const mockJwtService = {
+  const mockJwtService: Pick<JwtService, 'sign'> = {
     sign: vi.fn().mockReturnValue('signed-jwt-token'),
   }
 
-  const mockConfigService = {
+  const mockConfigService: Pick<ConfigService, 'get'> = {
     get: vi.fn((key: string, defaultValue?: string) => {
       const config: Record<string, string> = {
         ACCESS_TOKEN_TTL_MINUTES: '15',
@@ -17,17 +20,20 @@ describe('TokenService', () => {
         NODE_ENV: 'test',
       }
       return config[key] ?? defaultValue
-    }),
+    }) as ConfigService['get'],
   }
 
   beforeEach(() => {
     vi.clearAllMocks()
-    service = new TokenService(mockJwtService as any, mockConfigService as any)
+    service = new TokenService(
+      mockJwtService as JwtService,
+      mockConfigService as ConfigService,
+    )
   })
 
   describe('generateAccessToken', () => {
     it('signs JWT with user sub and email', () => {
-      const user = { id: 'user-123', email: 'a@b.com' } as any
+      const user = { id: 'user-123', email: 'a@b.com' } as User
       const result = service.generateAccessToken(user)
 
       expect(result).toBe('signed-jwt-token')
@@ -75,18 +81,18 @@ describe('TokenService', () => {
 
   describe('setAuthCookies', () => {
     it('sets access_token and refresh_token cookies with correct options', () => {
-      const mockRes = { cookie: vi.fn() }
+      const mockRes = { cookie: vi.fn() } as unknown as import('express').Response
 
-      service.setAuthCookies(mockRes as any, 'at', 'rt')
+      service.setAuthCookies(mockRes, 'at', 'rt')
 
-      expect(mockRes.cookie).toHaveBeenCalledTimes(2)
-      expect(mockRes.cookie).toHaveBeenCalledWith('access_token', 'at', {
+      expect(vi.mocked(mockRes.cookie)).toHaveBeenCalledTimes(2)
+      expect(vi.mocked(mockRes.cookie)).toHaveBeenCalledWith('access_token', 'at', {
         httpOnly: true,
         secure: false,
         sameSite: 'strict',
         maxAge: 900000,
       })
-      expect(mockRes.cookie).toHaveBeenCalledWith('refresh_token', 'rt', {
+      expect(vi.mocked(mockRes.cookie)).toHaveBeenCalledWith('refresh_token', 'rt', {
         httpOnly: true,
         secure: false,
         sameSite: 'strict',
@@ -98,16 +104,16 @@ describe('TokenService', () => {
 
   describe('clearAuthCookies', () => {
     it('clears both cookies', () => {
-      const mockRes = { clearCookie: vi.fn() }
+      const mockRes = { clearCookie: vi.fn() } as unknown as import('express').Response
 
-      service.clearAuthCookies(mockRes as any)
+      service.clearAuthCookies(mockRes)
 
-      expect(mockRes.clearCookie).toHaveBeenCalledTimes(2)
-      expect(mockRes.clearCookie).toHaveBeenCalledWith(
+      expect(vi.mocked(mockRes.clearCookie)).toHaveBeenCalledTimes(2)
+      expect(vi.mocked(mockRes.clearCookie)).toHaveBeenCalledWith(
         'access_token',
         expect.objectContaining({ httpOnly: true }),
       )
-      expect(mockRes.clearCookie).toHaveBeenCalledWith(
+      expect(vi.mocked(mockRes.clearCookie)).toHaveBeenCalledWith(
         'refresh_token',
         expect.objectContaining({ path: '/api/auth/refresh' }),
       )
