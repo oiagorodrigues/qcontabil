@@ -206,35 +206,54 @@ packages/shared/src/
 
 ### Estrutura
 
+Unit tests sao collocated ao lado dos arquivos que testam. Integration e E2E ficam em `test/` no root do package (convencao NestJS).
+
 ```
 packages/api/
 ├── vitest.config.ts
+├── tsconfig.test.json              # Extends tsconfig.json, inclui test/
 ├── src/
-│   └── auth/
-│       └── __tests__/
-│           ├── auth.service.spec.ts          # Unit
-│           ├── token.service.spec.ts         # Unit
-│           ├── jwt.strategy.spec.ts          # Unit
-│           ├── jwt-auth.guard.spec.ts        # Unit
-│           ├── zod-validation.pipe.spec.ts   # Unit
-│           ├── register.int-spec.ts          # Integration
-│           ├── login.int-spec.ts             # Integration
-│           ├── refresh.int-spec.ts           # Integration
-│           ├── logout.int-spec.ts            # Integration
-│           ├── verify-email.int-spec.ts      # Integration
-│           ├── password-reset.int-spec.ts    # Integration
-│           ├── protected-routes.int-spec.ts  # Integration
-│           ├── rate-limiting.int-spec.ts     # Integration
-│           └── auth-flow.e2e-spec.ts         # E2E
+│   ├── auth/
+│   │   ├── auth.service.ts
+│   │   ├── auth.service.spec.ts    # Unit (collocated)
+│   │   ├── token.service.ts
+│   │   ├── token.service.spec.ts   # Unit (collocated)
+│   │   └── guards/
+│   │       ├── jwt-auth.guard.ts
+│   │       └── jwt-auth.guard.spec.ts  # Unit (collocated)
+│   └── common/pipes/
+│       ├── zod-validation.pipe.ts
+│       └── zod-validation.pipe.spec.ts # Unit (collocated)
+├── test/
+│   ├── helpers/
+│   │   ├── test-app.ts             # NestJS test app factory
+│   │   ├── test-users.ts           # User factories, login helpers
+│   │   ├── global-setup.ts         # Schema creation (runs once)
+│   │   └── int-setup.ts            # reflect-metadata import
+│   ├── auth/
+│   │   ├── register.integration.ts
+│   │   ├── login.integration.ts
+│   │   ├── refresh.integration.ts
+│   │   ├── logout.integration.ts
+│   │   ├── verify-email.integration.ts
+│   │   ├── password-reset.integration.ts
+│   │   ├── protected-routes.integration.ts
+│   │   └── rate-limiting.integration.ts
+│   └── auth-flow.e2e.ts
 ```
 
 ### Convencoes
 
-- **Naming**: `*.spec.ts` (unit), `*.int-spec.ts` (integration), `*.e2e-spec.ts` (E2E)
+- **Naming**: `*.spec.ts` (unit, collocated), `*.integration.ts` (integration, em `test/`), `*.e2e.ts` (E2E, em `test/`)
+- **Colocation**: Unit tests ficam ao lado do arquivo que testam (mesmo diretorio)
+- **test/**: Integration e E2E ficam em `test/` no root do package, organizados por modulo
 - **DB**: Integration/E2E usam `qcontabil_test` (PostgreSQL, porta 5434 via docker-compose)
-- **Isolamento**: Truncate tables entre testes, `synchronize: true` no test DB
-- **Helpers**: `createTestApp()`, `createVerifiedUser()`, `loginAndGetCookies()`
-- **Scripts**: `test`, `test:unit`, `test:int`, `test:e2e`, `test:coverage`
+- **Isolamento**: Emails unicos por teste (`uniqueEmail()`), globalSetup cria schema, `synchronize: false` nos workers
+- **Paralelismo**: Integration tests rodam em paralelo — sem truncate global, dados isolados por email unico
+- **Throttler**: Integration tests usam `TestAuthModule` sem ThrottlerGuard. Rate limiting testado em suite separada com `AuthModule` original
+- **Helpers**: `createTestApp()`, `createVerifiedUser()`, `loginAndGetCookies()`, `uniqueEmail()`
+- **Scripts**: `test`, `test:unit`, `test:integration`, `test:e2e`, `test:coverage`
+- **TypeScript**: `tsconfig.json` pra src, `tsconfig.test.json` extends pra incluir test/
 
 ---
 

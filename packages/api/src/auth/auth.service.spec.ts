@@ -5,12 +5,12 @@ import {
   ForbiddenException,
 } from '@nestjs/common'
 import type { Repository, ObjectLiteral } from 'typeorm'
-import { AuthService } from '../auth.service'
-import type { TokenService } from '../token.service'
-import type { MailService } from '../../mail/mail.service'
-import type { User } from '../entities/user.entity'
-import type { RefreshToken } from '../entities/refresh-token.entity'
-import type { EmailToken } from '../entities/email-token.entity'
+import { AuthService } from './auth.service'
+import type { TokenService } from './token.service'
+import type { MailService } from '../mail/mail.service'
+import type { User } from './entities/user.entity'
+import type { RefreshToken } from './entities/refresh-token.entity'
+import type { EmailToken } from './entities/email-token.entity'
 import * as bcrypt from 'bcrypt'
 
 vi.mock('bcrypt', () => ({

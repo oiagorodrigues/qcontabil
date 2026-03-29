@@ -2,9 +2,9 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import type { INestApplication } from '@nestjs/common'
 import { DataSource } from 'typeorm'
-import { createTestApp } from './helpers/test-app'
-import { createVerifiedUser, registerUser, uniqueEmail, TEST_PASSWORD } from './helpers/test-users'
-import { User } from '../entities/user.entity'
+import { createTestApp } from '../helpers/test-app'
+import { createVerifiedUser, registerUser, uniqueEmail, TEST_PASSWORD } from '../helpers/test-users'
+import { User } from '../../src/auth/entities/user.entity'
 
 describe('POST /api/auth/login (integration)', () => {
   let app: INestApplication

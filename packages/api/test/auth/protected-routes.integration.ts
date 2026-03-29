@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import type { INestApplication } from '@nestjs/common'
-import { createTestApp } from './helpers/test-app'
-import { createVerifiedUser, loginAndGetCookies, uniqueEmail } from './helpers/test-users'
+import { createTestApp } from '../helpers/test-app'
+import { createVerifiedUser, loginAndGetCookies, uniqueEmail } from '../helpers/test-users'
 
 describe('Protected routes (integration)', () => {
   let app: INestApplication

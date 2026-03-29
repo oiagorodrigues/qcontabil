@@ -8,9 +8,9 @@ import type { INestApplication } from '@nestjs/common'
 import cookieParser from 'cookie-parser'
 import request from 'supertest'
 import { resolve } from 'path'
-import { AuthModule } from '../auth.module'
-import { HealthModule } from '../../health/health.module'
-import { uniqueEmail } from './helpers/test-users'
+import { AuthModule } from '../../src/auth/auth.module'
+import { HealthModule } from '../../src/health/health.module'
+import { uniqueEmail } from '../helpers/test-users'
 
 @Module({
   imports: [

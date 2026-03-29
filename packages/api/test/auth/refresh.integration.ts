@@ -2,9 +2,9 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import type { INestApplication } from '@nestjs/common'
 import { DataSource } from 'typeorm'
-import { createTestApp } from './helpers/test-app'
-import { createVerifiedUser, loginAndGetCookies, uniqueEmail } from './helpers/test-users'
-import { RefreshToken } from '../entities/refresh-token.entity'
+import { createTestApp } from '../helpers/test-app'
+import { createVerifiedUser, loginAndGetCookies, uniqueEmail } from '../helpers/test-users'
+import { RefreshToken } from '../../src/auth/entities/refresh-token.entity'
 
 describe('POST /api/auth/refresh (integration)', () => {
   let app: INestApplication

@@ -22,19 +22,19 @@ export default defineConfig({
       },
       {
         test: {
-          name: 'int',
-          include: ['src/**/*.int-spec.ts'],
-          globalSetup: ['src/auth/__tests__/helpers/global-setup.ts'],
-          setupFiles: ['src/auth/__tests__/helpers/int-setup.ts'],
+          name: 'integration',
+          include: ['test/**/*.integration.ts'],
+          globalSetup: ['test/helpers/global-setup.ts'],
+          setupFiles: ['test/helpers/int-setup.ts'],
         },
         plugins: [swcPlugin],
       },
       {
         test: {
           name: 'e2e',
-          include: ['src/**/*.e2e-spec.ts'],
-          globalSetup: ['src/auth/__tests__/helpers/global-setup.ts'],
-          setupFiles: ['src/auth/__tests__/helpers/int-setup.ts'],
+          include: ['test/**/*.e2e.ts'],
+          globalSetup: ['test/helpers/global-setup.ts'],
+          setupFiles: ['test/helpers/int-setup.ts'],
         },
         plugins: [swcPlugin],
       },

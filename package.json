@@ -10,7 +10,7 @@
     "format:check": "prettier --check 'packages/**/*.{ts,tsx,json}'",
     "test": "pnpm --filter api test",
     "test:unit": "pnpm --filter api test:unit",
-    "test:int": "pnpm --filter api test:int",
+    "test:integration": "pnpm --filter api test:integration",
     "test:e2e": "pnpm --filter api test:e2e"
   },
   "engines": {

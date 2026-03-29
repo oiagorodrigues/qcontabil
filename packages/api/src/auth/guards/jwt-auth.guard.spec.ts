@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import type { ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { JwtAuthGuard } from '../guards/jwt-auth.guard'
+import { JwtAuthGuard } from './jwt-auth.guard'
 
 describe('JwtAuthGuard', () => {
   const createMockContext = (): ExecutionContext =>

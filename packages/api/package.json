@@ -9,7 +9,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:unit": "vitest run --project unit",
-    "test:int": "vitest run --project int",
+    "test:integration": "vitest run --project integration",
     "test:e2e": "vitest run --project e2e",
     "test:coverage": "vitest run --coverage"
   },

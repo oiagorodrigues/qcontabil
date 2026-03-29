@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { JwtService } from '@nestjs/jwt'
 import type { ConfigService } from '@nestjs/config'
-import { TokenService } from '../token.service'
-import type { User } from '../entities/user.entity'
+import { TokenService } from './token.service'
+import type { User } from './entities/user.entity'
 import { createHash } from 'crypto'
 
 describe('TokenService', () => {
@@ -12,7 +12,7 @@ describe('TokenService', () => {
     sign: vi.fn().mockReturnValue('signed-jwt-token'),
   }
 
-  const mockConfigService: Pick<ConfigService, 'get'> = {
+  const mockConfigService = {
     get: vi.fn((key: string, defaultValue?: string) => {
       const config: Record<string, string> = {
         ACCESS_TOKEN_TTL_MINUTES: '15',
@@ -20,14 +20,14 @@ describe('TokenService', () => {
         NODE_ENV: 'test',
       }
       return config[key] ?? defaultValue
-    }) as ConfigService['get'],
-  }
+    }),
+  } as unknown as ConfigService
 
   beforeEach(() => {
     vi.clearAllMocks()
     service = new TokenService(
       mockJwtService as JwtService,
-      mockConfigService as ConfigService,
+      mockConfigService,
     )
   })
 

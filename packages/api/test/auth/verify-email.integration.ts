@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import type { INestApplication } from '@nestjs/common'
-import { createTestApp } from './helpers/test-app'
+import { createTestApp } from '../helpers/test-app'
 
 describe('POST /api/auth/verify-email (integration)', () => {
   let app: INestApplication

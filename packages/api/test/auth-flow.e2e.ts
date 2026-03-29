@@ -3,7 +3,7 @@ import request from 'supertest'
 import type { INestApplication } from '@nestjs/common'
 import { createTestApp } from './helpers/test-app'
 import { uniqueEmail, TEST_PASSWORD } from './helpers/test-users'
-import { MailService } from '../../mail/mail.service'
+import { MailService } from '../src/mail/mail.service'
 
 describe('Auth flow E2E: register -> verify -> login -> me -> refresh -> logout -> denied', () => {
   let app: INestApplication
