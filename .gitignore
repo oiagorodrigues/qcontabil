@@ -37,3 +37,7 @@ coverage/
 
 # Claude Code worktrees
 .claude/worktrees/
+
+# REST client collections (local dev tooling)
+.bruno/
+.http/

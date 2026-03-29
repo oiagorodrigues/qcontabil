@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm'
-import { RefreshToken } from './refresh-token.entity'
+import type { RefreshToken } from './refresh-token.entity'
 
 @Entity('users')
 export class User {
@@ -34,6 +34,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt!: Date
 
-  @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user)
+  @OneToMany('RefreshToken', 'user')
   refreshTokens!: RefreshToken[]
 }

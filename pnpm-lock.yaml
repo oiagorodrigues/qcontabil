@@ -27,6 +27,12 @@ importers:
         specifier: 8.57.2
         version: 8.57.2(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3)
 
+  .bruno:
+    dependencies:
+      pg:
+        specifier: ^8.20.0
+        version: 8.20.0
+
   packages/api:
     dependencies:
       '@nestjs/common':
