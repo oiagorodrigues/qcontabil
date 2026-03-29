@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "concurrently -n api,web -c cyan,magenta \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
+    "dev": "pnpm --filter shared build && concurrently -n api,web,shared -c cyan,magenta,yellow \"pnpm --filter api dev\" \"pnpm --filter web dev\" \"pnpm --filter shared dev\"",
+    "build": "pnpm --filter shared build",
     "lint": "eslint packages/",
     "format": "prettier --write 'packages/**/*.{ts,tsx,json}'",
     "format:check": "prettier --check 'packages/**/*.{ts,tsx,json}'"
