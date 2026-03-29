@@ -173,6 +173,71 @@ packages/shared/src/
 
 ---
 
+## Testing
+
+### Piramide de Testes
+
+```
+        /\
+       /E2E\        1-2 suites — fluxo critico happy path
+      /------\
+     /Integr. \     API endpoints — HTTP + guards + pipes + DB real
+    /----------\
+   / Unit Tests \   Services isolados — business logic com mocks
+  /--------------\
+```
+
+### Quando usar cada nivel
+
+| Nivel | Quando usar | Exemplo |
+| --- | --- | --- |
+| **Unit** | Logica de negocio com branching complexo, calculos, transformacoes | AuthService.login (lockout, replay detection, timing) |
+| **Integration** | Wiring HTTP completo (controller → service → DB), cookies, status codes, guards | POST /auth/login retorna cookies httpOnly + 200 |
+| **E2E** | Fluxo critico end-to-end, happy path unico | Register → verify → login → refresh → logout |
+
+### Stack de testes
+
+| Tool | Uso |
+| --- | --- |
+| Vitest | Test runner (unit + integration + E2E) |
+| @nestjs/testing | Criar app NestJS pra integration/E2E |
+| Supertest | HTTP assertions contra app NestJS |
+| vi.fn() / vi.mock() | Mocks pra unit tests |
+
+### Estrutura
+
+```
+packages/api/
+├── vitest.config.ts
+├── src/
+│   └── auth/
+│       └── __tests__/
+│           ├── auth.service.spec.ts          # Unit
+│           ├── token.service.spec.ts         # Unit
+│           ├── jwt.strategy.spec.ts          # Unit
+│           ├── jwt-auth.guard.spec.ts        # Unit
+│           ├── zod-validation.pipe.spec.ts   # Unit
+│           ├── register.int-spec.ts          # Integration
+│           ├── login.int-spec.ts             # Integration
+│           ├── refresh.int-spec.ts           # Integration
+│           ├── logout.int-spec.ts            # Integration
+│           ├── verify-email.int-spec.ts      # Integration
+│           ├── password-reset.int-spec.ts    # Integration
+│           ├── protected-routes.int-spec.ts  # Integration
+│           ├── rate-limiting.int-spec.ts     # Integration
+│           └── auth-flow.e2e-spec.ts         # E2E
+```
+
+### Convencoes
+
+- **Naming**: `*.spec.ts` (unit), `*.int-spec.ts` (integration), `*.e2e-spec.ts` (E2E)
+- **DB**: Integration/E2E usam `qcontabil_test` (PostgreSQL, porta 5434 via docker-compose)
+- **Isolamento**: Truncate tables entre testes, `synchronize: true` no test DB
+- **Helpers**: `createTestApp()`, `createVerifiedUser()`, `loginAndGetCookies()`
+- **Scripts**: `test`, `test:unit`, `test:int`, `test:e2e`, `test:coverage`
+
+---
+
 ## Tooling
 
 | Tool | Versao | Uso |

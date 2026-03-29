@@ -59,10 +59,26 @@ User ↔ RefreshToken cria circular import. O `tsc` resolve, mas SWC (CJS output
 - [x] Definir state management — Zustand
 - [ ] Pesquisar provedores de pagamento com API acessivel (M3)
 
+### Vitest + NestJS parallel integration tests: schema race condition
+
+Múltiplos workers rodando `synchronize: true` em paralelo no mesmo DB causam `duplicate key` no `CREATE TYPE` (enum). Solução: `globalSetup` cria o schema uma vez, `TestAppModule` usa `synchronize: false`. Para isolamento de dados em paralelo, usar emails únicos (`randomBytes`) em vez de `TRUNCATE` entre testes.
+
+### NestJS ThrottlerGuard em testes: não dá pra override via APP_GUARD
+
+`overrideProvider(ThrottlerGuard)` e `overrideGuard(ThrottlerGuard)` não funcionam quando o guard é registrado como `APP_GUARD` via token multi-provider no module. Solução: criar `TestAuthModule` sem o APP_GUARD do ThrottlerGuard, e testar rate limiting em suite separada com o AuthModule original.
+
+### TypeORM table names: verificar @Entity() antes de raw SQL
+
+`@Entity('email_tokens')` gera tabela `email_tokens` (plural), não `email_token`. Sempre verificar o nome real da tabela no decorator antes de escrever SQL raw (TRUNCATE, UPDATE, etc.).
+
+### Zod 4: validadores de formato são top-level
+
+`z.string().email()` está depreciado no Zod 4. Usar `z.email()` (subclasse de `ZodString`). Custom error via `{ error: '...' }`. Mesma regra pra `z.uuid()`, `z.url()`, etc.
+
 ## Deferred Ideas
 
 - **Upgrade @zxcvbn-ts/core pra v4**: Atualmente em v3 (set/2023). A v4 beta.3 (mar/2026) muda a API pra `ZxcvbnFactory` mas tem problemas de exports no runtime (beta). Monitorar releases estáveis e migrar quando v4 stable sair. PasswordStrengthMeter precisa ser reescrito pra nova API.
 
 ## Preferences
 
-_(none)_
+- **TypeORM entities:** sempre adicionar `comment` nos `@Column()` (exceto `id`) para documentar o propósito de cada campo no banco.
