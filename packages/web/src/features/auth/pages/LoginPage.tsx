@@ -15,15 +15,9 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { getErrorMessage } from '@/lib/utils'
 import { authApi } from '../api/auth.api'
 import { useAuthStore } from '../stores/auth.store'
-
-function getErrorMessage(error: unknown): string {
-  if (!error) return ''
-  if (typeof error === 'string') return error
-  if (typeof error === 'object' && 'message' in error) return (error as { message: string }).message
-  return String(error)
-}
 
 export default function LoginPage() {
   const navigate = useNavigate()
