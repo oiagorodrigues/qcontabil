@@ -6,24 +6,24 @@ export class RefreshToken {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column()
+  @Column({ comment: 'SHA-256 hash of the refresh token value' })
   tokenHash!: string
 
-  @Column()
+  @Column({ comment: 'Token rotation family ID; all tokens in a chain share this value' })
   family!: string
 
-  @Column({ default: false })
+  @Column({ default: false, comment: 'Whether this token has been revoked (rotation or logout)' })
   revoked!: boolean
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', comment: 'Token expiration timestamp' })
   expiresAt!: Date
 
-  @CreateDateColumn()
+  @CreateDateColumn({ comment: 'Timestamp of token creation' })
   createdAt!: Date
 
   @ManyToOne(() => User, (user) => user.refreshTokens, { onDelete: 'CASCADE' })
   user!: User
 
-  @Column()
+  @Column({ comment: 'FK to the owning user' })
   userId!: string
 }

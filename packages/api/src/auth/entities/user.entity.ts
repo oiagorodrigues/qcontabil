@@ -13,25 +13,25 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column({ unique: true })
+  @Column({ unique: true, comment: 'User email address, used as login identifier' })
   email!: string
 
-  @Column()
+  @Column({ comment: 'Argon2 hash of the user password' })
   passwordHash!: string
 
-  @Column({ default: false })
+  @Column({ default: false, comment: 'Whether the user has confirmed their email via token link' })
   emailVerified!: boolean
 
-  @Column({ type: 'int', default: 0 })
+  @Column({ type: 'int', default: 0, comment: 'Consecutive failed login attempts; resets on success' })
   failedLoginAttempts!: number
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, comment: 'Account locked until this timestamp after too many failed attempts' })
   lockedUntil!: Date | null
 
-  @CreateDateColumn()
+  @CreateDateColumn({ comment: 'Timestamp of account creation' })
   createdAt!: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ comment: 'Timestamp of last account update' })
   updatedAt!: Date
 
   @OneToMany('RefreshToken', 'user')

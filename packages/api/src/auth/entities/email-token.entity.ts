@@ -6,24 +6,24 @@ export class EmailToken {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column()
+  @Column({ comment: 'SHA-256 hash of the email token value' })
   tokenHash!: string
 
-  @Column({ type: 'enum', enum: ['verification', 'password_reset'] })
+  @Column({ type: 'enum', enum: ['verification', 'password_reset'], comment: 'Token purpose: email verification or password reset' })
   type!: 'verification' | 'password_reset'
 
-  @Column({ default: false })
+  @Column({ default: false, comment: 'Whether this token has already been consumed' })
   used!: boolean
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', comment: 'Token expiration timestamp' })
   expiresAt!: Date
 
-  @CreateDateColumn()
+  @CreateDateColumn({ comment: 'Timestamp of token creation' })
   createdAt!: Date
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   user!: User
 
-  @Column()
+  @Column({ comment: 'FK to the owning user' })
   userId!: string
 }
