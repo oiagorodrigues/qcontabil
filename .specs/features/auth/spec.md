@@ -6,12 +6,12 @@ O app precisa de autenticacao segura antes de qualquer feature de negocio. Sem a
 
 ## Goals
 
-- [ ] Registro e login seguros com email/senha
-- [ ] Sessao persistente com access + refresh token (httpOnly cookies)
-- [ ] Protecao de rotas no backend (guards) e frontend (route protection)
-- [ ] Recuperacao de senha via email
-- [ ] Verificacao de email no registro
-- [ ] Defesas contra brute force, token theft e acesso indevido
+- [x]Registro e login seguros com email/senha
+- [x]Sessao persistente com access + refresh token (httpOnly cookies)
+- [x]Protecao de rotas no backend (guards) e frontend (route protection)
+- [x]Recuperacao de senha via email
+- [x]Verificacao de email no registro
+- [x]Defesas contra brute force, token theft e acesso indevido
 
 ## Out of Scope
 
@@ -190,34 +190,34 @@ O app precisa de autenticacao segura antes de qualquer feature de negocio. Sem a
 
 | Requirement ID | Story | Description | Status |
 | --- | --- | --- | --- |
-| AUTH-01 | P1: Registro | Create account with email/password | Pending |
-| AUTH-02 | P1: Registro | Email verification flow | Pending |
-| AUTH-03 | P1: Registro | Password strength validation | Pending |
-| AUTH-04 | P1: Login | Access token (httpOnly, 15min) | Pending |
-| AUTH-05 | P1: Login | Refresh token (httpOnly, 7d, rotation) | Pending |
-| AUTH-06 | P1: Login | Replay attack detection (family revocation) | Pending |
-| AUTH-07 | P1: Logout | Invalidate refresh token + clear cookies | Pending |
-| AUTH-08 | P1: Rotas | Backend guard (JWT validation) | Pending |
-| AUTH-09 | P1: Rotas | Frontend route protection + redirect | Pending |
-| AUTH-10 | P1: Reset | Password reset via email token | Pending |
-| AUTH-11 | P1: Reset | Invalidate all sessions on password change | Pending |
-| AUTH-12 | P1: Rate limit | IP-based login throttling | Pending |
-| AUTH-13 | P1: Rate limit | Account-based lockout | Pending |
-| AUTH-14 | P1: Rate limit | Registration + reset throttling | Pending |
-| AUTH-15 | P2: Headers | Security headers (helmet) | Pending |
-| AUTH-16 | P2: Headers | CORS configuration | Pending |
+| AUTH-01 | P1: Registro | Create account with email/password | Verified |
+| AUTH-02 | P1: Registro | Email verification flow | Verified |
+| AUTH-03 | P1: Registro | Password strength validation | Verified |
+| AUTH-04 | P1: Login | Access token (httpOnly, 15min) | Verified |
+| AUTH-05 | P1: Login | Refresh token (httpOnly, 7d, rotation) | Verified |
+| AUTH-06 | P1: Login | Replay attack detection (family revocation) | Verified |
+| AUTH-07 | P1: Logout | Invalidate refresh token + clear cookies | Verified |
+| AUTH-08 | P1: Rotas | Backend guard (JWT validation) | Verified |
+| AUTH-09 | P1: Rotas | Frontend route protection + redirect | Verified |
+| AUTH-10 | P1: Reset | Password reset via email token | Verified |
+| AUTH-11 | P1: Reset | Invalidate all sessions on password change | Verified |
+| AUTH-12 | P1: Rate limit | IP-based login throttling | Verified |
+| AUTH-13 | P1: Rate limit | Account-based lockout | Verified |
+| AUTH-14 | P1: Rate limit | Registration + reset throttling | Verified |
+| AUTH-15 | P2: Headers | Security headers (helmet) | Verified |
+| AUTH-16 | P2: Headers | CORS configuration | Verified |
 
-**Coverage:** 16 total, 0 mapped to tasks, 16 unmapped
+**Coverage:** 16 total, 16 verified ✓
 
 ---
 
 ## Success Criteria
 
-- [ ] Usuario consegue registrar, verificar email, e fazer login
-- [ ] Sessao persiste ao fechar/reabrir browser (refresh token funciona)
-- [ ] Rotas protegidas retornam 401 sem token valido
-- [ ] Password reset funciona end-to-end
-- [ ] 6 tentativas de login erradas resultam em 429
-- [ ] Nenhum endpoint de auth vaza se o email existe ou nao (no user enumeration)
-- [ ] Cookies sao httpOnly + Secure + SameSite=Strict
-- [ ] Refresh token rotation com deteccao de replay funciona
+- [x]Usuario consegue registrar, verificar email, e fazer login
+- [x]Sessao persiste ao fechar/reabrir browser (refresh token funciona)
+- [x]Rotas protegidas retornam 401 sem token valido
+- [x]Password reset funciona end-to-end
+- [x]6 tentativas de login erradas resultam em 429
+- [x]Nenhum endpoint de auth vaza se o email existe ou nao (no user enumeration)
+- [x]Cookies sao httpOnly + Secure + SameSite=Strict
+- [x]Refresh token rotation com deteccao de replay funciona

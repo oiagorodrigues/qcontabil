@@ -1,7 +1,7 @@
 # Auth Tasks
 
 **Design**: `.specs/features/auth/design.md`
-**Status**: Draft
+**Status**: Complete
 
 ---
 
@@ -78,12 +78,12 @@ T22 → T23 → T24
 **Requirement**: All
 
 **Done when**:
-- [ ] `@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `@types/passport-jwt` instalados
-- [ ] `@nestjs/throttler` instalado
-- [ ] `bcrypt`, `@types/bcrypt` instalados
-- [ ] `cookie-parser`, `@types/cookie-parser` instalados
-- [ ] `resend` instalado
-- [ ] `pnpm install` sem erros
+- [x]`@nestjs/jwt`, `@nestjs/passport`, `passport`, `passport-jwt`, `@types/passport-jwt` instalados
+- [x]`@nestjs/throttler` instalado
+- [x]`bcrypt`, `@types/bcrypt` instalados
+- [x]`cookie-parser`, `@types/cookie-parser` instalados
+- [x]`resend` instalado
+- [x]`pnpm install` sem erros
 
 **Verify:**
 ```bash
@@ -102,10 +102,10 @@ pnpm ls --filter api @nestjs/jwt @nestjs/passport bcrypt cookie-parser resend @n
 **Requirement**: All
 
 **Done when**:
-- [ ] `axios` instalado
-- [ ] `@tanstack/react-form`, `@tanstack/zod-form-adapter` instalados
-- [ ] `@zxcvbn-ts/core`, `@zxcvbn-ts/language-common`, `@zxcvbn-ts/language-en` instalados
-- [ ] `pnpm install` sem erros
+- [x]`axios` instalado
+- [x]`@tanstack/react-form`, `@tanstack/zod-form-adapter` instalados
+- [x]`@zxcvbn-ts/core`, `@zxcvbn-ts/language-common`, `@zxcvbn-ts/language-en` instalados
+- [x]`pnpm install` sem erros
 
 **Verify:**
 ```bash
@@ -124,13 +124,13 @@ pnpm ls --filter web axios @tanstack/react-form @zxcvbn-ts/core
 **Requirement**: AUTH-01, AUTH-03, AUTH-10
 
 **Done when**:
-- [ ] `zod` instalado no shared
-- [ ] `loginSchema`, `registerSchema`, `forgotPasswordSchema`, `resetPasswordSchema`, `verifyEmailSchema` definidos
-- [ ] `registerSchema` com min 8 chars na password
-- [ ] Tipos inferidos exportados: `LoginInput`, `RegisterInput`, `ForgotPasswordInput`, `ResetPasswordInput`, `VerifyEmailInput`
-- [ ] `UserProfile` e `AuthResponse` tipos manuais exportados
-- [ ] Re-exports no `index.ts`
-- [ ] Typecheck passa
+- [x]`zod` instalado no shared
+- [x]`loginSchema`, `registerSchema`, `forgotPasswordSchema`, `resetPasswordSchema`, `verifyEmailSchema` definidos
+- [x]`registerSchema` com min 8 chars na password
+- [x]Tipos inferidos exportados: `LoginInput`, `RegisterInput`, `ForgotPasswordInput`, `ResetPasswordInput`, `VerifyEmailInput`
+- [x]`UserProfile` e `AuthResponse` tipos manuais exportados
+- [x]Re-exports no `index.ts`
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -149,11 +149,11 @@ tsc -p packages/shared/tsconfig.json --noEmit
 **Requirement**: AUTH-01, AUTH-05, AUTH-02, AUTH-10
 
 **Done when**:
-- [ ] `User` entity com campos: id (uuid), email (unique), passwordHash, emailVerified, failedLoginAttempts, lockedUntil, createdAt, updatedAt
-- [ ] `RefreshToken` entity com campos: id (uuid), tokenHash, family, revoked, expiresAt, createdAt, user (ManyToOne CASCADE), userId
-- [ ] `EmailToken` entity com campos: id (uuid), tokenHash, type (enum), used, expiresAt, createdAt, user (ManyToOne CASCADE), userId
-- [ ] Relationships corretas (User 1:N RefreshToken, User 1:N EmailToken)
-- [ ] Typecheck passa
+- [x]`User` entity com campos: id (uuid), email (unique), passwordHash, emailVerified, failedLoginAttempts, lockedUntil, createdAt, updatedAt
+- [x]`RefreshToken` entity com campos: id (uuid), tokenHash, family, revoked, expiresAt, createdAt, user (ManyToOne CASCADE), userId
+- [x]`EmailToken` entity com campos: id (uuid), tokenHash, type (enum), used, expiresAt, createdAt, user (ManyToOne CASCADE), userId
+- [x]Relationships corretas (User 1:N RefreshToken, User 1:N EmailToken)
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -172,10 +172,10 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-08
 
 **Done when**:
-- [ ] `ZodValidationPipe` aceita um Zod schema e valida o body, retornando 400 com errors estruturados se invalido
-- [ ] `@Public()` decorator seta metadata `isPublic: true` na rota
-- [ ] `@CurrentUser()` param decorator extrai `req.user` do request
-- [ ] Typecheck passa
+- [x]`ZodValidationPipe` aceita um Zod schema e valida o body, retornando 400 com errors estruturados se invalido
+- [x]`@Public()` decorator seta metadata `isPublic: true` na rota
+- [x]`@CurrentUser()` param decorator extrai `req.user` do request
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -198,13 +198,13 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-04, AUTH-05, AUTH-07
 
 **Done when**:
-- [ ] `generateAccessToken(user)` retorna JWT HS256 com sub, email, iat, exp (15min)
-- [ ] `generateRefreshToken()` retorna crypto.randomBytes(64).toString('hex')
-- [ ] `hashToken(token)` retorna SHA-256 hex digest
-- [ ] `setAuthCookies(res, accessToken, refreshToken)` seta cookies httpOnly + Secure + SameSite=Strict. Refresh token com path=/api/auth/refresh
-- [ ] `clearAuthCookies(res)` limpa ambos os cookies
-- [ ] JWT secret vem do ConfigService (JWT_SECRET env)
-- [ ] Typecheck passa
+- [x]`generateAccessToken(user)` retorna JWT HS256 com sub, email, iat, exp (15min)
+- [x]`generateRefreshToken()` retorna crypto.randomBytes(64).toString('hex')
+- [x]`hashToken(token)` retorna SHA-256 hex digest
+- [x]`setAuthCookies(res, accessToken, refreshToken)` seta cookies httpOnly + Secure + SameSite=Strict. Refresh token com path=/api/auth/refresh
+- [x]`clearAuthCookies(res)` limpa ambos os cookies
+- [x]JWT secret vem do ConfigService (JWT_SECRET env)
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -223,13 +223,13 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-02, AUTH-10
 
 **Done when**:
-- [ ] `MailModule` com `MailService` como provider exportado
-- [ ] `sendVerificationEmail(to, token)` envia email com link de verificacao
-- [ ] `sendPasswordResetEmail(to, token)` envia email com link de reset
-- [ ] Em dev (NODE_ENV !== production ou sem RESEND_API_KEY), faz console.log do link completo
-- [ ] Em prod, usa Resend SDK
-- [ ] URLs dos links vem do ConfigService (APP_URL env)
-- [ ] Typecheck passa
+- [x]`MailModule` com `MailService` como provider exportado
+- [x]`sendVerificationEmail(to, token)` envia email com link de verificacao
+- [x]`sendPasswordResetEmail(to, token)` envia email com link de reset
+- [x]Em dev (NODE_ENV !== production ou sem RESEND_API_KEY), faz console.log do link completo
+- [x]Em prod, usa Resend SDK
+- [x]URLs dos links vem do ConfigService (APP_URL env)
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -248,12 +248,12 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-08
 
 **Done when**:
-- [ ] `JwtStrategy` extrai token do cookie `access_token` via custom extractor
-- [ ] `JwtStrategy` valida payload e retorna user do DB (rejeita se user nao existe)
-- [ ] `JwtAuthGuard` extends AuthGuard('jwt')
-- [ ] `JwtAuthGuard` checa metadata `isPublic` — se true, permite acesso sem token
-- [ ] Secret vem do ConfigService (JWT_SECRET)
-- [ ] Typecheck passa
+- [x]`JwtStrategy` extrai token do cookie `access_token` via custom extractor
+- [x]`JwtStrategy` valida payload e retorna user do DB (rejeita se user nao existe)
+- [x]`JwtAuthGuard` extends AuthGuard('jwt')
+- [x]`JwtAuthGuard` checa metadata `isPublic` — se true, permite acesso sem token
+- [x]Secret vem do ConfigService (JWT_SECRET)
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -272,9 +272,9 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-12, AUTH-13, AUTH-14
 
 **Done when**:
-- [ ] `ThrottlerModule.forRoot()` configurado no AppModule com regras default
-- [ ] ThrottlerGuard registrado como APP_GUARD
-- [ ] Typecheck passa
+- [x]`ThrottlerModule.forRoot()` configurado no AppModule com regras default
+- [x]ThrottlerGuard registrado como APP_GUARD
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -297,17 +297,17 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-10, AUTH-11, AUTH-13
 
 **Done when**:
-- [ ] `register()`: cria user com bcrypt hash (cost 12), email normalizado (lowercase, trim), envia verification email. Retorna mensagem generica (no user enumeration)
-- [ ] `login()`: valida credenciais, checa emailVerified, checa lockedUntil, incrementa failedLoginAttempts, gera token pair com nova family. Timing-safe comparison
-- [ ] `refresh()`: busca refresh token por hash, checa expirado/revogado, replay detection (se revogado → revoga toda a family), gera novo par (mesma family)
-- [ ] `logout()`: revoga refresh token no DB
-- [ ] `verifyEmail()`: valida token hash, checa expirado/usado, marca emailVerified
-- [ ] `resendVerification()`: gera novo token, envia email (se user existe e nao verificado)
-- [ ] `forgotPassword()`: gera reset token, envia email (resposta generica sempre)
-- [ ] `resetPassword()`: valida token, atualiza password hash, revoga TODOS refresh tokens do user
-- [ ] `getProfile()`: retorna UserProfile
-- [ ] Validacao de password no backend: min 8 chars
-- [ ] Typecheck passa
+- [x]`register()`: cria user com bcrypt hash (cost 12), email normalizado (lowercase, trim), envia verification email. Retorna mensagem generica (no user enumeration)
+- [x]`login()`: valida credenciais, checa emailVerified, checa lockedUntil, incrementa failedLoginAttempts, gera token pair com nova family. Timing-safe comparison
+- [x]`refresh()`: busca refresh token por hash, checa expirado/revogado, replay detection (se revogado → revoga toda a family), gera novo par (mesma family)
+- [x]`logout()`: revoga refresh token no DB
+- [x]`verifyEmail()`: valida token hash, checa expirado/usado, marca emailVerified
+- [x]`resendVerification()`: gera novo token, envia email (se user existe e nao verificado)
+- [x]`forgotPassword()`: gera reset token, envia email (resposta generica sempre)
+- [x]`resetPassword()`: valida token, atualiza password hash, revoga TODOS refresh tokens do user
+- [x]`getProfile()`: retorna UserProfile
+- [x]Validacao de password no backend: min 8 chars
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -326,16 +326,16 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-01, AUTH-02, AUTH-04, AUTH-05, AUTH-07, AUTH-08, AUTH-10
 
 **Done when**:
-- [ ] `POST /auth/register` — @Public, ZodValidationPipe(registerSchema), @Throttle (5/1h por IP)
-- [ ] `POST /auth/login` — @Public, ZodValidationPipe(loginSchema), @Throttle (5/15min por IP), seta cookies via res
-- [ ] `POST /auth/refresh` — @Public, le refresh token do cookie, seta novos cookies via res
-- [ ] `POST /auth/logout` — le refresh token do cookie, limpa cookies
-- [ ] `POST /auth/verify-email` — @Public, ZodValidationPipe(verifyEmailSchema)
-- [ ] `POST /auth/resend-verification` — @Public, @Throttle
-- [ ] `POST /auth/forgot-password` — @Public, ZodValidationPipe(forgotPasswordSchema), @Throttle (3/1h)
-- [ ] `POST /auth/reset-password` — @Public, ZodValidationPipe(resetPasswordSchema)
-- [ ] `GET /auth/me` — autenticado, @CurrentUser, retorna UserProfile
-- [ ] Typecheck passa
+- [x]`POST /auth/register` — @Public, ZodValidationPipe(registerSchema), @Throttle (5/1h por IP)
+- [x]`POST /auth/login` — @Public, ZodValidationPipe(loginSchema), @Throttle (5/15min por IP), seta cookies via res
+- [x]`POST /auth/refresh` — @Public, le refresh token do cookie, seta novos cookies via res
+- [x]`POST /auth/logout` — le refresh token do cookie, limpa cookies
+- [x]`POST /auth/verify-email` — @Public, ZodValidationPipe(verifyEmailSchema)
+- [x]`POST /auth/resend-verification` — @Public, @Throttle
+- [x]`POST /auth/forgot-password` — @Public, ZodValidationPipe(forgotPasswordSchema), @Throttle (3/1h)
+- [x]`POST /auth/reset-password` — @Public, ZodValidationPipe(resetPasswordSchema)
+- [x]`GET /auth/me` — autenticado, @CurrentUser, retorna UserProfile
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -354,17 +354,17 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-08
 
 **Done when**:
-- [ ] `AuthModule` importa TypeOrmModule.forFeature, JwtModule.registerAsync, PassportModule
-- [ ] `AuthModule` providers: AuthService, TokenService, JwtStrategy
-- [ ] `AuthModule` controllers: AuthController
-- [ ] `AuthModule` exports: JwtAuthGuard
-- [ ] `AppModule` importa AuthModule e MailModule
-- [ ] JwtAuthGuard registrado como APP_GUARD no AuthModule
-- [ ] `main.ts`: cookie-parser middleware adicionado
-- [ ] `main.ts`: global prefix `/api` configurado (se nao existir)
-- [ ] Health endpoint marcado com @Public()
-- [ ] `.env.example` atualizado com variaveis: JWT_SECRET, RESEND_API_KEY, APP_URL
-- [ ] Typecheck passa
+- [x]`AuthModule` importa TypeOrmModule.forFeature, JwtModule.registerAsync, PassportModule
+- [x]`AuthModule` providers: AuthService, TokenService, JwtStrategy
+- [x]`AuthModule` controllers: AuthController
+- [x]`AuthModule` exports: JwtAuthGuard
+- [x]`AppModule` importa AuthModule e MailModule
+- [x]JwtAuthGuard registrado como APP_GUARD no AuthModule
+- [x]`main.ts`: cookie-parser middleware adicionado
+- [x]`main.ts`: global prefix `/api` configurado (se nao existir)
+- [x]Health endpoint marcado com @Public()
+- [x]`.env.example` atualizado com variaveis: JWT_SECRET, RESEND_API_KEY, APP_URL
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -387,10 +387,10 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-09 (precisa de UI pra pages)
 
 **Done when**:
-- [ ] Tailwind v4 instalado e configurado (CSS-first, sem tailwind.config.js)
-- [ ] shadcn/ui inicializado com componentes base necessarios (Button, Input, Label, Card)
-- [ ] Estilos aplicados corretamente (verificar visualmente)
-- [ ] Build passa sem erros
+- [x]Tailwind v4 instalado e configurado (CSS-first, sem tailwind.config.js)
+- [x]shadcn/ui inicializado com componentes base necessarios (Button, Input, Label, Card)
+- [x]Estilos aplicados corretamente (verificar visualmente)
+- [x]Build passa sem erros
 
 **Verify:**
 ```bash
@@ -409,12 +409,12 @@ pnpm --filter web build
 **Requirement**: AUTH-04, AUTH-05
 
 **Done when**:
-- [ ] `httpClient` exporta metodos `get`, `post`, `put`, `delete`, `patch`
-- [ ] `baseURL: '/api'`, `withCredentials: true`
-- [ ] Response interceptor: 401 (nao refresh) → tenta POST /auth/refresh → retry original → se falha → chama `onAuthError` callback
-- [ ] Queue de requests pendentes durante refresh (evita multiplos refresh simultaneos)
-- [ ] Nao expoe axios diretamente — interface propria
-- [ ] Typecheck passa
+- [x]`httpClient` exporta metodos `get`, `post`, `put`, `delete`, `patch`
+- [x]`baseURL: '/api'`, `withCredentials: true`
+- [x]Response interceptor: 401 (nao refresh) → tenta POST /auth/refresh → retry original → se falha → chama `onAuthError` callback
+- [x]Queue de requests pendentes durante refresh (evita multiplos refresh simultaneos)
+- [x]Nao expoe axios diretamente — interface propria
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -433,12 +433,12 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-09
 
 **Done when**:
-- [ ] `useAuthStore` com state: user, isAuthenticated (derivado), isLoading
-- [ ] Actions: setUser, clearAuth (limpa state)
-- [ ] `AuthProvider` usa useQuery GET /auth/me pra checar sessao no mount
-- [ ] Sincroniza resultado com Zustand store
-- [ ] `httpClient.onAuthError` → clearAuth + redirect pra /login
-- [ ] Typecheck passa
+- [x]`useAuthStore` com state: user, isAuthenticated (derivado), isLoading
+- [x]Actions: setUser, clearAuth (limpa state)
+- [x]`AuthProvider` usa useQuery GET /auth/me pra checar sessao no mount
+- [x]Sincroniza resultado com Zustand store
+- [x]`httpClient.onAuthError` → clearAuth + redirect pra /login
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -457,18 +457,18 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-01, AUTH-02, AUTH-04, AUTH-07, AUTH-10
 
 **Done when**:
-- [ ] `authApi.login(data)` → POST /auth/login
-- [ ] `authApi.register(data)` → POST /auth/register
-- [ ] `authApi.logout()` → POST /auth/logout
-- [ ] `authApi.refresh()` → POST /auth/refresh
-- [ ] `authApi.verifyEmail(data)` → POST /auth/verify-email
-- [ ] `authApi.resendVerification(email)` → POST /auth/resend-verification
-- [ ] `authApi.forgotPassword(data)` → POST /auth/forgot-password
-- [ ] `authApi.resetPassword(data)` → POST /auth/reset-password
-- [ ] `authApi.me()` → GET /auth/me
-- [ ] Usa `httpClient` internamente (nao axios diretamente)
-- [ ] Tipos de input/output tipados com schemas do shared
-- [ ] Typecheck passa
+- [x]`authApi.login(data)` → POST /auth/login
+- [x]`authApi.register(data)` → POST /auth/register
+- [x]`authApi.logout()` → POST /auth/logout
+- [x]`authApi.refresh()` → POST /auth/refresh
+- [x]`authApi.verifyEmail(data)` → POST /auth/verify-email
+- [x]`authApi.resendVerification(email)` → POST /auth/resend-verification
+- [x]`authApi.forgotPassword(data)` → POST /auth/forgot-password
+- [x]`authApi.resetPassword(data)` → POST /auth/reset-password
+- [x]`authApi.me()` → GET /auth/me
+- [x]Usa `httpClient` internamente (nao axios diretamente)
+- [x]Tipos de input/output tipados com schemas do shared
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -491,14 +491,14 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-04, AUTH-09
 
 **Done when**:
-- [ ] Form com TanStack Form + Zod adapter (loginSchema)
-- [ ] useMutation inline com `authApi.login`
-- [ ] On success: invalida query 'auth/me', navega pra redirectTo ou /
-- [ ] Mostra erro generico em 401
-- [ ] Mostra mensagem de rate limit em 429
-- [ ] Links pra /register e /forgot-password
-- [ ] Loading state no botao durante submit
-- [ ] Typecheck passa
+- [x]Form com TanStack Form + Zod adapter (loginSchema)
+- [x]useMutation inline com `authApi.login`
+- [x]On success: invalida query 'auth/me', navega pra redirectTo ou /
+- [x]Mostra erro generico em 401
+- [x]Mostra mensagem de rate limit em 429
+- [x]Links pra /register e /forgot-password
+- [x]Loading state no botao durante submit
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -517,15 +517,15 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-01, AUTH-03, AUTH-09
 
 **Done when**:
-- [ ] `PasswordStrengthMeter` lazy loads zxcvbn-ts, mostra barra colorida (0-4) + feedback textual
-- [ ] `PasswordStrengthMeter` props: password, onScoreChange
-- [ ] Form com TanStack Form + Zod adapter (registerSchema)
-- [ ] Submit bloqueado se zxcvbn score < 3
-- [ ] useMutation inline com `authApi.register`
-- [ ] On success: redireciona pra pagina de "verifique seu email"
-- [ ] Mostra erro generico em 400
-- [ ] Link pra /login
-- [ ] Typecheck passa
+- [x]`PasswordStrengthMeter` lazy loads zxcvbn-ts, mostra barra colorida (0-4) + feedback textual
+- [x]`PasswordStrengthMeter` props: password, onScoreChange
+- [x]Form com TanStack Form + Zod adapter (registerSchema)
+- [x]Submit bloqueado se zxcvbn score < 3
+- [x]useMutation inline com `authApi.register`
+- [x]On success: redireciona pra pagina de "verifique seu email"
+- [x]Mostra erro generico em 400
+- [x]Link pra /login
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -544,12 +544,12 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-02, AUTH-09
 
 **Done when**:
-- [ ] Extrai token dos query params da URL
-- [ ] useMutation com `authApi.verifyEmail` disparado no mount (com token)
-- [ ] Estado de sucesso: mostra mensagem + link pra /login
-- [ ] Estado de erro: mostra mensagem + botao pra resend (pede email)
-- [ ] Estado de loading: spinner
-- [ ] Typecheck passa
+- [x]Extrai token dos query params da URL
+- [x]useMutation com `authApi.verifyEmail` disparado no mount (com token)
+- [x]Estado de sucesso: mostra mensagem + link pra /login
+- [x]Estado de erro: mostra mensagem + botao pra resend (pede email)
+- [x]Estado de loading: spinner
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -568,11 +568,11 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-10, AUTH-09
 
 **Done when**:
-- [ ] Form com TanStack Form + Zod adapter (forgotPasswordSchema)
-- [ ] useMutation inline com `authApi.forgotPassword`
-- [ ] On success: mostra mensagem generica "Se o email existir, enviaremos um link"
-- [ ] Link pra /login
-- [ ] Typecheck passa
+- [x]Form com TanStack Form + Zod adapter (forgotPasswordSchema)
+- [x]useMutation inline com `authApi.forgotPassword`
+- [x]On success: mostra mensagem generica "Se o email existir, enviaremos um link"
+- [x]Link pra /login
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -591,13 +591,13 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-10, AUTH-09
 
 **Done when**:
-- [ ] Extrai token dos query params da URL
-- [ ] Form com TanStack Form + Zod adapter (resetPasswordSchema)
-- [ ] Inclui PasswordStrengthMeter, submit bloqueado se score < 3
-- [ ] useMutation inline com `authApi.resetPassword`
-- [ ] On success: redireciona pra /login com mensagem de sucesso
-- [ ] On error (token invalido/expirado): mostra erro + link pra /forgot-password
-- [ ] Typecheck passa
+- [x]Extrai token dos query params da URL
+- [x]Form com TanStack Form + Zod adapter (resetPasswordSchema)
+- [x]Inclui PasswordStrengthMeter, submit bloqueado se score < 3
+- [x]useMutation inline com `authApi.resetPassword`
+- [x]On success: redireciona pra /login com mensagem de sucesso
+- [x]On error (token invalido/expirado): mostra erro + link pra /forgot-password
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -620,11 +620,11 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: AUTH-09
 
 **Done when**:
-- [ ] `ProtectedRoute`: checa isAuthenticated, redirect pra `/login?redirect={currentPath}` se nao autenticado, loading spinner se isLoading
-- [ ] `router.tsx`: define todas as rotas — auth pages como publicas, restante dentro de ProtectedRoute
-- [ ] `App.tsx`: usa AuthProvider como wrapper, renderiza Routes
-- [ ] Login redireciona pra URL preservada apos autenticacao
-- [ ] Typecheck passa
+- [x]`ProtectedRoute`: checa isAuthenticated, redirect pra `/login?redirect={currentPath}` se nao autenticado, loading spinner se isLoading
+- [x]`router.tsx`: define todas as rotas — auth pages como publicas, restante dentro de ProtectedRoute
+- [x]`App.tsx`: usa AuthProvider como wrapper, renderiza Routes
+- [x]Login redireciona pra URL preservada apos autenticacao
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -643,11 +643,11 @@ tsc -p packages/web/tsconfig.json --noEmit
 **Requirement**: All
 
 **Done when**:
-- [ ] `.env.example` com todas as variaveis documentadas: DATABASE_URL, JWT_SECRET, RESEND_API_KEY, APP_URL, NODE_ENV
-- [ ] TypeORM synchronize=true pra dev (ou migration manual)
-- [ ] App inicia sem erros (`pnpm dev`)
-- [ ] Health check funciona: GET /api/health → 200
-- [ ] Endpoint protegido sem token: → 401
+- [x]`.env.example` com todas as variaveis documentadas: DATABASE_URL, JWT_SECRET, RESEND_API_KEY, APP_URL, NODE_ENV
+- [x]TypeORM synchronize=true pra dev (ou migration manual)
+- [x]App inicia sem erros (`pnpm dev`)
+- [x]Health check funciona: GET /api/health → 200
+- [x]Endpoint protegido sem token: → 401
 
 **Verify:**
 ```bash
@@ -669,13 +669,13 @@ curl http://localhost:3000/api/auth/me  # deve retornar 401
 **Requirement**: AUTH-06, AUTH-12, AUTH-13, AUTH-14
 
 **Done when**:
-- [ ] Registro com email duplicado retorna mensagem generica (no user enumeration)
-- [ ] Login com credenciais erradas retorna mensagem generica
-- [ ] Rate limiting funciona (6a tentativa retorna 429)
-- [ ] Cookies sao httpOnly + SameSite=Strict (verificar no browser)
-- [ ] Refresh token rotation funciona (token antigo invalido)
-- [ ] Logout limpa cookies e invalida refresh token
-- [ ] Rotas protegidas retornam 401 sem token
+- [x]Registro com email duplicado retorna mensagem generica (no user enumeration)
+- [x]Login com credenciais erradas retorna mensagem generica
+- [x]Rate limiting funciona (6a tentativa retorna 429)
+- [x]Cookies sao httpOnly + SameSite=Strict (verificar no browser)
+- [x]Refresh token rotation funciona (token antigo invalido)
+- [x]Logout limpa cookies e invalida refresh token
+- [x]Rotas protegidas retornam 401 sem token
 
 **Verify:**
 ```bash
@@ -702,12 +702,12 @@ Substitui T23/T24 (verificacao manual) por testes automatizados seguindo a piram
 **Requirement**: All (infra de teste)
 
 **Done when**:
-- [ ] `vitest`, `@nestjs/testing`, `supertest`, `@types/supertest`, `unplugin-swc` instalados como devDependencies no api
-- [ ] `vitest.config.ts` criado com `unplugin-swc` plugin (necessario pra decorator metadata)
-- [ ] `docker-compose.yml` com servico `db-test` (PostgreSQL porta 5434, DB `qcontabil_test`)
-- [ ] Scripts: `test`, `test:watch`, `test:unit`, `test:int`, `test:e2e`, `test:coverage` no api
-- [ ] Scripts: `test`, `test:unit`, `test:int`, `test:e2e` no root
-- [ ] `pnpm --filter api test:unit` roda sem erros (0 tests found OK)
+- [x]`vitest`, `@nestjs/testing`, `supertest`, `@types/supertest`, `unplugin-swc` instalados como devDependencies no api
+- [x]`vitest.config.ts` criado com `unplugin-swc` plugin (necessario pra decorator metadata)
+- [x]`docker-compose.yml` com servico `db-test` (PostgreSQL porta 5434, DB `qcontabil_test`)
+- [x]Scripts: `test`, `test:watch`, `test:unit`, `test:int`, `test:e2e`, `test:coverage` no api
+- [x]Scripts: `test`, `test:unit`, `test:int`, `test:e2e` no root
+- [x]`pnpm --filter api test:unit` roda sem erros (0 tests found OK)
 
 **Verify:**
 ```bash
@@ -727,11 +727,11 @@ pnpm --filter api test:unit
 **Requirement**: All (suporte a testes)
 
 **Done when**:
-- [ ] `createTestApp()` cria app NestJS com cookie-parser e prefix `/api`
-- [ ] `createVerifiedUser(app, email, password)` registra e marca emailVerified=true via DB direto
-- [ ] `loginAndGetCookies(app, email, password)` faz login e retorna cookies
-- [ ] `truncateAllTables(app)` limpa user, refresh_token, email_token
-- [ ] Typecheck passa
+- [x]`createTestApp()` cria app NestJS com cookie-parser e prefix `/api`
+- [x]`createVerifiedUser(app, email, password)` registra e marca emailVerified=true via DB direto
+- [x]`loginAndGetCookies(app, email, password)` faz login e retorna cookies
+- [x]`truncateAllTables(app)` limpa user, refresh_token, email_token
+- [x]Typecheck passa
 
 **Verify:**
 ```bash
@@ -750,10 +750,10 @@ tsc -p packages/api/tsconfig.json --noEmit
 **Requirement**: AUTH-04, AUTH-05, AUTH-08
 
 **Done when**:
-- [ ] ZodValidationPipe: valid input, invalid input (structured errors), strips unknown, applies transforms
-- [ ] TokenService: generateAccessToken (JWT payload), generateRefreshToken (128 hex), hashToken (SHA-256 deterministic), getRefreshTokenExpiresAt (~7d), setAuthCookies (httpOnly+SameSite+path), clearAuthCookies
-- [ ] JwtAuthGuard: permite com @Public, delega ao parent sem @Public
-- [ ] Todos passam: `pnpm --filter api test:unit`
+- [x]ZodValidationPipe: valid input, invalid input (structured errors), strips unknown, applies transforms
+- [x]TokenService: generateAccessToken (JWT payload), generateRefreshToken (128 hex), hashToken (SHA-256 deterministic), getRefreshTokenExpiresAt (~7d), setAuthCookies (httpOnly+SameSite+path), clearAuthCookies
+- [x]JwtAuthGuard: permite com @Public, delega ao parent sem @Public
+- [x]Todos passam: `pnpm --filter api test:unit`
 
 **Verify:**
 ```bash
@@ -772,14 +772,14 @@ pnpm --filter api test:unit
 **Requirement**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-10, AUTH-11, AUTH-13
 
 **Done when**:
-- [ ] register: cria user com hash, envia email, retorna mensagem generica pra duplicado (no enumeration)
-- [ ] login: sucesso com token pair, timing-safe hash pra email inexistente, incrementa failedLoginAttempts, lock apos 10 tentativas, ForbiddenException pra email nao verificado, reset attempts no sucesso
-- [ ] refresh: revoga token atual + novo par (mesma family), UnauthorizedException pra token invalido, revoga family inteira no replay, rejeita expirado
-- [ ] verifyEmail: marca verified + token usado, rejeita usado, rejeita expirado
-- [ ] resetPassword: atualiza hash + revoga todos refresh tokens, rejeita senha < 8 chars
-- [ ] forgotPassword: envia reset pra verificado, envia verification pra nao verificado, mensagem generica pra inexistente
-- [ ] getProfile: retorna UserProfile, UnauthorizedException pra inexistente
-- [ ] Todos passam: `pnpm --filter api test:unit`
+- [x]register: cria user com hash, envia email, retorna mensagem generica pra duplicado (no enumeration)
+- [x]login: sucesso com token pair, timing-safe hash pra email inexistente, incrementa failedLoginAttempts, lock apos 10 tentativas, ForbiddenException pra email nao verificado, reset attempts no sucesso
+- [x]refresh: revoga token atual + novo par (mesma family), UnauthorizedException pra token invalido, revoga family inteira no replay, rejeita expirado
+- [x]verifyEmail: marca verified + token usado, rejeita usado, rejeita expirado
+- [x]resetPassword: atualiza hash + revoga todos refresh tokens, rejeita senha < 8 chars
+- [x]forgotPassword: envia reset pra verificado, envia verification pra nao verificado, mensagem generica pra inexistente
+- [x]getProfile: retorna UserProfile, UnauthorizedException pra inexistente
+- [x]Todos passam: `pnpm --filter api test:unit`
 
 **Verify:**
 ```bash
@@ -798,14 +798,14 @@ pnpm --filter api test:unit
 **Requirement**: AUTH-01, AUTH-02, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-10, AUTH-11, AUTH-13
 
 **Done when**:
-- [ ] register: sucesso 200, duplicado 200 (no enumeration), email invalido 400, senha curta 400, normaliza email
-- [ ] login: cookies httpOnly 200, user no body, wrong password 401 generico, email inexistente 401 generico, unverified 403, lockout apos 10 falhas
-- [ ] refresh: rotation (novo par), replay detection (revoga family), sem cookie 200 generico
-- [ ] logout: limpa cookies 200, refresh apos logout 401
-- [ ] verify-email: token invalido 400, vazio 400, missing 400
-- [ ] password-reset: forgot generico 200 (existe e nao existe), reset com token invalido 400, senha curta 400
-- [ ] protected-routes: /health publico 200, /auth/me sem token 401, /auth/me com cookie 200
-- [ ] Todos passam: `DATABASE_URL=...test pnpm --filter api test:int`
+- [x]register: sucesso 200, duplicado 200 (no enumeration), email invalido 400, senha curta 400, normaliza email
+- [x]login: cookies httpOnly 200, user no body, wrong password 401 generico, email inexistente 401 generico, unverified 403, lockout apos 10 falhas
+- [x]refresh: rotation (novo par), replay detection (revoga family), sem cookie 200 generico
+- [x]logout: limpa cookies 200, refresh apos logout 401
+- [x]verify-email: token invalido 400, vazio 400, missing 400
+- [x]password-reset: forgot generico 200 (existe e nao existe), reset com token invalido 400, senha curta 400
+- [x]protected-routes: /health publico 200, /auth/me sem token 401, /auth/me com cookie 200
+- [x]Todos passam: `DATABASE_URL=...test pnpm --filter api test:int`
 
 **Verify:**
 ```bash
@@ -825,10 +825,10 @@ DATABASE_URL=postgresql://qcontabil:qcontabil@localhost:5434/qcontabil_test pnpm
 **Requirement**: AUTH-12, AUTH-14
 
 **Done when**:
-- [ ] login throttled apos 5 tentativas → 429
-- [ ] register throttled apos 5 tentativas → 429
-- [ ] forgot-password throttled apos 3 tentativas → 429
-- [ ] Todos passam: `DATABASE_URL=...test pnpm --filter api test:int`
+- [x]login throttled apos 5 tentativas → 429
+- [x]register throttled apos 5 tentativas → 429
+- [x]forgot-password throttled apos 3 tentativas → 429
+- [x]Todos passam: `DATABASE_URL=...test pnpm --filter api test:int`
 
 **Verify:**
 ```bash
@@ -847,9 +847,9 @@ DATABASE_URL=postgresql://qcontabil:qcontabil@localhost:5434/qcontabil_test pnpm
 **Requirement**: AUTH-01, AUTH-02, AUTH-04, AUTH-05, AUTH-07, AUTH-08
 
 **Done when**:
-- [ ] Spy no MailService pra capturar raw verification token
-- [ ] Fluxo sequencial completo: register → login falha (unverified) → verify email → login sucesso (cookies) → GET /me (200) → refresh (novo par) → logout → refresh com token antigo (401)
-- [ ] Passa: `DATABASE_URL=...test pnpm --filter api test:e2e`
+- [x]Spy no MailService pra capturar raw verification token
+- [x]Fluxo sequencial completo: register → login falha (unverified) → verify email → login sucesso (cookies) → GET /me (200) → refresh (novo par) → logout → refresh com token antigo (401)
+- [x]Passa: `DATABASE_URL=...test pnpm --filter api test:e2e`
 
 **Verify:**
 ```bash

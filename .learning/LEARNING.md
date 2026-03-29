@@ -1,0 +1,23 @@
+# Learning
+
+## Frontend (2026-03-28)
+
+1. [Axios Interceptor Queue Pattern for Token Refresh](references/frontend/axios-interceptor-patterns.md)
+2. [Zustand Store with Derived Getters](references/frontend/zustand-derived-state.md)
+3. [Vendor-Agnostic HTTP Client Facade](references/frontend/http-client-abstraction.md)
+4. [TanStack Query v5 Side Effects in useQuery](references/frontend/tanstack-query-v5-side-effects.md)
+5. [React.lazy + Suspense for Route-Based Code Splitting](references/frontend/react-lazy-code-splitting.md)
+6. [Layout Routes with Outlet in React Router 7](references/frontend/react-router-layout-routes.md)
+7. [TanStack Form with Standard Schema (Zod)](references/frontend/tanstack-form-standard-schema.md)
+8. [Lazy-Loading zxcvbn for Password Strength](references/frontend/zxcvbn-lazy-loading.md)
+9. [Inline useMutation for Form Submission](references/frontend/inline-use-mutation.md)
+
+## Backend (2026-03-29)
+
+10. [Timing-Safe Login & Token Family Replay Detection](references/backend/timing-safe-auth.md)
+11. [NestJS Global Guard with @Public() Metadata Override](references/backend/nestjs-guard-metadata-pattern.md)
+12. [Zod Validation Pipe — Shared Schemas Frontend/Backend](references/backend/nestjs-zod-validation-pipe.md)
+
+## Testing (2026-03-29)
+
+13. [Vitest Parallel Test Isolation with Real Database](references/testing/vitest-parallel-test-isolation.md)

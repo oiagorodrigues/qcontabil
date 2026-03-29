@@ -1,7 +1,7 @@
 # Roadmap
 
 **Current Milestone:** M1 — Foundation
-**Status:** Planning
+**Status:** In Progress
 
 ---
 
@@ -19,7 +19,7 @@
 - Configuracao base (ESLint, Prettier, TypeScript strict)
 - CI basico (lint + typecheck)
 
-**Auth** - PLANNED
+**Auth** - COMPLETE
 
 - Registro com email/senha
 - Login / Logout

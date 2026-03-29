@@ -5,9 +5,13 @@
 - [coding-guidelines](.claude/skills/coding-guidelines/SKILL.md) -- before starting any coding task
 - [learning-opportunities](.claude/skills/learning-opportunities/SKILL.md) -- at the end of every non-documenting completed task
 - code-reviewer -- after every coding task, and before opening a PR
-- use pnpm for package management and pnpx for global tools. DON'T USE NPM (NPX) OR YARN.
-- At the end of each bug fix, add the lesson to [.specs/project/STATE.md](.specs/project/STATE.md) under `## Lessons` so it can be used as a reference for future work. Always read existing lessons before starting a task to avoid repeating past mistakes.
-- At the end of each coding task, create or update the file .learning/LEARNING.md with a list of topics and link to .learning/references with a thoroughly detailed learning opportunity related to the task. Be highly detailed and clear in describing the learning opportunities, include examples, diagrams, and other visual aids - but only in the references files. Explain the concept behind the choices, architecture, design patterns, etc., not only the technical details. However, don't write gibberish or make up information. Be concise and to the point. Write the file as if it were the content of a book authored by specialized professionals in the field, with a focus on continuous learning and ease of understanding. Include links to relevant external references for further information.
+- Use pnpm for packages and pnpx for global tools. Never use npm, npx, or yarn.
+- Before starting any task, read .specs/project/STATE.md. Record new lessons in ## Lessons, decisions in ## Decisions
+- Before starting any task, read .specs/project/ARCHITECTURE.md. Record new architecture, patterns, or design details in there
+- After each coding task, update `.learning/LEARNING.md` and `.learning/references/`. Follow this structure strictly:
+  - `LEARNING.md` is a **lean index only**: numbered title + relative link to reference file. No descriptions, no inline content.
+  - All detailed content (context, reasoning, code examples, external links) goes in reference files under `references/<domain>/` (e.g., `frontend/`, `backend/`, `testing/`).
+  - Create new `<domain>/` subdirectories as needed when a topic doesn't fit existing ones.
 
 ## When Coding
 
