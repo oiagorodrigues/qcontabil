@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "nest start -b swc --watch",
     "build": "nest build",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run --project unit",
+    "test:int": "vitest run --project int",
+    "test:e2e": "vitest run --project e2e",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
@@ -32,6 +38,7 @@
   "devDependencies": {
     "@nestjs/cli": "11.0.16",
     "@nestjs/schematics": "11.0.9",
+    "@nestjs/testing": "11.1.17",
     "@swc/cli": "0.8.0",
     "@swc/core": "1.15.21",
     "@types/bcrypt": "6.0.0",
@@ -39,6 +46,10 @@
     "@types/express": "5.0.6",
     "@types/node": "^25.5.0",
     "@types/passport-jwt": "4.0.1",
-    "ts-node": "^10.9.0"
+    "@types/supertest": "7.2.0",
+    "supertest": "7.2.2",
+    "ts-node": "^10.9.0",
+    "unplugin-swc": "1.5.9",
+    "vitest": "4.1.2"
   }
 }

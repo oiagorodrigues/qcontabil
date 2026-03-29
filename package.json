@@ -7,7 +7,11 @@
     "build": "pnpm --filter shared build",
     "lint": "eslint packages/",
     "format": "prettier --write 'packages/**/*.{ts,tsx,json}'",
-    "format:check": "prettier --check 'packages/**/*.{ts,tsx,json}'"
+    "format:check": "prettier --check 'packages/**/*.{ts,tsx,json}'",
+    "test": "pnpm --filter api test",
+    "test:unit": "pnpm --filter api test:unit",
+    "test:int": "pnpm --filter api test:int",
+    "test:e2e": "pnpm --filter api test:e2e"
   },
   "engines": {
     "node": ">=24.14.1",
