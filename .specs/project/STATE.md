@@ -75,6 +75,22 @@ Múltiplos workers rodando `synchronize: true` em paralelo no mesmo DB causam `d
 
 `z.string().email()` está depreciado no Zod 4. Usar `z.email()` (subclasse de `ZodString`). Custom error via `{ error: '...' }`. Mesma regra pra `z.uuid()`, `z.url()`, etc.
 
+### @UsePipes vs @Body(pipe): scoping de ValidationPipe no NestJS
+
+`@UsePipes(new ZodValidationPipe(schema))` aplica o pipe a TODOS os parametros do handler (incluindo `@CurrentUser()`, `@Param()`, etc.), causando validacao errada. **Usar pipe no nivel do parametro:** `@Body(new ZodValidationPipe(schema))` para validar apenas o body.
+
+### Zod .default() e TanStack Form: incompatibilidade de tipos
+
+`z.string().default('Brazil')` faz o input type ser `string | undefined` mas o output ser `string`. TanStack Form valida contra o input type, causando TypeScript error. **Remover `.default()` do schema e setar o default no `defaultValues` do form.**
+
+### Worktrees e .env: arquivos gitignored nao sao compartilhados
+
+Git worktrees nao copiam arquivos gitignored (`.env`). **Criar symlink do `.env` do repo principal para o worktree:** `ln -s /path/to/repo/.env /path/to/worktree/.env`.
+
+### Integration tests: dados devem ser unicos por teste
+
+Testes de integracao rodam em paralelo. Dados fixos (ex: CNPJ hardcoded) causam conflitos entre testes. **Gerar dados unicos por teste** (mesma abordagem do `uniqueEmail()` para users).
+
 ## Deferred Ideas
 
 - **Upgrade @zxcvbn-ts/core pra v4**: Atualmente em v3 (set/2023). A v4 beta.3 (mar/2026) muda a API pra `ZxcvbnFactory` mas tem problemas de exports no runtime (beta). Monitorar releases estáveis e migrar quando v4 stable sair. PasswordStrengthMeter precisa ser reescrito pra nova API.

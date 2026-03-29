@@ -20,6 +20,7 @@ import { JwtAuthGuard } from '../../src/auth/guards/jwt-auth.guard'
 import { AuthController } from '../../src/auth/auth.controller'
 import { MailModule } from '../../src/mail/mail.module'
 import { HealthModule } from '../../src/health/health.module'
+import { CompanyModule } from '../../src/company/company.module'
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ class TestAuthModule {}
     ThrottlerModule.forRoot([{ name: 'default', ttl: 60000, limit: 60 }]),
     HealthModule,
     TestAuthModule,
+    CompanyModule,
   ],
 })
 class TestAppModule {}

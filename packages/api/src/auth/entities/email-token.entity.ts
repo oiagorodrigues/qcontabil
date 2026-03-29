@@ -9,7 +9,11 @@ export class EmailToken {
   @Column({ comment: 'SHA-256 hash of the email token value' })
   tokenHash!: string
 
-  @Column({ type: 'enum', enum: ['verification', 'password_reset'], comment: 'Token purpose: email verification or password reset' })
+  @Column({
+    type: 'enum',
+    enum: ['verification', 'password_reset'],
+    comment: 'Token purpose: email verification or password reset',
+  })
   type!: 'verification' | 'password_reset'
 
   @Column({ default: false, comment: 'Whether this token has already been consumed' })

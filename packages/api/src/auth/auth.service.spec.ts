@@ -1,9 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import {
-  UnauthorizedException,
-  BadRequestException,
-  ForbiddenException,
-} from '@nestjs/common'
+import { UnauthorizedException, BadRequestException, ForbiddenException } from '@nestjs/common'
 import type { Repository, ObjectLiteral } from 'typeorm'
 import { AuthService } from './auth.service'
 import type { TokenService } from './token.service'
@@ -18,7 +14,10 @@ vi.mock('bcrypt', () => ({
   compare: vi.fn().mockResolvedValue(true),
 }))
 
-type MockRepo<T extends ObjectLiteral> = Pick<Repository<T>, 'findOne' | 'create' | 'save' | 'update'>
+type MockRepo<T extends ObjectLiteral> = Pick<
+  Repository<T>,
+  'findOne' | 'create' | 'save' | 'update'
+>
 
 function createMockRepo<T extends ObjectLiteral>(): MockRepo<T> & {
   findOne: ReturnType<typeof vi.fn>
@@ -44,7 +43,10 @@ describe('AuthService', () => {
   let userRepo: ReturnType<typeof createMockRepo<User>>
   let refreshTokenRepo: ReturnType<typeof createMockRepo<RefreshToken>>
   let emailTokenRepo: ReturnType<typeof createMockRepo<EmailToken>>
-  let tokenService: Pick<TokenService, 'generateAccessToken' | 'generateRefreshToken' | 'hashToken' | 'getRefreshTokenExpiresAt'>
+  let tokenService: Pick<
+    TokenService,
+    'generateAccessToken' | 'generateRefreshToken' | 'hashToken' | 'getRefreshTokenExpiresAt'
+  >
   let mailService: Pick<MailService, 'sendVerificationEmail' | 'sendPasswordResetEmail'>
 
   beforeEach(() => {
@@ -58,9 +60,9 @@ describe('AuthService', () => {
       generateAccessToken: vi.fn().mockReturnValue('access-token'),
       generateRefreshToken: vi.fn().mockReturnValue('refresh-token'),
       hashToken: vi.fn().mockReturnValue('hashed-token'),
-      getRefreshTokenExpiresAt: vi.fn().mockReturnValue(
-        new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      ),
+      getRefreshTokenExpiresAt: vi
+        .fn()
+        .mockReturnValue(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)),
     }
 
     mailService = {

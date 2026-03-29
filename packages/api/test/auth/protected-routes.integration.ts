@@ -30,9 +30,7 @@ describe('Protected routes (integration)', () => {
     await createVerifiedUser(app, email)
     const { cookies } = await loginAndGetCookies(app, email)
 
-    const res = await request(app.getHttpServer())
-      .get('/api/auth/me')
-      .set('Cookie', cookies)
+    const res = await request(app.getHttpServer()).get('/api/auth/me').set('Cookie', cookies)
 
     expect(res.status).toBe(200)
     expect(res.body.email).toBe(email)

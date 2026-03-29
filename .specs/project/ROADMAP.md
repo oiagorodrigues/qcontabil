@@ -26,11 +26,13 @@
 - Sessao persistente (JWT ou session)
 - Protecao de rotas (frontend + backend)
 
-**Cadastro da Empresa** - PLANNED
+**Cadastro da Empresa** - COMPLETE
 
-- CRUD dados da empresa (razao social, CNPJ, regime: MEI/EI/ME)
-- Dados bancarios (para constar no invoice)
+- CRUD dados da empresa (razao social, CNPJ, regime: MEI/EI/ME/SLU/LTDA)
+- Dados bancarios (beneficiario, banco, tipo conta, IBAN, SWIFT)
 - Vinculo empresa <-> usuario (1:1 no v1)
+- Validacao CNPJ com algoritmo de digitos verificadores
+- Zod schemas compartilhados (frontend + backend)
 
 ---
 

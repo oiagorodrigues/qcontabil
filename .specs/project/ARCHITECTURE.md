@@ -42,6 +42,12 @@ packages/api/src/
 │       ├── user.entity.ts
 │       ├── refresh-token.entity.ts
 │       └── email-token.entity.ts
+├── company/                        # Company module
+│   ├── company.module.ts
+│   ├── company.controller.ts
+│   ├── company.service.ts
+│   ├── company.service.spec.ts
+│   └── company.entity.ts
 ├── mail/                           # Mail module
 │   ├── mail.module.ts
 │   └── mail.service.ts

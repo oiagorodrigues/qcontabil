@@ -30,3 +30,16 @@ export type {
 } from './schemas/auth'
 
 export type { UserProfile, AuthResponse } from './types/auth'
+
+// Company types
+export { TaxRegime, AccountType, BrazilianState } from './types/company'
+
+export type { CompanyResponse } from './types/company'
+
+// Company validators
+export { isValidCnpj } from './validators/cnpj'
+
+// Company schemas and types
+export { createCompanySchema, updateCompanySchema } from './schemas/company'
+
+export type { CreateCompanyInput, UpdateCompanyInput } from './schemas/company'

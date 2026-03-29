@@ -18,6 +18,11 @@
 11. [NestJS Global Guard with @Public() Metadata Override](references/backend/nestjs-guard-metadata-pattern.md)
 12. [Zod Validation Pipe — Shared Schemas Frontend/Backend](references/backend/nestjs-zod-validation-pipe.md)
 
+## Backend (2026-03-29)
+
+14. [NestJS @Body() Pipe Scoping vs @UsePipes()](references/backend/nestjs-body-pipe-scoping.md)
+
 ## Testing (2026-03-29)
 
 13. [Vitest Parallel Test Isolation with Real Database](references/testing/vitest-parallel-test-isolation.md)
+15. [Unique Test Data Generation for Parallel Integration Tests](references/testing/unique-test-data-parallel.md)

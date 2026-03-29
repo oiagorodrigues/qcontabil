@@ -1,23 +1,17 @@
 import { z } from 'zod'
 
 export const loginSchema = z.object({
-  email: z
-    .email({ error: 'Invalid email address' })
-    .transform((e) => e.toLowerCase().trim()),
+  email: z.email({ error: 'Invalid email address' }).transform((e) => e.toLowerCase().trim()),
   password: z.string().min(1, 'Password is required'),
 })
 
 export const registerSchema = z.object({
-  email: z
-    .email({ error: 'Invalid email address' })
-    .transform((e) => e.toLowerCase().trim()),
+  email: z.email({ error: 'Invalid email address' }).transform((e) => e.toLowerCase().trim()),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
 export const forgotPasswordSchema = z.object({
-  email: z
-    .email({ error: 'Invalid email address' })
-    .transform((e) => e.toLowerCase().trim()),
+  email: z.email({ error: 'Invalid email address' }).transform((e) => e.toLowerCase().trim()),
 })
 
 export const resetPasswordSchema = z.object({

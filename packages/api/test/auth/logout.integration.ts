@@ -20,9 +20,7 @@ describe('POST /api/auth/logout (integration)', () => {
     await createVerifiedUser(app, email)
     const { cookies } = await loginAndGetCookies(app, email)
 
-    const res = await request(app.getHttpServer())
-      .post('/api/auth/logout')
-      .set('Cookie', cookies)
+    const res = await request(app.getHttpServer()).post('/api/auth/logout').set('Cookie', cookies)
 
     expect(res.status).toBe(200)
     expect(res.body.message).toBe('Logged out')
@@ -33,9 +31,7 @@ describe('POST /api/auth/logout (integration)', () => {
     await createVerifiedUser(app, email)
     const { cookies } = await loginAndGetCookies(app, email)
 
-    await request(app.getHttpServer())
-      .post('/api/auth/logout')
-      .set('Cookie', cookies)
+    await request(app.getHttpServer()).post('/api/auth/logout').set('Cookie', cookies)
 
     const refreshCookie = cookies.find((c: string) => c.startsWith('refresh_token='))!
     const refreshRes = await request(app.getHttpServer())

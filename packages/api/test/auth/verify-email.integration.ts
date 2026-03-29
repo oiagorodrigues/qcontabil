@@ -31,9 +31,7 @@ describe('POST /api/auth/verify-email (integration)', () => {
   })
 
   it('rejects missing token field with 400', async () => {
-    const res = await request(app.getHttpServer())
-      .post('/api/auth/verify-email')
-      .send({})
+    const res = await request(app.getHttpServer()).post('/api/auth/verify-email').send({})
 
     expect(res.status).toBe(400)
   })

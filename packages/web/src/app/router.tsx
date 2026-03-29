@@ -8,6 +8,7 @@ const RegisterPage = lazy(() => import('@/features/auth/pages/RegisterPage'))
 const VerifyEmailPage = lazy(() => import('@/features/auth/pages/VerifyEmailPage'))
 const ForgotPasswordPage = lazy(() => import('@/features/auth/pages/ForgotPasswordPage'))
 const ResetPasswordPage = lazy(() => import('@/features/auth/pages/ResetPasswordPage'))
+const CompanyPage = lazy(() => import('@/features/company/pages/CompanyPage'))
 
 function DashboardPage() {
   return <h1>Dashboard</h1>
@@ -25,6 +26,7 @@ export function AppRoutes() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
+          <Route path="/empresa" element={<CompanyPage />} />
         </Route>
       </Routes>
     </Suspense>

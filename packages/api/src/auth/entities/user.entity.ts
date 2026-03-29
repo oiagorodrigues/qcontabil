@@ -22,10 +22,18 @@ export class User {
   @Column({ default: false, comment: 'Whether the user has confirmed their email via token link' })
   emailVerified!: boolean
 
-  @Column({ type: 'int', default: 0, comment: 'Consecutive failed login attempts; resets on success' })
+  @Column({
+    type: 'int',
+    default: 0,
+    comment: 'Consecutive failed login attempts; resets on success',
+  })
   failedLoginAttempts!: number
 
-  @Column({ type: 'timestamp', nullable: true, comment: 'Account locked until this timestamp after too many failed attempts' })
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+    comment: 'Account locked until this timestamp after too many failed attempts',
+  })
   lockedUntil!: Date | null
 
   @CreateDateColumn({ comment: 'Timestamp of account creation' })

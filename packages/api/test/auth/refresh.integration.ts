@@ -43,9 +43,7 @@ describe('POST /api/auth/refresh (integration)', () => {
     const refreshCookie = cookies.find((c: string) => c.startsWith('refresh_token='))!
 
     // First refresh — valid
-    await request(app.getHttpServer())
-      .post('/api/auth/refresh')
-      .set('Cookie', [refreshCookie])
+    await request(app.getHttpServer()).post('/api/auth/refresh').set('Cookie', [refreshCookie])
 
     // Second refresh with SAME token — replay attack
     const res = await request(app.getHttpServer())

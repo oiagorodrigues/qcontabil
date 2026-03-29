@@ -25,10 +25,7 @@ describe('TokenService', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    service = new TokenService(
-      mockJwtService as JwtService,
-      mockConfigService,
-    )
+    service = new TokenService(mockJwtService as JwtService, mockConfigService)
   })
 
   describe('generateAccessToken', () => {

@@ -60,9 +60,7 @@ describe('Auth flow E2E: register -> verify -> login -> me -> refresh -> logout 
     expect(cookies).toBeDefined()
 
     // 5. Access protected route
-    const meRes = await request(server)
-      .get('/api/auth/me')
-      .set('Cookie', cookies)
+    const meRes = await request(server).get('/api/auth/me').set('Cookie', cookies)
 
     expect(meRes.status).toBe(200)
     expect(meRes.body.email).toBe(email)
@@ -78,9 +76,7 @@ describe('Auth flow E2E: register -> verify -> login -> me -> refresh -> logout 
     expect(newCookies).toBeDefined()
 
     // 7. Logout with new cookies
-    const logoutRes = await request(server)
-      .post('/api/auth/logout')
-      .set('Cookie', newCookies)
+    const logoutRes = await request(server).post('/api/auth/logout').set('Cookie', newCookies)
 
     expect(logoutRes.status).toBe(200)
 

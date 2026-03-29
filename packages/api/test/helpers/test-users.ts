@@ -14,9 +14,7 @@ export async function registerUser(
   email = uniqueEmail(),
   password = TEST_PASSWORD,
 ): Promise<request.Response> {
-  return request(app.getHttpServer())
-    .post('/api/auth/register')
-    .send({ email, password })
+  return request(app.getHttpServer()).post('/api/auth/register').send({ email, password })
 }
 
 export async function verifyUserEmail(app: INestApplication, email: string) {
@@ -54,8 +52,14 @@ export async function truncateAllTables(app: INestApplication) {
 
 export async function cleanupUser(app: INestApplication, email: string) {
   const ds = app.get(DataSource)
-  await ds.query('DELETE FROM email_tokens WHERE "userId" IN (SELECT id FROM users WHERE email = $1)', [email])
-  await ds.query('DELETE FROM refresh_tokens WHERE "userId" IN (SELECT id FROM users WHERE email = $1)', [email])
+  await ds.query(
+    'DELETE FROM email_tokens WHERE "userId" IN (SELECT id FROM users WHERE email = $1)',
+    [email],
+  )
+  await ds.query(
+    'DELETE FROM refresh_tokens WHERE "userId" IN (SELECT id FROM users WHERE email = $1)',
+    [email],
+  )
   await ds.query('DELETE FROM users WHERE email = $1', [email])
 }
 
