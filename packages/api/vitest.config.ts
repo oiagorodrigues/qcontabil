@@ -13,21 +13,48 @@ export default defineConfig({
           name: 'unit',
           include: ['src/**/*.spec.ts'],
         },
-        plugins: [swc.vite({ module: { type: 'commonjs' } })],
+        plugins: [
+          swc.vite({
+            module: { type: 'es6' },
+            jsc: {
+              transform: {
+                decoratorMetadata: true,
+              },
+            },
+          }),
+        ],
       },
       {
         test: {
           name: 'int',
           include: ['src/**/*.int-spec.ts'],
         },
-        plugins: [swc.vite({ module: { type: 'commonjs' } })],
+        plugins: [
+          swc.vite({
+            module: { type: 'es6' },
+            jsc: {
+              transform: {
+                decoratorMetadata: true,
+              },
+            },
+          }),
+        ],
       },
       {
         test: {
           name: 'e2e',
           include: ['src/**/*.e2e-spec.ts'],
         },
-        plugins: [swc.vite({ module: { type: 'commonjs' } })],
+        plugins: [
+          swc.vite({
+            module: { type: 'es6' },
+            jsc: {
+              transform: {
+                decoratorMetadata: true,
+              },
+            },
+          }),
+        ],
       },
     ],
   },
