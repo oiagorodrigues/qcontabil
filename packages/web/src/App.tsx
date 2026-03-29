@@ -1,7 +1,10 @@
+import { AuthProvider } from '@/features/auth/components/AuthProvider'
+import { AppRoutes } from '@/app/router'
+
 export function App() {
   return (
-    <div>
-      <h1>Qcontabil</h1>
-    </div>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   )
 }
