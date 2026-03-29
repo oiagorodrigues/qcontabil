@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common"
-import { JwtService } from "@nestjs/jwt"
-import { ConfigService } from "@nestjs/config"
-import { randomBytes, createHash } from "crypto"
-import type { Response } from "express"
-import type { User } from "./entities/user.entity"
+import { Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import { ConfigService } from '@nestjs/config'
+import { randomBytes, createHash } from 'crypto'
+import type { Response } from 'express'
+import type { User } from './entities/user.entity'
 
 interface AccessTokenPayload {
   sub: string
@@ -21,14 +21,10 @@ export class TokenService {
     private readonly config: ConfigService,
   ) {
     this.accessTokenTtlSeconds =
-      Number(this.config.get<string>("ACCESS_TOKEN_TTL_MINUTES", "15")) * 60
+      Number(this.config.get<string>('ACCESS_TOKEN_TTL_MINUTES', '15')) * 60
     this.refreshTokenTtlMs =
-      Number(this.config.get<string>("REFRESH_TOKEN_TTL_DAYS", "7")) *
-      24 *
-      60 *
-      60 *
-      1000
-    this.isProduction = this.config.get<string>("NODE_ENV") === "production"
+      Number(this.config.get<string>('REFRESH_TOKEN_TTL_DAYS', '7')) * 24 * 60 * 60 * 1000
+    this.isProduction = this.config.get<string>('NODE_ENV') === 'production'
   }
 
   generateAccessToken(user: User): string {
@@ -42,36 +38,32 @@ export class TokenService {
   }
 
   generateRefreshToken(): string {
-    return randomBytes(64).toString("hex")
+    return randomBytes(64).toString('hex')
   }
 
   hashToken(token: string): string {
-    return createHash("sha256").update(token).digest("hex")
+    return createHash('sha256').update(token).digest('hex')
   }
 
   getRefreshTokenExpiresAt(): Date {
     return new Date(Date.now() + this.refreshTokenTtlMs)
   }
 
-  setAuthCookies(
-    res: Response,
-    accessToken: string,
-    refreshToken: string,
-  ): void {
+  setAuthCookies(res: Response, accessToken: string, refreshToken: string): void {
     const cookieOptions = {
       httpOnly: true,
       secure: this.isProduction,
-      sameSite: "strict" as const,
+      sameSite: 'strict' as const,
     }
 
-    res.cookie("access_token", accessToken, {
+    res.cookie('access_token', accessToken, {
       ...cookieOptions,
       maxAge: this.accessTokenTtlSeconds * 1000,
     })
 
-    res.cookie("refresh_token", refreshToken, {
+    res.cookie('refresh_token', refreshToken, {
       ...cookieOptions,
-      path: "/api/auth/refresh",
+      path: '/api/auth/refresh',
       maxAge: this.refreshTokenTtlMs,
     })
   }
@@ -80,13 +72,13 @@ export class TokenService {
     const cookieOptions = {
       httpOnly: true,
       secure: this.isProduction,
-      sameSite: "strict" as const,
+      sameSite: 'strict' as const,
     }
 
-    res.clearCookie("access_token", cookieOptions)
-    res.clearCookie("refresh_token", {
+    res.clearCookie('access_token', cookieOptions)
+    res.clearCookie('refresh_token', {
       ...cookieOptions,
-      path: "/api/auth/refresh",
+      path: '/api/auth/refresh',
     })
   }
 }

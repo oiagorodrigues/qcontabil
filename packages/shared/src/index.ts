@@ -19,7 +19,7 @@ export {
   forgotPasswordSchema,
   resetPasswordSchema,
   verifyEmailSchema,
-} from "./schemas/auth"
+} from './schemas/auth'
 
 export type {
   LoginInput,
@@ -27,6 +27,6 @@ export type {
   ForgotPasswordInput,
   ResetPasswordInput,
   VerifyEmailInput,
-} from "./schemas/auth"
+} from './schemas/auth'
 
-export type { UserProfile, AuthResponse } from "./types/auth"
+export type { UserProfile, AuthResponse } from './types/auth'

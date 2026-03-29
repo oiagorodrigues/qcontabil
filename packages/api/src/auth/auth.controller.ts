@@ -8,25 +8,25 @@ import {
   HttpCode,
   HttpStatus,
   UsePipes,
-} from "@nestjs/common"
-import { Throttle } from "@nestjs/throttler"
-import type { Request, Response } from "express"
+} from '@nestjs/common'
+import { Throttle } from '@nestjs/throttler'
+import type { Request, Response } from 'express'
 import {
   loginSchema,
   registerSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
   verifyEmailSchema,
-} from "@qcontabil/shared"
-import type { LoginInput, RegisterInput } from "@qcontabil/shared"
-import { AuthService } from "./auth.service"
-import { TokenService } from "./token.service"
-import { Public } from "./decorators/public.decorator"
-import { CurrentUser } from "./decorators/current-user.decorator"
-import { ZodValidationPipe } from "../common/pipes/zod-validation.pipe"
-import type { User } from "./entities/user.entity"
+} from '@qcontabil/shared'
+import type { LoginInput, RegisterInput } from '@qcontabil/shared'
+import { AuthService } from './auth.service'
+import { TokenService } from './token.service'
+import { Public } from './decorators/public.decorator'
+import { CurrentUser } from './decorators/current-user.decorator'
+import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe'
+import type { User } from './entities/user.entity'
 
-@Controller("auth")
+@Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
@@ -34,7 +34,7 @@ export class AuthController {
   ) {}
 
   @Public()
-  @Post("register")
+  @Post('register')
   @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 5, ttl: 3600000 } })
   @UsePipes(new ZodValidationPipe(registerSchema))
@@ -43,21 +43,14 @@ export class AuthController {
   }
 
   @Public()
-  @Post("login")
+  @Post('login')
   @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 5, ttl: 900000 } })
   @UsePipes(new ZodValidationPipe(loginSchema))
-  async login(
-    @Body() dto: LoginInput,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async login(@Body() dto: LoginInput, @Res({ passthrough: true }) res: Response) {
     const { tokenPair, user } = await this.authService.login(dto)
 
-    this.tokenService.setAuthCookies(
-      res,
-      tokenPair.accessToken,
-      tokenPair.refreshToken,
-    )
+    this.tokenService.setAuthCookies(res, tokenPair.accessToken, tokenPair.refreshToken)
 
     return {
       user: {
@@ -70,26 +63,19 @@ export class AuthController {
   }
 
   @Public()
-  @Post("refresh")
+  @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  async refresh(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const rawRefreshToken = req.cookies?.refresh_token
 
     if (!rawRefreshToken) {
       this.tokenService.clearAuthCookies(res)
-      return { message: "No refresh token" }
+      return { message: 'No refresh token' }
     }
 
     const { tokenPair, user } = await this.authService.refresh(rawRefreshToken)
 
-    this.tokenService.setAuthCookies(
-      res,
-      tokenPair.accessToken,
-      tokenPair.refreshToken,
-    )
+    this.tokenService.setAuthCookies(res, tokenPair.accessToken, tokenPair.refreshToken)
 
     return {
       user: {
@@ -101,12 +87,9 @@ export class AuthController {
     }
   }
 
-  @Post("logout")
+  @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const rawRefreshToken = req.cookies?.refresh_token
 
     if (rawRefreshToken) {
@@ -114,20 +97,20 @@ export class AuthController {
     }
 
     this.tokenService.clearAuthCookies(res)
-    return { message: "Logged out" }
+    return { message: 'Logged out' }
   }
 
   @Public()
-  @Post("verify-email")
+  @Post('verify-email')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ZodValidationPipe(verifyEmailSchema))
   async verifyEmail(@Body() dto: { token: string }) {
     await this.authService.verifyEmail(dto.token)
-    return { message: "Email verified successfully" }
+    return { message: 'Email verified successfully' }
   }
 
   @Public()
-  @Post("resend-verification")
+  @Post('resend-verification')
   @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 3, ttl: 3600000 } })
   async resendVerification(@Body() dto: { email: string }) {
@@ -135,7 +118,7 @@ export class AuthController {
   }
 
   @Public()
-  @Post("forgot-password")
+  @Post('forgot-password')
   @HttpCode(HttpStatus.OK)
   @Throttle({ default: { limit: 3, ttl: 3600000 } })
   @UsePipes(new ZodValidationPipe(forgotPasswordSchema))
@@ -144,15 +127,15 @@ export class AuthController {
   }
 
   @Public()
-  @Post("reset-password")
+  @Post('reset-password')
   @HttpCode(HttpStatus.OK)
   @UsePipes(new ZodValidationPipe(resetPasswordSchema))
   async resetPassword(@Body() dto: { token: string; password: string }) {
     await this.authService.resetPassword(dto.token, dto.password)
-    return { message: "Password reset successfully" }
+    return { message: 'Password reset successfully' }
   }
 
-  @Get("me")
+  @Get('me')
   async me(@CurrentUser() user: User) {
     return this.authService.getProfile(user.id)
   }

@@ -4,17 +4,17 @@ import {
   BadRequestException,
   ForbiddenException,
   Logger,
-} from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
-import { Repository } from "typeorm"
-import * as bcrypt from "bcrypt"
-import { randomBytes } from "crypto"
-import { User } from "./entities/user.entity"
-import { RefreshToken } from "./entities/refresh-token.entity"
-import { EmailToken } from "./entities/email-token.entity"
-import { TokenService } from "./token.service"
-import { MailService } from "../mail/mail.service"
-import type { RegisterInput, LoginInput, UserProfile } from "@qcontabil/shared"
+} from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import * as bcrypt from 'bcrypt'
+import { randomBytes } from 'crypto'
+import { User } from './entities/user.entity'
+import { RefreshToken } from './entities/refresh-token.entity'
+import { EmailToken } from './entities/email-token.entity'
+import { TokenService } from './token.service'
+import { MailService } from '../mail/mail.service'
+import type { RegisterInput, LoginInput, UserProfile } from '@qcontabil/shared'
 
 const BCRYPT_ROUNDS = 12
 const VERIFICATION_TOKEN_TTL_HOURS = 24
@@ -49,7 +49,7 @@ export class AuthService {
 
     if (existing) {
       // Generic response to prevent user enumeration
-      return { message: "If the email is available, a verification link has been sent" }
+      return { message: 'If the email is available, a verification link has been sent' }
     }
 
     const passwordHash = await bcrypt.hash(dto.password, BCRYPT_ROUNDS)
@@ -62,7 +62,7 @@ export class AuthService {
 
     await this.createAndSendVerificationEmail(user)
 
-    return { message: "If the email is available, a verification link has been sent" }
+    return { message: 'If the email is available, a verification link has been sent' }
   }
 
   async login(dto: LoginInput): Promise<{ tokenPair: TokenPair; user: User }> {
@@ -73,11 +73,11 @@ export class AuthService {
     if (!user) {
       // Timing-safe: hash anyway to prevent timing attacks
       await bcrypt.hash(dto.password, BCRYPT_ROUNDS)
-      throw new UnauthorizedException("Invalid email or password")
+      throw new UnauthorizedException('Invalid email or password')
     }
 
     if (user.lockedUntil && user.lockedUntil > new Date()) {
-      throw new UnauthorizedException("Account temporarily locked. Try again later")
+      throw new UnauthorizedException('Account temporarily locked. Try again later')
     }
 
     const passwordValid = await bcrypt.compare(dto.password, user.passwordHash)
@@ -91,11 +91,11 @@ export class AuthService {
       }
 
       await this.userRepository.save(user)
-      throw new UnauthorizedException("Invalid email or password")
+      throw new UnauthorizedException('Invalid email or password')
     }
 
     if (!user.emailVerified) {
-      throw new ForbiddenException("Please verify your email first")
+      throw new ForbiddenException('Please verify your email first')
     }
 
     // Reset failed attempts on successful login
@@ -114,11 +114,11 @@ export class AuthService {
 
     const storedToken = await this.refreshTokenRepository.findOne({
       where: { tokenHash },
-      relations: ["user"],
+      relations: ['user'],
     })
 
     if (!storedToken) {
-      throw new UnauthorizedException("Invalid refresh token")
+      throw new UnauthorizedException('Invalid refresh token')
     }
 
     // Replay attack detection: if token is revoked, revoke entire family
@@ -127,11 +127,11 @@ export class AuthService {
       this.logger.warn(
         `Replay attack detected for user ${storedToken.userId}, family ${storedToken.family}`,
       )
-      throw new UnauthorizedException("Token reuse detected. All sessions revoked")
+      throw new UnauthorizedException('Token reuse detected. All sessions revoked')
     }
 
     if (storedToken.expiresAt < new Date()) {
-      throw new UnauthorizedException("Refresh token expired")
+      throw new UnauthorizedException('Refresh token expired')
     }
 
     // Revoke current token (one-time use)
@@ -139,10 +139,7 @@ export class AuthService {
     await this.refreshTokenRepository.save(storedToken)
 
     // Issue new pair with same family
-    const tokenPair = await this.createTokenPair(
-      storedToken.user,
-      storedToken.family,
-    )
+    const tokenPair = await this.createTokenPair(storedToken.user, storedToken.family)
 
     return { tokenPair, user: storedToken.user }
   }
@@ -153,7 +150,7 @@ export class AuthService {
   }
 
   async verifyEmail(token: string): Promise<void> {
-    const emailToken = await this.findValidEmailToken(token, "verification")
+    const emailToken = await this.findValidEmailToken(token, 'verification')
 
     emailToken.used = true
     await this.emailTokenRepository.save(emailToken)
@@ -169,7 +166,7 @@ export class AuthService {
     }
 
     // Always return same message to prevent enumeration
-    return { message: "If the email exists and is unverified, a new link has been sent" }
+    return { message: 'If the email exists and is unverified, a new link has been sent' }
   }
 
   async forgotPassword(email: string): Promise<{ message: string }> {
@@ -180,16 +177,14 @@ export class AuthService {
       if (!user.emailVerified) {
         await this.createAndSendVerificationEmail(user)
       } else {
-        const rawToken = randomBytes(32).toString("hex")
+        const rawToken = randomBytes(32).toString('hex')
         const tokenHash = this.tokenService.hashToken(rawToken)
 
         const emailToken = this.emailTokenRepository.create({
           tokenHash,
-          type: "password_reset",
+          type: 'password_reset',
           userId: user.id,
-          expiresAt: new Date(
-            Date.now() + RESET_TOKEN_TTL_HOURS * 60 * 60 * 1000,
-          ),
+          expiresAt: new Date(Date.now() + RESET_TOKEN_TTL_HOURS * 60 * 60 * 1000),
         })
         await this.emailTokenRepository.save(emailToken)
 
@@ -197,15 +192,15 @@ export class AuthService {
       }
     }
 
-    return { message: "If the email exists, a reset link has been sent" }
+    return { message: 'If the email exists, a reset link has been sent' }
   }
 
   async resetPassword(token: string, newPassword: string): Promise<void> {
     if (newPassword.length < 8) {
-      throw new BadRequestException("Password must be at least 8 characters")
+      throw new BadRequestException('Password must be at least 8 characters')
     }
 
-    const emailToken = await this.findValidEmailToken(token, "password_reset")
+    const emailToken = await this.findValidEmailToken(token, 'password_reset')
 
     emailToken.used = true
     await this.emailTokenRepository.save(emailToken)
@@ -237,10 +232,7 @@ export class AuthService {
 
   // --- Private helpers ---
 
-  private async createTokenPair(
-    user: User,
-    family?: string,
-  ): Promise<TokenPair> {
+  private async createTokenPair(user: User, family?: string): Promise<TokenPair> {
     const accessToken = this.tokenService.generateAccessToken(user)
     const rawRefreshToken = this.tokenService.generateRefreshToken()
     const tokenHash = this.tokenService.hashToken(rawRefreshToken)
@@ -257,23 +249,18 @@ export class AuthService {
   }
 
   private async revokeTokenFamily(family: string): Promise<void> {
-    await this.refreshTokenRepository.update(
-      { family, revoked: false },
-      { revoked: true },
-    )
+    await this.refreshTokenRepository.update({ family, revoked: false }, { revoked: true })
   }
 
   private async createAndSendVerificationEmail(user: User): Promise<void> {
-    const rawToken = randomBytes(32).toString("hex")
+    const rawToken = randomBytes(32).toString('hex')
     const tokenHash = this.tokenService.hashToken(rawToken)
 
     const emailToken = this.emailTokenRepository.create({
       tokenHash,
-      type: "verification",
+      type: 'verification',
       userId: user.id,
-      expiresAt: new Date(
-        Date.now() + VERIFICATION_TOKEN_TTL_HOURS * 60 * 60 * 1000,
-      ),
+      expiresAt: new Date(Date.now() + VERIFICATION_TOKEN_TTL_HOURS * 60 * 60 * 1000),
     })
     await this.emailTokenRepository.save(emailToken)
 
@@ -282,7 +269,7 @@ export class AuthService {
 
   private async findValidEmailToken(
     rawToken: string,
-    type: "verification" | "password_reset",
+    type: 'verification' | 'password_reset',
   ): Promise<EmailToken> {
     const tokenHash = this.tokenService.hashToken(rawToken)
 
@@ -291,15 +278,15 @@ export class AuthService {
     })
 
     if (!emailToken) {
-      throw new BadRequestException("Token is invalid or has expired")
+      throw new BadRequestException('Token is invalid or has expired')
     }
 
     if (emailToken.used) {
-      throw new BadRequestException("Token has already been used")
+      throw new BadRequestException('Token has already been used')
     }
 
     if (emailToken.expiresAt < new Date()) {
-      throw new BadRequestException("Token is invalid or has expired")
+      throw new BadRequestException('Token is invalid or has expired')
     }
 
     return emailToken

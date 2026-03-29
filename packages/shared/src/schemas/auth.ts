@@ -1,26 +1,35 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email address").transform((e) => e.toLowerCase().trim()),
-  password: z.string().min(1, "Password is required"),
+  email: z
+    .string()
+    .email('Invalid email address')
+    .transform((e) => e.toLowerCase().trim()),
+  password: z.string().min(1, 'Password is required'),
 })
 
 export const registerSchema = z.object({
-  email: z.string().email("Invalid email address").transform((e) => e.toLowerCase().trim()),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  email: z
+    .string()
+    .email('Invalid email address')
+    .transform((e) => e.toLowerCase().trim()),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
 export const forgotPasswordSchema = z.object({
-  email: z.string().email("Invalid email address").transform((e) => e.toLowerCase().trim()),
+  email: z
+    .string()
+    .email('Invalid email address')
+    .transform((e) => e.toLowerCase().trim()),
 })
 
 export const resetPasswordSchema = z.object({
-  token: z.string().min(1, "Token is required"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  token: z.string().min(1, 'Token is required'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
 export const verifyEmailSchema = z.object({
-  token: z.string().min(1, "Token is required"),
+  token: z.string().min(1, 'Token is required'),
 })
 
 export type LoginInput = z.infer<typeof loginSchema>
