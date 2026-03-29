@@ -34,11 +34,15 @@ client.interceptors.response.use(
   async (error) => {
     const originalConfig = error.config as AxiosRequestConfig | undefined
 
-    if (
+    const url = originalConfig?.url || ''
+    const skipRefresh =
       error.response?.status !== 401 ||
       !originalConfig ||
-      (originalConfig.url ?? '').includes('/auth/refresh')
-    ) {
+      url.includes('/auth/refresh') ||
+      url.includes('/auth/me') ||
+      url.includes('/auth/login')
+
+    if (skipRefresh) {
       return Promise.reject(error)
     }
 

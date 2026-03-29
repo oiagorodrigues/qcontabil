@@ -34,7 +34,7 @@ export default function LoginPage() {
     mutationFn: (data: LoginInput) => authApi.login(data),
     onSuccess: (response) => {
       useAuthStore.getState().setUser(response.data.user)
-      const redirectTo = searchParams.get('redirectTo') || '/'
+      const redirectTo = searchParams.get('redirect') || '/'
       navigate(redirectTo)
     },
     onError: (error: unknown) => {

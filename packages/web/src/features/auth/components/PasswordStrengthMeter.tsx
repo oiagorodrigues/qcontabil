@@ -13,6 +13,30 @@ function getColor(score: number) {
   return 'bg-green-500'
 }
 
+let initialized = false
+
+async function loadAndCheck(password: string) {
+  const [core, common, en] = await Promise.all([
+    import('@zxcvbn-ts/core'),
+    import('@zxcvbn-ts/language-common'),
+    import('@zxcvbn-ts/language-en'),
+  ])
+
+  if (!initialized) {
+    core.zxcvbnOptions.setOptions({
+      graphs: common.adjacencyGraphs,
+      dictionary: {
+        ...common.dictionary,
+        ...en.dictionary,
+      },
+      translations: en.translations,
+    })
+    initialized = true
+  }
+
+  return core.zxcvbn(password)
+}
+
 export function PasswordStrengthMeter({ password, onScoreChange }: PasswordStrengthMeterProps) {
   const [score, setScore] = useState(0)
   const [feedback, setFeedback] = useState('')
@@ -29,32 +53,12 @@ export function PasswordStrengthMeter({ password, onScoreChange }: PasswordStren
 
     let cancelled = false
 
-    async function evaluate() {
-      const [{ zxcvbnAsync, zxcvbnOptions }, common, en] = await Promise.all([
-        import('@zxcvbn-ts/core'),
-        import('@zxcvbn-ts/language-common'),
-        import('@zxcvbn-ts/language-en'),
-      ])
-
-      zxcvbnOptions.setOptions({
-        graphs: common.default.adjacencyGraphs,
-        dictionary: {
-          ...common.default.dictionary,
-          ...en.default.dictionary,
-        },
-        translations: en.default.translations,
-      })
-
-      const result = await zxcvbnAsync(password)
-
+    loadAndCheck(password).then((result) => {
       if (cancelled) return
-
       setScore(result.score)
       setFeedback(result.feedback.warning || result.feedback.suggestions[0] || '')
       onScoreChangeRef.current(result.score)
-    }
-
-    evaluate()
+    })
 
     return () => {
       cancelled = true
