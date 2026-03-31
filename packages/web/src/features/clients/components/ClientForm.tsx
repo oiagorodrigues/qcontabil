@@ -1,9 +1,5 @@
 import { useForm } from '@tanstack/react-form'
-import {
-  clientObjectSchema,
-  CLIENT_STATUSES,
-  CURRENCIES,
-} from '@qcontabil/shared'
+import { clientObjectSchema, CLIENT_STATUSES, CURRENCIES } from '@qcontabil/shared'
 import type { CreateClientInput, ClientDetail, Currency, ClientStatus } from '@qcontabil/shared'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'

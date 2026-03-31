@@ -57,7 +57,10 @@ export class ClientsService {
     })
   }
 
-  async findAll(userId: string, query: ListClientsQuery): Promise<PaginatedResponse<ClientSummary>> {
+  async findAll(
+    userId: string,
+    query: ListClientsQuery,
+  ): Promise<PaginatedResponse<ClientSummary>> {
     const qb = this.clientRepository
       .createQueryBuilder('client')
       .leftJoinAndSelect('client.contacts', 'contact', 'contact.isPrimary = true')

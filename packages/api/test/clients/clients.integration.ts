@@ -2,11 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import type { INestApplication } from '@nestjs/common'
 import { createTestApp } from '../helpers/test-app'
-import {
-  createVerifiedUser,
-  loginAndGetCookies,
-  uniqueEmail,
-} from '../helpers/test-users'
+import { createVerifiedUser, loginAndGetCookies, uniqueEmail } from '../helpers/test-users'
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -21,9 +17,7 @@ function validClient(overrides: Record<string, unknown> = {}) {
     email: 'billing@acme.com',
     currency: 'USD',
     status: 'active',
-    contacts: [
-      { name: 'John Doe', email: 'john@acme.com', isPrimary: true },
-    ],
+    contacts: [{ name: 'John Doe', email: 'john@acme.com', isPrimary: true }],
     ...overrides,
   }
 }
@@ -31,14 +25,10 @@ function validClient(overrides: Record<string, unknown> = {}) {
 async function authedRequest(app: INestApplication, email: string) {
   const { cookies } = await loginAndGetCookies(app, email)
   return {
-    post: (url: string) =>
-      request(app.getHttpServer()).post(url).set('Cookie', cookies),
-    get: (url: string) =>
-      request(app.getHttpServer()).get(url).set('Cookie', cookies),
-    put: (url: string) =>
-      request(app.getHttpServer()).put(url).set('Cookie', cookies),
-    delete: (url: string) =>
-      request(app.getHttpServer()).delete(url).set('Cookie', cookies),
+    post: (url: string) => request(app.getHttpServer()).post(url).set('Cookie', cookies),
+    get: (url: string) => request(app.getHttpServer()).get(url).set('Cookie', cookies),
+    put: (url: string) => request(app.getHttpServer()).put(url).set('Cookie', cookies),
+    delete: (url: string) => request(app.getHttpServer()).delete(url).set('Cookie', cookies),
   }
 }
 
@@ -102,9 +92,7 @@ describe('Clients API (integration)', () => {
       const api = await authedRequest(app, email)
 
       const payload = validClient({
-        contacts: [
-          { name: 'Non-primary', email: 'np@acme.com', isPrimary: false },
-        ],
+        contacts: [{ name: 'Non-primary', email: 'np@acme.com', isPrimary: false }],
       })
 
       const res = await api.post('/api/clients').send(payload)
@@ -130,9 +118,7 @@ describe('Clients API (integration)', () => {
     })
 
     it('401 without auth cookies', async () => {
-      const res = await request(app.getHttpServer())
-        .post('/api/clients')
-        .send(validClient())
+      const res = await request(app.getHttpServer()).post('/api/clients').send(validClient())
 
       expect(res.status).toBe(401)
     })
@@ -172,8 +158,12 @@ describe('Clients API (integration)', () => {
       await createVerifiedUser(app, email)
       const api = await authedRequest(app, email)
 
-      await api.post('/api/clients').send(validClient({ fantasyName: 'UniqueAlpha', company: 'Co A', email: 'a@x.com' }))
-      await api.post('/api/clients').send(validClient({ fantasyName: 'UniqueBeta', company: 'Co B', email: 'b@x.com' }))
+      await api
+        .post('/api/clients')
+        .send(validClient({ fantasyName: 'UniqueAlpha', company: 'Co A', email: 'a@x.com' }))
+      await api
+        .post('/api/clients')
+        .send(validClient({ fantasyName: 'UniqueBeta', company: 'Co B', email: 'b@x.com' }))
 
       const res = await api.get('/api/clients?search=UniqueAlpha')
 
@@ -187,8 +177,22 @@ describe('Clients API (integration)', () => {
       await createVerifiedUser(app, email)
       const api = await authedRequest(app, email)
 
-      await api.post('/api/clients').send(validClient({ fantasyName: 'Active', company: 'Active Co', email: 'act@x.com', status: 'active' }))
-      await api.post('/api/clients').send(validClient({ fantasyName: 'Inactive', company: 'Inactive Co', email: 'inact@x.com', status: 'inactive' }))
+      await api.post('/api/clients').send(
+        validClient({
+          fantasyName: 'Active',
+          company: 'Active Co',
+          email: 'act@x.com',
+          status: 'active',
+        }),
+      )
+      await api.post('/api/clients').send(
+        validClient({
+          fantasyName: 'Inactive',
+          company: 'Inactive Co',
+          email: 'inact@x.com',
+          status: 'inactive',
+        }),
+      )
 
       const res = await api.get('/api/clients?status=inactive')
 
@@ -202,8 +206,12 @@ describe('Clients API (integration)', () => {
       await createVerifiedUser(app, email)
       const api = await authedRequest(app, email)
 
-      await api.post('/api/clients').send(validClient({ fantasyName: 'Aardvark', company: 'A Co', email: 'a@s.com' }))
-      await api.post('/api/clients').send(validClient({ fantasyName: 'Zebra', company: 'Z Co', email: 'z@s.com' }))
+      await api
+        .post('/api/clients')
+        .send(validClient({ fantasyName: 'Aardvark', company: 'A Co', email: 'a@s.com' }))
+      await api
+        .post('/api/clients')
+        .send(validClient({ fantasyName: 'Zebra', company: 'Z Co', email: 'z@s.com' }))
 
       const res = await api.get('/api/clients?sort=fantasyName:desc')
 
@@ -221,8 +229,12 @@ describe('Clients API (integration)', () => {
       const apiA = await authedRequest(app, emailA)
       const apiB = await authedRequest(app, emailB)
 
-      await apiA.post('/api/clients').send(validClient({ fantasyName: 'UserA-Client', company: 'A Co', email: 'ua@x.com' }))
-      await apiB.post('/api/clients').send(validClient({ fantasyName: 'UserB-Client', company: 'B Co', email: 'ub@x.com' }))
+      await apiA
+        .post('/api/clients')
+        .send(validClient({ fantasyName: 'UserA-Client', company: 'A Co', email: 'ua@x.com' }))
+      await apiB
+        .post('/api/clients')
+        .send(validClient({ fantasyName: 'UserB-Client', company: 'B Co', email: 'ub@x.com' }))
 
       const resA = await apiA.get('/api/clients')
       const resB = await apiB.get('/api/clients')
@@ -302,9 +314,7 @@ describe('Clients API (integration)', () => {
         fantasyName: 'Updated Corp',
         company: 'Updated Inc.',
         email: 'updated@acme.com',
-        contacts: [
-          { name: 'New Primary', email: 'newpri@acme.com', isPrimary: true },
-        ],
+        contacts: [{ name: 'New Primary', email: 'newpri@acme.com', isPrimary: true }],
       })
 
       const res = await api.put(`/api/clients/${id}`).send(updated)
@@ -328,7 +338,9 @@ describe('Clients API (integration)', () => {
       const created = await apiOwner.post('/api/clients').send(validClient())
       const id = created.body.id
 
-      const res = await apiOther.put(`/api/clients/${id}`).send(validClient({ fantasyName: 'Hacked' }))
+      const res = await apiOther
+        .put(`/api/clients/${id}`)
+        .send(validClient({ fantasyName: 'Hacked' }))
 
       expect(res.status).toBe(404)
     })

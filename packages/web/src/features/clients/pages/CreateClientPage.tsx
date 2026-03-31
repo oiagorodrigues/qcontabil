@@ -29,7 +29,10 @@ export default function CreateClientPage() {
         </CardHeader>
         <CardContent>
           {serverError && <p className="mb-4 text-sm text-destructive">{serverError}</p>}
-          <ClientForm onSubmit={(data) => mutation.mutate(data)} isSubmitting={mutation.isPending} />
+          <ClientForm
+            onSubmit={(data) => mutation.mutate(data)}
+            isSubmitting={mutation.isPending}
+          />
         </CardContent>
       </Card>
     </div>

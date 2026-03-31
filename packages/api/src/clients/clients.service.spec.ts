@@ -8,7 +8,15 @@ import type { CreateClientInput, UpdateClientInput, ListClientsQuery } from '@qc
 
 type MockRepo<T extends ObjectLiteral> = Pick<
   Repository<T>,
-  'findOne' | 'findOneBy' | 'create' | 'save' | 'remove' | 'createQueryBuilder' | 'delete' | 'findOneByOrFail' | 'update'
+  | 'findOne'
+  | 'findOneBy'
+  | 'create'
+  | 'save'
+  | 'remove'
+  | 'createQueryBuilder'
+  | 'delete'
+  | 'findOneByOrFail'
+  | 'update'
 >
 
 function createMockRepo<T extends ObjectLiteral>(): MockRepo<T> & {
@@ -97,7 +105,13 @@ const createDto: CreateClientInput = {
   currency: 'USD',
   status: 'active',
   contacts: [
-    { name: 'John Doe', email: 'john@acme.com', phone: '+1-555-0101', role: 'CTO', isPrimary: true },
+    {
+      name: 'John Doe',
+      email: 'john@acme.com',
+      phone: '+1-555-0101',
+      role: 'CTO',
+      isPrimary: true,
+    },
     { name: 'Jane Doe', email: 'jane@acme.com', phone: null, role: null, isPrimary: false },
   ],
 }
@@ -113,21 +127,33 @@ describe('ClientsService', () => {
     contactRepo = createMockRepo<Contact>()
 
     mockDataSource = {
-      transaction: vi.fn().mockImplementation(async (cb: (manager: unknown) => Promise<unknown>) => {
-        const manager = {
-          create: vi.fn().mockImplementation((_Entity: unknown, data: Record<string, unknown>) => ({ id: 'new-id', ...data })),
-          save: vi.fn().mockImplementation((_Entity: unknown, data: unknown) => {
-            if (Array.isArray(data)) {
-              return Promise.resolve(data.map((d, i) => ({ id: `contact-${i + 1}`, ...d })))
-            }
-            return Promise.resolve({ id: 'client-1', createdAt: NOW, updatedAt: NOW, ...data as Record<string, unknown> })
-          }),
-          update: vi.fn().mockResolvedValue(undefined),
-          delete: vi.fn().mockResolvedValue(undefined),
-          findOneByOrFail: vi.fn().mockResolvedValue(makeClient()),
-        }
-        return cb(manager)
-      }),
+      transaction: vi
+        .fn()
+        .mockImplementation(async (cb: (manager: unknown) => Promise<unknown>) => {
+          const manager = {
+            create: vi
+              .fn()
+              .mockImplementation((_Entity: unknown, data: Record<string, unknown>) => ({
+                id: 'new-id',
+                ...data,
+              })),
+            save: vi.fn().mockImplementation((_Entity: unknown, data: unknown) => {
+              if (Array.isArray(data)) {
+                return Promise.resolve(data.map((d, i) => ({ id: `contact-${i + 1}`, ...d })))
+              }
+              return Promise.resolve({
+                id: 'client-1',
+                createdAt: NOW,
+                updatedAt: NOW,
+                ...(data as Record<string, unknown>),
+              })
+            }),
+            update: vi.fn().mockResolvedValue(undefined),
+            delete: vi.fn().mockResolvedValue(undefined),
+            findOneByOrFail: vi.fn().mockResolvedValue(makeClient()),
+          }
+          return cb(manager)
+        }),
     }
 
     service = new ClientsService(
@@ -152,16 +178,24 @@ describe('ClientsService', () => {
 
     it('passes userId to the created client entity', async () => {
       let capturedManager: Record<string, ReturnType<typeof vi.fn>> | undefined
-      mockDataSource.transaction.mockImplementation(async (cb: (m: unknown) => Promise<unknown>) => {
-        capturedManager = {
-          create: vi.fn().mockImplementation((_E: unknown, data: Record<string, unknown>) => ({ id: 'c-1', createdAt: NOW, updatedAt: NOW, ...data })),
-          save: vi.fn().mockImplementation((_E: unknown, data: unknown) => {
-            if (Array.isArray(data)) return Promise.resolve(data.map((d, i) => ({ id: `ct-${i}`, ...d })))
-            return Promise.resolve(data)
-          }),
-        }
-        return cb(capturedManager)
-      })
+      mockDataSource.transaction.mockImplementation(
+        async (cb: (m: unknown) => Promise<unknown>) => {
+          capturedManager = {
+            create: vi.fn().mockImplementation((_E: unknown, data: Record<string, unknown>) => ({
+              id: 'c-1',
+              createdAt: NOW,
+              updatedAt: NOW,
+              ...data,
+            })),
+            save: vi.fn().mockImplementation((_E: unknown, data: unknown) => {
+              if (Array.isArray(data))
+                return Promise.resolve(data.map((d, i) => ({ id: `ct-${i}`, ...d })))
+              return Promise.resolve(data)
+            }),
+          }
+          return cb(capturedManager)
+        },
+      )
 
       await service.create('user-1', createDto)
 
@@ -231,7 +265,9 @@ describe('ClientsService', () => {
 
       await service.findAll('user-1', { ...baseQuery, country: 'United States' })
 
-      expect(qb.andWhere).toHaveBeenCalledWith('client.country = :country', { country: 'United States' })
+      expect(qb.andWhere).toHaveBeenCalledWith('client.country = :country', {
+        country: 'United States',
+      })
     })
 
     it('applies custom sort', async () => {
@@ -313,19 +349,25 @@ describe('ClientsService', () => {
     it('updates client, deletes old contacts, creates new contacts in a transaction', async () => {
       clientRepo.findOneBy.mockResolvedValue(makeClient())
       let capturedManager: Record<string, ReturnType<typeof vi.fn>> | undefined
-      mockDataSource.transaction.mockImplementation(async (cb: (m: unknown) => Promise<unknown>) => {
-        capturedManager = {
-          update: vi.fn().mockResolvedValue(undefined),
-          delete: vi.fn().mockResolvedValue(undefined),
-          create: vi.fn().mockImplementation((_E: unknown, data: Record<string, unknown>) => ({ id: 'new-id', ...data })),
-          save: vi.fn().mockImplementation((_E: unknown, data: unknown) => {
-            if (Array.isArray(data)) return Promise.resolve(data.map((d, i) => ({ id: `ct-${i}`, ...d })))
-            return Promise.resolve(data)
-          }),
-          findOneByOrFail: vi.fn().mockResolvedValue(makeClient({ fantasyName: 'Acme Updated' })),
-        }
-        return cb(capturedManager)
-      })
+      mockDataSource.transaction.mockImplementation(
+        async (cb: (m: unknown) => Promise<unknown>) => {
+          capturedManager = {
+            update: vi.fn().mockResolvedValue(undefined),
+            delete: vi.fn().mockResolvedValue(undefined),
+            create: vi.fn().mockImplementation((_E: unknown, data: Record<string, unknown>) => ({
+              id: 'new-id',
+              ...data,
+            })),
+            save: vi.fn().mockImplementation((_E: unknown, data: unknown) => {
+              if (Array.isArray(data))
+                return Promise.resolve(data.map((d, i) => ({ id: `ct-${i}`, ...d })))
+              return Promise.resolve(data)
+            }),
+            findOneByOrFail: vi.fn().mockResolvedValue(makeClient({ fantasyName: 'Acme Updated' })),
+          }
+          return cb(capturedManager)
+        },
+      )
 
       const result = await service.update('user-1', 'client-1', updateDto)
 
@@ -340,7 +382,9 @@ describe('ClientsService', () => {
     it('throws NotFoundException for wrong user', async () => {
       clientRepo.findOneBy.mockResolvedValue(null)
 
-      await expect(service.update('other-user', 'client-1', updateDto)).rejects.toThrow(NotFoundException)
+      await expect(service.update('other-user', 'client-1', updateDto)).rejects.toThrow(
+        NotFoundException,
+      )
     })
   })
 

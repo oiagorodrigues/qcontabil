@@ -42,15 +42,23 @@ export default function ClientsListPage() {
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null)
 
   const [sortField, sortDir] = sortParam.split(':')
-  const sorting: SortingState = sortField
-    ? [{ id: sortField, desc: sortDir === 'desc' }]
-    : []
+  const sorting: SortingState = sortField ? [{ id: sortField, desc: sortDir === 'desc' }] : []
   const pagination: PaginationState = { pageIndex: page - 1, pageSize: limit }
 
   const { data, isLoading } = useQuery({
-    queryKey: ['clients', { search, status: statusFilter, country: countryFilter, sort: sortParam, page, limit }],
+    queryKey: [
+      'clients',
+      { search, status: statusFilter, country: countryFilter, sort: sortParam, page, limit },
+    ],
     queryFn: () =>
-      clientsApi.list({ search: search || undefined, status: statusFilter || undefined, country: countryFilter || undefined, sort: sortParam, page, limit }),
+      clientsApi.list({
+        search: search || undefined,
+        status: statusFilter || undefined,
+        country: countryFilter || undefined,
+        sort: sortParam,
+        page,
+        limit,
+      }),
     select: (res) => res.data,
   })
 
@@ -82,8 +90,7 @@ export default function ClientsListPage() {
       clearTimeout(timeout)
       timeout = setTimeout(() => updateParams({ search: value || undefined }), 300)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
+  }, [searchParams]) // updateParams depends on searchParams
 
   const columns: ColumnDef<ClientSummary, unknown>[] = [
     {
@@ -202,7 +209,9 @@ export default function ClientsListPage() {
             />
             <Select
               value={statusFilter}
-              onValueChange={(value) => updateParams({ status: value === 'all' ? undefined : value })}
+              onValueChange={(value) =>
+                updateParams({ status: value === 'all' ? undefined : value })
+              }
             >
               <SelectTrigger className="w-[150px]">
                 <SelectValue placeholder="All statuses" />

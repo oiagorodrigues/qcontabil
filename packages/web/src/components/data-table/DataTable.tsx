@@ -1,9 +1,5 @@
 import type { ReactNode } from 'react'
-import {
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table'
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import type { ColumnDef, OnChangeFn, PaginationState, SortingState } from '@tanstack/react-table'
 import {
   Table,

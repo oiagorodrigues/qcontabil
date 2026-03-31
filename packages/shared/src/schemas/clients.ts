@@ -50,7 +50,10 @@ export const listClientsQuerySchema = z.object({
   country: z.string().optional(),
   sort: z
     .string()
-    .regex(/^(fantasyName|company|country|currency|status|createdAt):(asc|desc)$/, 'Invalid sort format')
+    .regex(
+      /^(fantasyName|company|country|currency|status|createdAt):(asc|desc)$/,
+      'Invalid sort format',
+    )
     .optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(10),

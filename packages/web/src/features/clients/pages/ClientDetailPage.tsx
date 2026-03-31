@@ -4,7 +4,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Mail, Phone, Globe, MapPin, Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { Loading } from '@/components/Loading'
 import { clientsApi } from '../api/clients.api'
 import { ClientStatusBadge } from '../components/ClientStatusBadge'
@@ -112,11 +111,16 @@ export default function ClientDetailPage() {
         <CardContent>
           <div className="space-y-3">
             {client.contacts.map((contact) => (
-              <div key={contact.id} className="flex items-start justify-between rounded-md border p-3">
+              <div
+                key={contact.id}
+                className="flex items-start justify-between rounded-md border p-3"
+              >
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-medium">{contact.name}</span>
-                    {contact.isPrimary && <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />}
+                    {contact.isPrimary && (
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    )}
                   </div>
                   <p className="text-muted-foreground text-sm">{contact.email}</p>
                   {contact.role && <p className="text-muted-foreground text-xs">{contact.role}</p>}

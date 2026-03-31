@@ -11,11 +11,7 @@ import {
   HttpStatus,
   ParseUUIDPipe,
 } from '@nestjs/common'
-import {
-  createClientSchema,
-  updateClientSchema,
-  listClientsQuerySchema,
-} from '@qcontabil/shared'
+import { createClientSchema, updateClientSchema, listClientsQuerySchema } from '@qcontabil/shared'
 import type { CreateClientInput, UpdateClientInput, ListClientsQuery } from '@qcontabil/shared'
 import { ClientsService } from './clients.service'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
