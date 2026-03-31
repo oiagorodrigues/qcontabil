@@ -31,10 +31,10 @@ export class Client {
   @Column({ length: 255, comment: 'Primary email of the client company' })
   email!: string
 
-  @Column({ length: 50, nullable: true, comment: 'Company phone number' })
+  @Column({ type: 'varchar', length: 50, nullable: true, comment: 'Company phone number' })
   phone!: string | null
 
-  @Column({ length: 255, nullable: true, comment: 'Company website URL' })
+  @Column({ type: 'varchar', length: 255, nullable: true, comment: 'Company website URL' })
   website!: string | null
 
   @Column({ type: 'text', nullable: true, comment: 'Full address (free text)' })
