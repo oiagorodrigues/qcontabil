@@ -10,11 +10,13 @@ export async function setup() {
   const { RefreshToken } = await import('../../src/auth/entities/refresh-token.entity')
   const { EmailToken } = await import('../../src/auth/entities/email-token.entity')
   const { Company } = await import('../../src/company/company.entity')
+  const { Client } = await import('../../src/clients/entities/client.entity')
+  const { Contact } = await import('../../src/clients/entities/contact.entity')
 
   const ds = new DataSource({
     type: 'postgres',
     url: dbUrl,
-    entities: [User, RefreshToken, EmailToken, Company],
+    entities: [User, RefreshToken, EmailToken, Company, Client, Contact],
     synchronize: true,
   })
 

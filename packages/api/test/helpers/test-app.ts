@@ -21,6 +21,7 @@ import { AuthController } from '../../src/auth/auth.controller'
 import { MailModule } from '../../src/mail/mail.module'
 import { HealthModule } from '../../src/health/health.module'
 import { CompanyModule } from '../../src/company/company.module'
+import { ClientsModule } from '../../src/clients/clients.module'
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ class TestAuthModule {}
     HealthModule,
     TestAuthModule,
     CompanyModule,
+    ClientsModule,
   ],
 })
 class TestAppModule {}
