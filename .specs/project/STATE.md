@@ -87,6 +87,14 @@ Múltiplos workers rodando `synchronize: true` em paralelo no mesmo DB causam `d
 
 Git worktrees nao copiam arquivos gitignored (`.env`). **Criar symlink do `.env` do repo principal para o worktree:** `ln -s /path/to/repo/.env /path/to/worktree/.env`.
 
+### Zod .refine() + TanStack Form: separar base schema do refined
+
+`z.object({...}).refine()` retorna `ZodEffects` — tipo diferente de `ZodObject`. TanStack Form espera `StandardSchemaV1` compativel com `defaultValues`. **Exportar `clientObjectSchema` (base) pra frontend form e `createClientSchema` (com refine) pro backend pipe.**
+
+### TanStack Form v1.28: FormApi generico demais pra props
+
+`FormApi<TFormData>` precisa de 11+ type args na v1.28. Quando sub-componentes recebem `form` como prop, usar `form: any` com eslint-disable e tipar callbacks explicitamente (`field: any`, `_: any, index: number`).
+
 ### Integration tests: dados devem ser unicos por teste
 
 Testes de integracao rodam em paralelo. Dados fixos (ex: CNPJ hardcoded) causam conflitos entre testes. **Gerar dados unicos por teste** (mesma abordagem do `uniqueEmail()` para users).
