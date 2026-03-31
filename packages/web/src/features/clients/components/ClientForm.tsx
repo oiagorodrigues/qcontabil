@@ -16,6 +16,13 @@ import { Separator } from '@/components/ui/separator'
 import { getErrorMessage } from '@/lib/utils'
 import { ContactsFieldArray } from './ContactsFieldArray'
 
+type ContactFieldPath =
+  | `contacts[${number}].name`
+  | `contacts[${number}].email`
+  | `contacts[${number}].phone`
+  | `contacts[${number}].role`
+  | `contacts[${number}].isPrimary`
+
 interface ClientFormProps {
   initialData?: ClientDetail
   onSubmit: (data: CreateClientInput) => void
@@ -268,7 +275,31 @@ export function ClientForm({ initialData, onSubmit, isSubmitting }: ClientFormPr
       </div>
 
       <div>
-        <ContactsFieldArray form={form} />
+        <form.Field name="contacts" mode="array">
+          {(contactsField) => (
+            <ContactsFieldArray
+              contacts={{
+                value: contactsField.state.value,
+                meta: contactsField.state.meta,
+                pushValue: contactsField.pushValue,
+                removeValue: contactsField.removeValue,
+              }}
+              renderField={(name, children) => (
+                <form.Field name={name as ContactFieldPath} key={name}>
+                  {(field) =>
+                    children({
+                      value: field.state.value as string | boolean,
+                      meta: field.state.meta,
+                      handleBlur: field.handleBlur,
+                      handleChange: field.handleChange as (value: string | boolean) => void,
+                    })
+                  }
+                </form.Field>
+              )}
+              setFieldValue={(name, value) => form.setFieldValue(name as ContactFieldPath, value)}
+            />
+          )}
+        </form.Field>
       </div>
 
       <div className="flex justify-end gap-2">
