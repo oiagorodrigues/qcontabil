@@ -43,11 +43,11 @@
 
 ### Features
 
-**CRM Basico** - PLANNED
+**CRM Basico** - IN PROGRESS
 
-- CRUD de clientes (nome, empresa, pais, email, moeda preferida)
-- Listagem com busca/filtro
-- Detalhe do cliente com historico de invoices
+- CRUD de clientes (empresa + contatos, status, moeda, pais)
+- Listagem paginada com busca/filtro (10/page)
+- Detalhe do cliente com secao invoices vazia (preparada para M2)
 
 **Geracao de Invoices** - PLANNED
 
@@ -57,6 +57,8 @@
 - Numeracao sequencial automatica
 - Geracao de PDF
 - Status do invoice (draft, sent, paid)
+- **Nota**: Reavaliar hard delete de clientes → soft delete (cliente com invoices nao pode ser deletado)
+- **Nota**: Detalhe do cliente tera historico de invoices real (substituir secao vazia)
 
 ---
 
