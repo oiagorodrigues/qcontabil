@@ -43,3 +43,27 @@ export { isValidCnpj } from './validators/cnpj'
 export { createCompanySchema, updateCompanySchema } from './schemas/company'
 
 export type { CreateCompanyInput, UpdateCompanyInput } from './schemas/company'
+
+// Client schemas, enums, and types
+export {
+  CLIENT_STATUSES,
+  CURRENCIES,
+  clientStatusSchema,
+  currencySchema,
+  contactSchema,
+  clientObjectSchema,
+  createClientSchema,
+  updateClientSchema,
+  listClientsQuerySchema,
+} from './schemas/clients'
+
+export type {
+  ContactInput,
+  CreateClientInput,
+  UpdateClientInput,
+  ListClientsQuery,
+  ClientStatus,
+  Currency,
+} from './schemas/clients'
+
+export type { ClientSummary, ClientDetail, ContactResponse } from './types/clients'

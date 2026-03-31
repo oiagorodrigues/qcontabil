@@ -22,6 +22,16 @@
 
 14. [NestJS @Body() Pipe Scoping vs @UsePipes()](references/backend/nestjs-body-pipe-scoping.md)
 
+## Frontend (2026-03-31)
+
+16. [Zod .refine() and TanStack Form Incompatibility](references/frontend/zod-refine-tanstack-form.md)
+17. [TanStack Form v1.28: Passing Form to Sub-Components](references/frontend/tanstack-form-complex-generics.md)
+18. [Generic DataTable with TanStack Table + shadcn/ui](references/frontend/tanstack-table-server-side.md)
+
+## Backend (2026-03-31)
+
+19. [TypeORM Nullable Varchar Columns with SWC](references/backend/typeorm-nullable-varchar-swc.md)
+
 ## Testing (2026-03-29)
 
 13. [Vitest Parallel Test Isolation with Real Database](references/testing/vitest-parallel-test-isolation.md)

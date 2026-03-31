@@ -42,6 +42,14 @@ packages/api/src/
 │       ├── user.entity.ts
 │       ├── refresh-token.entity.ts
 │       └── email-token.entity.ts
+├── clients/                        # Clients module (CRM)
+│   ├── clients.module.ts
+│   ├── clients.controller.ts
+│   ├── clients.service.ts
+│   ├── clients.service.spec.ts
+│   └── entities/
+│       ├── client.entity.ts
+│       └── contact.entity.ts
 ├── company/                        # Company module
 │   ├── company.module.ts
 │   ├── company.controller.ts
@@ -99,6 +107,10 @@ packages/web/src/
 │       └── stores/                 # Zustand stores (se necessario)
 ├── components/                     # Shared UI
 │   ├── ui/                         # shadcn/ui components
+│   ├── data-table/                 # Generic DataTable (TanStack Table + shadcn)
+│   │   ├── DataTable.tsx           # Main table with server-side pagination/sorting
+│   │   ├── DataTableColumnHeader.tsx # Sortable column header
+│   │   └── DataTablePagination.tsx # Pagination controls
 │   └── [shared components]
 ├── lib/                            # Utilities
 │   └── http-client.ts              # HTTP client agnostico (wrapper axios)
@@ -117,6 +129,8 @@ packages/web/src/
 | **TanStack Query pra server state** | Cache, refetch, mutations — gerencia lifecycle do request |
 | **TanStack Form + Zod** | Forms headless com validacao tipada (schemas do shared) |
 | **shadcn/ui + Tailwind v4** | UI components copiados pro repo + utility CSS |
+| **DataTable generico** | TanStack Table (headless) + shadcn table. Server-side pagination/sorting via props. Reusavel em qualquer listagem |
+| **TanStack Table** | Headless table engine — column defs, sorting state, pagination state gerenciados pelo consumer |
 
 ### Convencoes
 
