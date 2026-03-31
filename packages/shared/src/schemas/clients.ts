@@ -14,28 +14,33 @@ export const contactSchema = z.object({
   isPrimary: z.boolean(),
 })
 
-export const createClientSchema = z
-  .object({
-    fantasyName: z.string().min(1, 'Fantasy name is required').max(200),
-    company: z.string().min(1, 'Company name is required').max(200),
-    country: z.string().min(1, 'Country is required').max(100),
-    countryCode: z
-      .string()
-      .length(2, 'Country code must be 2 characters')
-      .transform((c) => c.toUpperCase()),
-    email: z.email({ error: 'Invalid email address' }).transform((e) => e.toLowerCase().trim()),
-    phone: z.string().max(50).optional(),
-    website: z.string().max(255).optional(),
-    address: z.string().optional(),
-    notes: z.string().optional(),
-    currency: currencySchema,
-    status: clientStatusSchema.default('active'),
-    contacts: z.array(contactSchema).min(1, 'At least one contact is required'),
-  })
-  .refine((data) => data.contacts.filter((c) => c.isPrimary).length === 1, {
+/** Base client object schema — used by frontend form validation */
+export const clientObjectSchema = z.object({
+  fantasyName: z.string().min(1, 'Fantasy name is required').max(200),
+  company: z.string().min(1, 'Company name is required').max(200),
+  country: z.string().min(1, 'Country is required').max(100),
+  countryCode: z
+    .string()
+    .length(2, 'Country code must be 2 characters')
+    .transform((c) => c.toUpperCase()),
+  email: z.email({ error: 'Invalid email address' }).transform((e) => e.toLowerCase().trim()),
+  phone: z.string().max(50).optional(),
+  website: z.string().max(255).optional(),
+  address: z.string().optional(),
+  notes: z.string().optional(),
+  currency: currencySchema,
+  status: clientStatusSchema,
+  contacts: z.array(contactSchema).min(1, 'At least one contact is required'),
+})
+
+/** Full create schema with primary contact refinement — used by backend validation */
+export const createClientSchema = clientObjectSchema.refine(
+  (data) => data.contacts.filter((c) => c.isPrimary).length === 1,
+  {
     message: 'Exactly one contact must be marked as primary',
     path: ['contacts'],
-  })
+  },
+)
 
 export const updateClientSchema = createClientSchema
 

@@ -51,6 +51,7 @@ export {
   clientStatusSchema,
   currencySchema,
   contactSchema,
+  clientObjectSchema,
   createClientSchema,
   updateClientSchema,
   listClientsQuerySchema,

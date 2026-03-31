@@ -9,6 +9,10 @@ const VerifyEmailPage = lazy(() => import('@/features/auth/pages/VerifyEmailPage
 const ForgotPasswordPage = lazy(() => import('@/features/auth/pages/ForgotPasswordPage'))
 const ResetPasswordPage = lazy(() => import('@/features/auth/pages/ResetPasswordPage'))
 const CompanyPage = lazy(() => import('@/features/company/pages/CompanyPage'))
+const ClientsListPage = lazy(() => import('@/features/clients/pages/ClientsListPage'))
+const CreateClientPage = lazy(() => import('@/features/clients/pages/CreateClientPage'))
+const ClientDetailPage = lazy(() => import('@/features/clients/pages/ClientDetailPage'))
+const EditClientPage = lazy(() => import('@/features/clients/pages/EditClientPage'))
 
 function DashboardPage() {
   return <h1>Dashboard</h1>
@@ -27,6 +31,10 @@ export function AppRoutes() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/empresa" element={<CompanyPage />} />
+          <Route path="/clients" element={<ClientsListPage />} />
+          <Route path="/clients/new" element={<CreateClientPage />} />
+          <Route path="/clients/:id" element={<ClientDetailPage />} />
+          <Route path="/clients/:id/edit" element={<EditClientPage />} />
         </Route>
       </Routes>
     </Suspense>
