@@ -34,6 +34,7 @@ export function validCompanyData(overrides?: Partial<CreateCompanyInput>): Creat
     city: 'Sao Paulo',
     state: BrazilianState.SP,
     country: 'Brazil',
+    invoicePrefix: 'INV',
     ...overrides,
   }
 }

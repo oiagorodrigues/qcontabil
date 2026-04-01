@@ -12,11 +12,14 @@ export async function setup() {
   const { Company } = await import('../../src/company/company.entity')
   const { Client } = await import('../../src/clients/entities/client.entity')
   const { Contact } = await import('../../src/clients/entities/contact.entity')
+  const { Invoice } = await import('../../src/invoices/entities/invoice.entity')
+  const { InvoiceLineItem } = await import('../../src/invoices/entities/invoice-line-item.entity')
+  const { InvoiceExtra } = await import('../../src/invoices/entities/invoice-extra.entity')
 
   const ds = new DataSource({
     type: 'postgres',
     url: dbUrl,
-    entities: [User, RefreshToken, EmailToken, Company, Client, Contact],
+    entities: [User, RefreshToken, EmailToken, Company, Client, Contact, Invoice, InvoiceLineItem, InvoiceExtra],
     synchronize: true,
   })
 
