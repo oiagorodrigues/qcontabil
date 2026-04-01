@@ -43,7 +43,7 @@
 
 ### Features
 
-**CRM Basico** - IN PROGRESS
+**CRM Basico** - COMPLETE
 
 - CRUD de clientes (empresa + contatos, status, moeda, pais)
 - Listagem paginada com busca/filtro (10/page)
