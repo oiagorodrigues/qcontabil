@@ -26,6 +26,13 @@ export const createCompanySchema = z.object({
   state: z.nativeEnum(BrazilianState, { error: 'Estado invalido' }),
   country: z.string().min(1, 'Pais e obrigatorio').max(100),
 
+  // Prefixo de invoice
+  invoicePrefix: z
+    .string()
+    .min(1, 'Prefixo e obrigatorio')
+    .max(10)
+    .transform((s) => s.toUpperCase()),
+
   // Dados bancarios (opcionais)
   bankBeneficiaryName: z.string().max(200).optional(),
   bankName: z.string().max(100).optional(),

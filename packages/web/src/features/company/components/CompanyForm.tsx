@@ -71,6 +71,7 @@ export function CompanyForm({ initialData, onSubmit, isSubmitting }: CompanyForm
       bankAccountType: initialData?.bankAccountType || ('' as AccountType),
       bankAccountNumber: initialData?.bankAccountNumber || '',
       bankSwiftCode: initialData?.bankSwiftCode || '',
+      invoicePrefix: initialData?.invoicePrefix || 'INV',
     } as CreateCompanyInput,
     validators: {
       onSubmit: createCompanySchema,
@@ -414,6 +415,32 @@ export function CompanyForm({ initialData, onSubmit, isSubmitting }: CompanyForm
             )}
           </form.Field>
         </div>
+      </section>
+
+      {/* Invoice Settings */}
+      <section className="space-y-4">
+        <h3 className="text-lg font-semibold">Configuracoes de Invoice</h3>
+
+        <form.Field name="invoicePrefix">
+          {(field) => (
+            <div className="space-y-2">
+              <Label htmlFor="invoicePrefix">Prefixo do Invoice</Label>
+              <Input
+                id="invoicePrefix"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value.toUpperCase())}
+                placeholder="INV"
+                maxLength={10}
+                className="max-w-32"
+              />
+              <p className="text-xs text-muted-foreground">
+                Gera numeros como {field.state.value || 'INV'}-0001
+              </p>
+              <FieldError errors={field.state.meta.errors} />
+            </div>
+          )}
+        </form.Field>
       </section>
 
       <Button type="submit" className="w-full" disabled={isSubmitting}>

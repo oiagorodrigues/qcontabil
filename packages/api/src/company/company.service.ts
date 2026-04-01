@@ -70,6 +70,7 @@ export class CompanyService {
       bankAccountType: company.bankAccountType,
       bankAccountNumber: company.bankAccountNumber,
       bankSwiftCode: company.bankSwiftCode,
+      invoicePrefix: company.invoicePrefix,
       createdAt: company.createdAt.toISOString(),
       updatedAt: company.updatedAt.toISOString(),
     }

@@ -131,6 +131,15 @@ export class Company {
   })
   bankSwiftCode!: string | null
 
+  @Column({
+    name: 'invoice_prefix',
+    type: 'varchar',
+    length: 10,
+    default: 'INV',
+    comment: 'Prefix for invoice numbers (e.g. INV, ACME)',
+  })
+  invoicePrefix!: string
+
   @CreateDateColumn({ name: 'created_at', comment: 'Data de criacao do registro' })
   createdAt!: Date
 

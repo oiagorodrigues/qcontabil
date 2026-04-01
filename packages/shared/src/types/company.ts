@@ -61,6 +61,7 @@ export interface CompanyResponse {
   bankAccountType: AccountType | null
   bankAccountNumber: string | null
   bankSwiftCode: string | null
+  invoicePrefix: string
   createdAt: string
   updatedAt: string
 }
