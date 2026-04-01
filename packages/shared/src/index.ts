@@ -67,3 +67,34 @@ export type {
 } from './schemas/clients'
 
 export type { ClientSummary, ClientDetail, ContactResponse } from './types/clients'
+
+// Invoice schemas, enums, and types
+export {
+  INVOICE_STATUSES,
+  invoiceStatusSchema,
+  invoiceLineItemSchema,
+  invoiceExtraSchema,
+  invoiceObjectSchema,
+  createInvoiceSchema,
+  updateInvoiceSchema,
+  updateInvoiceStatusSchema,
+  listInvoicesQuerySchema,
+} from './schemas/invoices'
+
+export type {
+  InvoiceStatus,
+  InvoiceLineItemInput,
+  InvoiceExtraInput,
+  CreateInvoiceInput,
+  UpdateInvoiceInput,
+  UpdateInvoiceStatusInput,
+  ListInvoicesQuery,
+} from './schemas/invoices'
+
+export type {
+  InvoiceLineItemResponse,
+  InvoiceExtraResponse,
+  InvoiceSummary,
+  InvoiceDetail,
+  InvoiceClientSummary,
+} from './types/invoices'
