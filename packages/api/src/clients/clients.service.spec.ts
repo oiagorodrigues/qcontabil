@@ -156,10 +156,15 @@ describe('ClientsService', () => {
         }),
     }
 
+    const mockInvoicesService = {
+      countByClient: vi.fn().mockResolvedValue(0),
+    }
+
     service = new ClientsService(
       clientRepo as unknown as Repository<Client>,
       contactRepo as unknown as Repository<Contact>,
       mockDataSource as unknown as import('typeorm').DataSource,
+      mockInvoicesService as unknown as import('../invoices/invoices.service').InvoicesService,
     )
   })
 
