@@ -6,6 +6,10 @@
 - **ORM:** TypeORM
 - **State management:** Zustand
 - **Provedor de pagamento:** Tipalti como target, pesquisar alternativas no M3
+- **PDF generation:** PDFKit server-side (leve, sem browser headless)
+- **Invoice numbers:** Prefixo customizável via Company.invoicePrefix (default "INV"), format `{PREFIX}-{0001}`
+- **Invoice computed fields:** Híbrido — getters pra line items, persistido pra invoice totals
+- **Client delete protection:** Block delete + oferecer inativar (sem soft delete)
 
 ## Blockers
 

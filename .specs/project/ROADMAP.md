@@ -1,7 +1,7 @@
 # Roadmap
 
-**Current Milestone:** M1 — Foundation
-**Status:** In Progress
+**Current Milestone:** M2 — CRM + Invoicing
+**Status:** Complete
 
 ---
 
@@ -49,16 +49,17 @@
 - Listagem paginada com busca/filtro (10/page)
 - Detalhe do cliente com secao invoices vazia (preparada para M2)
 
-**Geracao de Invoices** - PLANNED
+**Geracao de Invoices** - COMPLETE
 
 - Criar invoice vinculado a cliente
 - Servico principal (descricao, horas, rate, total)
 - Campos de rendas extras (bonus, reembolsos, etc.)
-- Numeracao sequencial automatica
-- Geracao de PDF
-- Status do invoice (draft, sent, paid)
-- **Nota**: Reavaliar hard delete de clientes → soft delete (cliente com invoices nao pode ser deletado)
-- **Nota**: Detalhe do cliente tera historico de invoices real (substituir secao vazia)
+- Numeracao sequencial com prefixo customizavel ({PREFIX}-0001)
+- Geracao de PDF (PDFKit server-side)
+- Status do invoice (draft, sent, paid, cancelled)
+- Block delete de clientes com invoices (oferecer inativar)
+- Detalhe do cliente com historico de invoices real
+- Duplicar invoice (P2)
 
 ---
 
@@ -75,6 +76,13 @@
 - Envio automatico do invoice no dia configurado
 - Rastreamento de status (enviado, recebido, pago)
 - Notificacoes (email ou in-app)
+
+**Invoice Templates** - PLANNED
+
+- Templates de invoice pre-definidos (layouts diferentes)
+- Criar template customizado do zero
+- Selecionar template ao criar/editar invoice
+- Preview do template antes de aplicar
 
 **Dashboard** - PLANNED
 
