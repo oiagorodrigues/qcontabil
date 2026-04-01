@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, ConflictException, Inject, forwardRef } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DataSource, Repository } from 'typeorm'
 import type {
@@ -12,6 +12,7 @@ import type {
 } from '@qcontabil/shared'
 import { Client } from './entities/client.entity'
 import { Contact } from './entities/contact.entity'
+import { InvoicesService } from '../invoices/invoices.service'
 
 @Injectable()
 export class ClientsService {
@@ -21,6 +22,8 @@ export class ClientsService {
     @InjectRepository(Contact)
     private readonly contactRepository: Repository<Contact>,
     private readonly dataSource: DataSource,
+    @Inject(forwardRef(() => InvoicesService))
+    private readonly invoicesService: InvoicesService,
   ) {}
 
   async create(userId: string, dto: CreateClientInput): Promise<ClientDetail> {
@@ -156,6 +159,13 @@ export class ClientsService {
     const client = await this.clientRepository.findOneBy({ id: clientId, userId })
     if (!client) {
       throw new NotFoundException('Client not found')
+    }
+
+    const invoiceCount = await this.invoicesService.countByClient(userId, clientId)
+    if (invoiceCount > 0) {
+      throw new ConflictException(
+        'Cannot delete client with existing invoices. Change status to inactive instead.',
+      )
     }
 
     await this.clientRepository.remove(client)
