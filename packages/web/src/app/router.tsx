@@ -13,6 +13,10 @@ const ClientsListPage = lazy(() => import('@/features/clients/pages/ClientsListP
 const CreateClientPage = lazy(() => import('@/features/clients/pages/CreateClientPage'))
 const ClientDetailPage = lazy(() => import('@/features/clients/pages/ClientDetailPage'))
 const EditClientPage = lazy(() => import('@/features/clients/pages/EditClientPage'))
+const InvoicesListPage = lazy(() => import('@/features/invoices/pages/InvoicesListPage'))
+const CreateInvoicePage = lazy(() => import('@/features/invoices/pages/CreateInvoicePage'))
+const InvoiceDetailPage = lazy(() => import('@/features/invoices/pages/InvoiceDetailPage'))
+const EditInvoicePage = lazy(() => import('@/features/invoices/pages/EditInvoicePage'))
 
 function DashboardPage() {
   return <h1>Dashboard</h1>
@@ -35,6 +39,10 @@ export function AppRoutes() {
           <Route path="/clients/new" element={<CreateClientPage />} />
           <Route path="/clients/:id" element={<ClientDetailPage />} />
           <Route path="/clients/:id/edit" element={<EditClientPage />} />
+          <Route path="/invoices" element={<InvoicesListPage />} />
+          <Route path="/invoices/new" element={<CreateInvoicePage />} />
+          <Route path="/invoices/:id" element={<InvoiceDetailPage />} />
+          <Route path="/invoices/:id/edit" element={<EditInvoicePage />} />
         </Route>
       </Routes>
     </Suspense>

@@ -6,18 +6,29 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Loading } from '@/components/Loading'
 import { clientsApi } from '../api/clients.api'
+import { invoicesApi } from '@/features/invoices/api/invoices.api'
 import { ClientStatusBadge } from '../components/ClientStatusBadge'
+import { InvoiceStatusBadge } from '@/features/invoices/components/InvoiceStatusBadge'
 import { DeleteClientDialog } from '../components/DeleteClientDialog'
+import type { AxiosError } from 'axios'
 
 export default function ClientDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [showDelete, setShowDelete] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
   const { data: client, isLoading } = useQuery({
     queryKey: ['clients', id],
     queryFn: () => clientsApi.get(id!),
+    select: (res) => res.data,
+    enabled: !!id,
+  })
+
+  const { data: clientInvoices } = useQuery({
+    queryKey: ['invoices', 'by-client', id],
+    queryFn: () => invoicesApi.listByClient(id!),
     select: (res) => res.data,
     enabled: !!id,
   })
@@ -27,6 +38,15 @@ export default function ClientDetailPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['clients'] })
       navigate('/clients')
+    },
+    onError: (err: AxiosError<{ message?: string }>) => {
+      setShowDelete(false)
+      if (err.response?.status === 409) {
+        setDeleteError(
+          err.response.data?.message ||
+            'Cannot delete client with existing invoices. Change status to inactive instead.',
+        )
+      }
     },
   })
 
@@ -135,13 +155,60 @@ export default function ClientDetailPage() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="flex-row items-center justify-between">
           <CardTitle>Invoices</CardTitle>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate(`/invoices/new?clientId=${id}`)}
+          >
+            Create invoice
+          </Button>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground text-center py-4">No invoices yet</p>
+          {!clientInvoices || clientInvoices.length === 0 ? (
+            <p className="text-muted-foreground text-center py-4">No invoices yet</p>
+          ) : (
+            <div className="space-y-2">
+              {clientInvoices.map((inv) => (
+                <div
+                  key={inv.id}
+                  className="flex items-center justify-between rounded-md border p-3 cursor-pointer hover:bg-muted/50"
+                  onClick={() => navigate(`/invoices/${inv.id}`)}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-medium tabular-nums">{inv.invoiceNumber}</span>
+                    <InvoiceStatusBadge status={inv.status} />
+                  </div>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <span>{inv.issueDate}</span>
+                    <span className="font-medium tabular-nums text-foreground">
+                      {new Intl.NumberFormat('en-US', { style: 'currency', currency: inv.currency }).format(inv.total)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
+
+      {deleteError && (
+        <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4">
+          <p className="text-sm text-destructive">{deleteError}</p>
+          <Button
+            variant="link"
+            size="sm"
+            className="mt-1 h-auto p-0 text-destructive"
+            onClick={() => {
+              setDeleteError(null)
+              navigate(`/clients/${id}/edit`)
+            }}
+          >
+            Change status to inactive
+          </Button>
+        </div>
+      )}
 
       <DeleteClientDialog
         open={showDelete}
