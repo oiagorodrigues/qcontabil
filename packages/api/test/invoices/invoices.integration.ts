@@ -272,6 +272,41 @@ describe('Invoices API (integration)', () => {
       expect(res.status).toBe(200)
       expect(res.headers['content-type']).toBe('application/pdf')
     })
+
+    it('returns Content-Type: application/pdf for modern template invoice', async () => {
+      const { api, clientId } = await setupUserWithCompanyAndClient(app, 'inv-pdf-modern')
+
+      const created = await api
+        .post('/api/invoices')
+        .send(validInvoice(clientId, { template: 'modern' }))
+
+      const res = await api.get(`/api/invoices/${created.body.id}/pdf`)
+
+      expect(res.status).toBe(200)
+      expect(res.headers['content-type']).toBe('application/pdf')
+    })
+  })
+
+  describe('POST /api/invoices — template field', () => {
+    it('persists template field when specified as modern', async () => {
+      const { api, clientId } = await setupUserWithCompanyAndClient(app, 'inv-tmpl-modern')
+
+      const res = await api
+        .post('/api/invoices')
+        .send(validInvoice(clientId, { template: 'modern' }))
+
+      expect(res.status).toBe(201)
+      expect(res.body.template).toBe('modern')
+    })
+
+    it('defaults to classic when template is omitted', async () => {
+      const { api, clientId } = await setupUserWithCompanyAndClient(app, 'inv-tmpl-default')
+
+      const res = await api.post('/api/invoices').send(validInvoice(clientId))
+
+      expect(res.status).toBe(201)
+      expect(res.body.template).toBe('classic')
+    })
   })
 
   describe('POST /api/invoices/:id/duplicate', () => {
