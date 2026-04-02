@@ -36,3 +36,18 @@
 
 13. [Vitest Parallel Test Isolation with Real Database](references/testing/vitest-parallel-test-isolation.md)
 15. [Unique Test Data Generation for Parallel Integration Tests](references/testing/unique-test-data-parallel.md)
+
+## Backend (2026-04-02)
+
+20. [TypeORM DataSource.query() for Raw SQL Aggregations](references/backend/typeorm-datasource-raw-aggregations.md)
+
+## Frontend (2026-04-02)
+
+21. [Recharts Custom Tooltip: Avoiding Generic Type Conflicts](references/frontend/recharts-custom-tooltip-typing.md)
+22. [Recharts BarChart Integration in React + Vite](references/frontend/recharts-dashboard-integration.md)
+
+## Backend (2026-04-02)
+
+23. [PDF Template Registry Pattern (PDFKit)](references/backend/pdf-template-registry-pattern.md)
+24. [TypeScript: Intersection Cast para Campos Ausentes no Tipo](references/backend/typescript-intersection-cast-missing-field.md)
+25. [TypeORM: Migration Manual para Enum Column](references/backend/typeorm-manual-enum-migration.md)
