@@ -42,3 +42,6 @@ coverage/
 # REST client collections (local dev tooling)
 .bruno/
 .http/
+
+# Cache
+.pnpm-store/
