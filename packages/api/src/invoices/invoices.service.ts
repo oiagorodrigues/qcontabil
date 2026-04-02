@@ -19,6 +19,7 @@ import type {
   PaginatedResponse,
 } from '@qcontabil/shared'
 import { Invoice } from './entities/invoice.entity'
+import { InvoiceTemplate } from './templates/template.types'
 import { InvoiceLineItem } from './entities/invoice-line-item.entity'
 import { InvoiceExtra } from './entities/invoice-extra.entity'
 import { CompanyService } from '../company/company.service'
@@ -64,7 +65,7 @@ export class InvoicesService {
         description: dto.description,
         notes: dto.notes || null,
         paymentInstructions: dto.paymentInstructions || null,
-        template: dto.template as Invoice['template'],
+        template: (dto.template ?? company.defaultTemplate ?? InvoiceTemplate.CLASSIC) as InvoiceTemplate,
         subtotal,
         extrasTotal,
         total,
