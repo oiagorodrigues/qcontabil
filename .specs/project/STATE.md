@@ -5,11 +5,12 @@
 - **Stack:** React+Vite (SPA) / NestJS / PostgreSQL / AWS
 - **ORM:** TypeORM
 - **State management:** Zustand
-- **Provedor de pagamento:** Tipalti como target, pesquisar alternativas no M3
+- **Provedor de pagamento:** Tipalti v1. Alternativas pesquisadas: Wise Business (melhor custo, ~1-1.5%), Deel (gestão completa), Payoneer (marketplaces), Remessa Online/Husky (BR-focused, sem API pública). Escopo: qcontabil gera invoice e envia pra plataforma — sem orquestração de pagamento
 - **PDF generation:** PDFKit server-side (leve, sem browser headless)
 - **Invoice numbers:** Prefixo customizável via Company.invoicePrefix (default "INV"), format `{PREFIX}-{0001}`
 - **Invoice computed fields:** Híbrido — getters pra line items, persistido pra invoice totals
 - **Client delete protection:** Block delete + oferecer inativar (sem soft delete)
+- **Dashboard multi-moeda:** Filtro de moeda (não agrega moedas diferentes). Default = moeda mais frequente
 
 ## Blockers
 
@@ -61,7 +62,7 @@ User ↔ RefreshToken cria circular import. O `tsc` resolve, mas SWC (CJS output
 
 - [x] Definir ORM — TypeORM
 - [x] Definir state management — Zustand
-- [ ] Pesquisar provedores de pagamento com API acessivel (M3)
+- [x] Pesquisar provedores de pagamento com API acessivel (M3)
 
 ### Vitest + NestJS parallel integration tests: schema race condition
 
@@ -106,6 +107,8 @@ Testes de integracao rodam em paralelo. Dados fixos (ex: CNPJ hardcoded) causam 
 ## Deferred Ideas
 
 - **Upgrade @zxcvbn-ts/core pra v4**: Atualmente em v3 (set/2023). A v4 beta.3 (mar/2026) muda a API pra `ZxcvbnFactory` mas tem problemas de exports no runtime (beta). Monitorar releases estáveis e migrar quando v4 stable sair. PasswordStrengthMeter precisa ser reescrito pra nova API.
+- **Invoices recorrentes**: Criação automática de invoice todo mês baseado em config do client. Adiado para após M3.
+- **Templates customizados**: Editor visual (WYSIWYG/drag-drop) para criar templates do zero. Adiado para futuro.
 
 ## Preferences
 

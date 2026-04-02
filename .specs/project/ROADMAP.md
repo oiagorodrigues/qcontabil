@@ -70,26 +70,29 @@
 
 ### Features
 
-**Automacao de Envio** - PLANNED
+**Payment Integration** - SPECIFIED
 
-- Integracao com provedor de pagamento (API TBD)
-- Envio automatico do invoice no dia configurado
-- Rastreamento de status (enviado, recebido, pago)
-- Notificacoes (email ou in-app)
+- Camada de abstração PaymentProvider + implementação Tipalti v1
+- Envio manual (botão) e automático (dia do mês configurável por client)
+- Rastreamento de status via webhooks (sent, paid)
+- Configuração de credenciais em Settings
+- Notificações (email quando paid, in-app P2)
 
-**Invoice Templates** - PLANNED
+**Invoice Templates** - SPECIFIED
 
-- Templates de invoice pre-definidos (layouts diferentes)
-- Criar template customizado do zero
-- Selecionar template ao criar/editar invoice
-- Preview do template antes de aplicar
+- 3 templates pré-definidos: classic, modern, minimal
+- Seleção de template no create/edit invoice
+- Preview do PDF com template antes de salvar
+- Template padrão configurável por company
 
-**Dashboard** - PLANNED
+**Dashboard** - SPECIFIED
 
-- Resumo financeiro (total faturado, pendente, recebido)
-- Invoices recentes com status
-- Proximos invoices a gerar
-- Metricas basicas (media mensal, por cliente)
+- Summary cards (faturado, pendente, recebido, contagem)
+- Filtro por período (mês, trimestre, ano, últimos 12 meses)
+- Gráfico de faturamento mensal
+- Top 5 clientes por faturamento
+- Invoices recentes (últimos 5)
+- Dashboard como página inicial após login
 
 ---
 
