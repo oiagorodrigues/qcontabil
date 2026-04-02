@@ -71,7 +71,9 @@ export type { ClientSummary, ClientDetail, ContactResponse } from './types/clien
 // Invoice schemas, enums, and types
 export {
   INVOICE_STATUSES,
+  INVOICE_TEMPLATES,
   invoiceStatusSchema,
+  invoiceTemplateSchema,
   invoiceLineItemSchema,
   invoiceExtraSchema,
   invoiceObjectSchema,
@@ -83,6 +85,7 @@ export {
 
 export type {
   InvoiceStatus,
+  InvoiceTemplateType,
   InvoiceLineItemInput,
   InvoiceExtraInput,
   CreateInvoiceInput,
@@ -98,3 +101,19 @@ export type {
   InvoiceDetail,
   InvoiceClientSummary,
 } from './types/invoices'
+
+// Dashboard schemas and types
+export { dashboardPeriodSchema, dashboardQuerySchema } from './schemas/dashboard'
+
+export type { DashboardPeriodInput, DashboardQueryInput } from './schemas/dashboard'
+
+export type {
+  DashboardPeriod,
+  SummaryCard,
+  InvoiceCountByStatus,
+  DashboardSummaryResponse,
+  ChartDataPoint,
+  DashboardChartResponse,
+  TopClientEntry,
+  DashboardTopClientsResponse,
+} from './types/dashboard'

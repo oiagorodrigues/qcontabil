@@ -9,10 +9,7 @@ import { getTemplate } from './templates/template.registry'
 @Injectable()
 export class PdfService {
   async generate(invoice: InvoiceDetail, company: CompanyResponse | null): Promise<Buffer> {
-    // invoice.template will be added in T3/T4; fall back to CLASSIC until then
-    const templateName =
-      (invoice as InvoiceDetail & { template?: InvoiceTemplate }).template ??
-      InvoiceTemplate.CLASSIC
+    const templateName = invoice.template as InvoiceTemplate
 
     const renderTemplate = getTemplate(templateName)
 

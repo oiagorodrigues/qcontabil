@@ -6,6 +6,10 @@ export const INVOICE_STATUSES = ['draft', 'sent', 'paid', 'cancelled'] as const
 
 export const invoiceStatusSchema = z.enum(INVOICE_STATUSES)
 
+export const INVOICE_TEMPLATES = ['classic', 'modern', 'minimal'] as const
+
+export const invoiceTemplateSchema = z.enum(INVOICE_TEMPLATES)
+
 export const invoiceLineItemSchema = z.object({
   description: z.string().min(1, 'Description is required').max(500),
   quantity: z.coerce.number().positive('Quantity must be positive'),
@@ -29,6 +33,7 @@ export const invoiceObjectSchema = z.object({
   paymentInstructions: z.string().optional(),
   lineItems: z.array(invoiceLineItemSchema).min(1, 'At least one line item is required').max(50),
   extras: z.array(invoiceExtraSchema).max(20).optional().default([]),
+  template: invoiceTemplateSchema.optional(),
 })
 
 export const createInvoiceSchema = invoiceObjectSchema.refine(
@@ -61,6 +66,7 @@ export const listInvoicesQuerySchema = z.object({
 })
 
 export type InvoiceStatus = z.infer<typeof invoiceStatusSchema>
+export type InvoiceTemplateType = z.infer<typeof invoiceTemplateSchema>
 export type InvoiceLineItemInput = z.infer<typeof invoiceLineItemSchema>
 export type InvoiceExtraInput = z.infer<typeof invoiceExtraSchema>
 export type CreateInvoiceInput = z.infer<typeof createInvoiceSchema>

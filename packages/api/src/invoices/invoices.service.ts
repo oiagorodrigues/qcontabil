@@ -64,6 +64,7 @@ export class InvoicesService {
         description: dto.description,
         notes: dto.notes || null,
         paymentInstructions: dto.paymentInstructions || null,
+        template: dto.template as Invoice['template'],
         subtotal,
         extrasTotal,
         total,
@@ -281,6 +282,7 @@ export class InvoicesService {
       description: original.description,
       notes: original.notes ?? undefined,
       paymentInstructions: original.paymentInstructions ?? undefined,
+      template: original.template as CreateInvoiceInput['template'],
       lineItems: original.lineItems.map((li) => ({
         description: li.description,
         quantity: Number(li.quantity),
@@ -427,6 +429,7 @@ export class InvoicesService {
       },
       lineItems: lineItems.map((li) => this.toLineItemResponse(li)),
       extraItems: extraItems.map((e) => this.toExtraResponse(e)),
+      template: invoice.template as InvoiceDetail['template'],
       createdAt: invoice.createdAt.toISOString(),
       updatedAt: invoice.updatedAt.toISOString(),
     }

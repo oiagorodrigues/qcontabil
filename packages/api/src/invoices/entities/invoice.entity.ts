@@ -13,6 +13,7 @@ import type { User } from '../../auth/entities/user.entity'
 import type { Client } from '../../clients/entities/client.entity'
 import type { InvoiceLineItem } from './invoice-line-item.entity'
 import type { InvoiceExtra } from './invoice-extra.entity'
+import { InvoiceTemplate } from '../templates/template.types'
 
 @Entity('invoices')
 @Unique(['userId', 'invoiceNumber'])
@@ -110,6 +111,14 @@ export class Invoice {
 
   @OneToMany('InvoiceExtra', 'invoice', { cascade: true })
   extraItems!: InvoiceExtra[]
+
+  @Column({
+    type: 'enum',
+    enum: InvoiceTemplate,
+    default: InvoiceTemplate.CLASSIC,
+    comment: 'PDF template used to render this invoice',
+  })
+  template!: InvoiceTemplate
 
   @CreateDateColumn()
   createdAt!: Date

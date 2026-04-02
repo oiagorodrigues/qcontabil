@@ -56,6 +56,7 @@ const COMPANY: CompanyResponse = {
   bankAccountNumber: null,
   bankSwiftCode: null,
   invoicePrefix: 'INV',
+  defaultTemplate: null,
   createdAt: NOW.toISOString(),
   updatedAt: NOW.toISOString(),
 }
@@ -76,6 +77,7 @@ function makeInvoice(overrides: Partial<Invoice> = {}): Invoice {
     subtotal: 8000,
     extrasTotal: 500,
     total: 8500,
+    template: 'classic' as Invoice['template'],
     clientId: 'client-1',
     userId: 'user-1',
     client: {
@@ -145,6 +147,8 @@ describe('InvoicesService', () => {
           currency: 'USD',
           description: 'Test',
           lineItems: [{ description: 'Work', quantity: 10, unitPrice: 100, sortOrder: 0 }],
+          extras: [],
+          template: 'classic',
         }),
       ).rejects.toThrow(BadRequestException)
     })
@@ -230,6 +234,8 @@ describe('InvoicesService', () => {
           currency: 'USD',
           description: 'Test',
           lineItems: [{ description: 'Work', quantity: 10, unitPrice: 100, sortOrder: 0 }],
+          extras: [],
+          template: 'classic',
         }),
       ).rejects.toThrow(NotFoundException)
     })
@@ -245,6 +251,8 @@ describe('InvoicesService', () => {
           currency: 'USD',
           description: 'Test',
           lineItems: [{ description: 'Work', quantity: 10, unitPrice: 100, sortOrder: 0 }],
+          extras: [],
+          template: 'classic',
         }),
       ).rejects.toThrow(ConflictException)
     })
@@ -262,6 +270,8 @@ describe('InvoicesService', () => {
         currency: 'USD',
         description: 'Updated',
         lineItems: [{ description: 'Work', quantity: 20, unitPrice: 100, sortOrder: 0 }],
+        extras: [],
+        template: 'classic',
       })
 
       expect(result).toBeDefined()
