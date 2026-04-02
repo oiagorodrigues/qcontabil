@@ -1,16 +1,14 @@
 import { InvoiceTemplate } from './template.types'
 import type { TemplateFunction } from './template.types'
 import { classicTemplate } from './classic.template'
-
-// Future templates will be added as they are implemented:
-// import { modernTemplate } from './modern.template'
-// import { minimalTemplate } from './minimal.template'
+import { modernTemplate } from './modern.template'
+import { minimalTemplate } from './minimal.template'
 
 /** Registry mapping each InvoiceTemplate variant to its render function. */
 const registry = new Map<InvoiceTemplate, TemplateFunction>([
   [InvoiceTemplate.CLASSIC, classicTemplate],
-  // [InvoiceTemplate.MODERN, modernTemplate],
-  // [InvoiceTemplate.MINIMAL, minimalTemplate],
+  [InvoiceTemplate.MODERN, modernTemplate],
+  [InvoiceTemplate.MINIMAL, minimalTemplate],
 ])
 
 /**
