@@ -78,14 +78,14 @@
 - Configuração de credenciais em Settings
 - Notificações (email quando paid, in-app P2)
 
-**Invoice Templates** - SPECIFIED
+**Invoice Templates** - COMPLETE
 
 - 3 templates pré-definidos: classic, modern, minimal
 - Seleção de template no create/edit invoice
 - Preview do PDF com template antes de salvar
 - Template padrão configurável por company
 
-**Dashboard** - SPECIFIED
+**Dashboard** - IN PROGRESS
 
 - Summary cards (faturado, pendente, recebido, contagem)
 - Filtro por período (mês, trimestre, ano, últimos 12 meses)
