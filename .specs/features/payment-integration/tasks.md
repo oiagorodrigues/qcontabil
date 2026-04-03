@@ -335,9 +335,9 @@ Phase 7 (Tests):
 5. Adicionar seção no CompanyPage
 
 **Done when:**
-- [ ] Form renderiza e submete
-- [ ] Test Connection funciona (mostra sucesso/falha)
-- [ ] API Key mascarado no form (type=password)
+- [x] Form renderiza e submete
+- [x] Test Connection funciona (mostra sucesso/falha)
+- [x] API Key mascarado no form (type=password)
 
 ---
 

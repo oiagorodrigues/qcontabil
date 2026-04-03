@@ -7,6 +7,7 @@ import { Loading } from '@/components/Loading'
 import { companyApi } from '../api/company.api'
 import { CompanyForm } from '../components/CompanyForm'
 import { CompanyView } from '../components/CompanyView'
+import { PaymentProviderSettings } from '../components/PaymentProviderSettings'
 
 type PageMode = 'view' | 'create' | 'edit'
 
@@ -118,9 +119,13 @@ export default function CompanyPage() {
   // View mode
   if (company) {
     return (
-      <div className="mx-auto max-w-2xl py-8">
-        <h2 className="mb-6 text-2xl font-bold">Minha Empresa</h2>
+      <div className="mx-auto max-w-2xl space-y-6 py-8">
+        <h2 className="text-2xl font-bold">Minha Empresa</h2>
         <CompanyView company={company} onEdit={() => setMode('edit')} />
+        <PaymentProviderSettings
+          company={company}
+          onSaved={() => queryClient.invalidateQueries({ queryKey: ['company', 'me'] })}
+        />
       </div>
     )
   }
