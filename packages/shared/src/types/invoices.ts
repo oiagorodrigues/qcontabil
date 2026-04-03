@@ -57,6 +57,8 @@ export interface InvoiceDetail {
   lineItems: InvoiceLineItemResponse[]
   extraItems: InvoiceExtraResponse[]
   template: InvoiceTemplateType
+  paymentProviderRef: string | null
+  paymentProviderStatus: string | null
   createdAt: string
   updatedAt: string
 }

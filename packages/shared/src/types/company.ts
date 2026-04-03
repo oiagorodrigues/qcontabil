@@ -65,6 +65,8 @@ export interface CompanyResponse {
   bankSwiftCode: string | null
   invoicePrefix: string
   defaultTemplate: InvoiceTemplateType | null
+  paymentProvider: string | null
+  hasPaymentProvider: boolean
   createdAt: string
   updatedAt: string
 }

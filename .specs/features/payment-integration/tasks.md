@@ -83,8 +83,8 @@ Phase 7 (Tests):
 3. `ClientDetail`: adicionar `paymentProviderPayeeId: string | null`, `autoSendDay: number | null`
 
 **Done when:**
-- [ ] `pnpm --filter shared build` passa sem erros
-- [ ] Types exportados corretamente
+- [x] `pnpm --filter shared build` passa sem erros
+- [x] Types exportados corretamente
 
 ---
 

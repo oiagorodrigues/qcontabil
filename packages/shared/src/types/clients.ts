@@ -36,6 +36,8 @@ export interface ClientDetail {
   currency: Currency
   status: ClientStatus
   contacts: ContactResponse[]
+  paymentProviderPayeeId: string | null
+  autoSendDay: number | null
   createdAt: string
   updatedAt: string
 }
