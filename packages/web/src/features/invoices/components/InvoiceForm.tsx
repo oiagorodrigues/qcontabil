@@ -1,6 +1,6 @@
 import { useForm } from '@tanstack/react-form'
-import { invoiceObjectSchema, CURRENCIES } from '@qcontabil/shared'
-import type { ClientSummary, InvoiceLineItemInput, InvoiceExtraInput } from '@qcontabil/shared'
+import { invoiceObjectSchema, CURRENCIES, INVOICE_TEMPLATES } from '@qcontabil/shared'
+import type { ClientSummary, InvoiceLineItemInput, InvoiceExtraInput, InvoiceTemplateType } from '@qcontabil/shared'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,6 +22,7 @@ interface InvoiceFormValues {
   issueDate: string
   dueDate: string
   currency: string
+  template: InvoiceTemplateType
   description: string
   notes: string
   paymentInstructions: string
@@ -57,6 +58,7 @@ export function InvoiceForm({ defaultValues, onSubmit, isSubmitting, clients }: 
       issueDate: defaultValues?.issueDate ?? today,
       dueDate: defaultValues?.dueDate ?? today,
       currency: defaultValues?.currency ?? 'USD',
+      template: defaultValues?.template ?? 'classic',
       description: defaultValues?.description ?? '',
       notes: defaultValues?.notes ?? '',
       paymentInstructions: defaultValues?.paymentInstructions ?? '',
@@ -171,6 +173,30 @@ export function InvoiceForm({ defaultValues, onSubmit, isSubmitting, clients }: 
               )}
             </form.Field>
           </div>
+
+          <form.Field name="template">
+            {(field) => (
+              <div className="space-y-1">
+                <Label htmlFor="template">Template</Label>
+                <Select
+                  value={field.state.value}
+                  onValueChange={(val) => field.handleChange(val as InvoiceTemplateType)}
+                >
+                  <SelectTrigger id="template">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {INVOICE_TEMPLATES.map((t) => (
+                      <SelectItem key={t} value={t}>
+                        {t.charAt(0).toUpperCase() + t.slice(1)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FieldError errors={field.state.meta.errors} />
+              </div>
+            )}
+          </form.Field>
 
           <form.Field name="description">
             {(field) => (

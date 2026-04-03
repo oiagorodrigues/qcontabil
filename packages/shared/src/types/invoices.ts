@@ -1,4 +1,4 @@
-import type { InvoiceStatus } from '../schemas/invoices'
+import type { InvoiceStatus, InvoiceTemplateType } from '../schemas/invoices'
 import type { Currency } from '../schemas/clients'
 
 export interface InvoiceLineItemResponse {
@@ -56,6 +56,7 @@ export interface InvoiceDetail {
   }
   lineItems: InvoiceLineItemResponse[]
   extraItems: InvoiceExtraResponse[]
+  template: InvoiceTemplateType
   createdAt: string
   updatedAt: string
 }

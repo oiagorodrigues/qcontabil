@@ -2,7 +2,7 @@
 
 **Milestone:** M3 — Automação + Dashboard
 **Scope:** Medium
-**Status:** SPECIFIED
+**Status:** COMPLETE
 
 ---
 

@@ -71,6 +71,7 @@ export class CompanyService {
       bankAccountNumber: company.bankAccountNumber,
       bankSwiftCode: company.bankSwiftCode,
       invoicePrefix: company.invoicePrefix,
+      defaultTemplate: company.defaultTemplate,
       createdAt: company.createdAt.toISOString(),
       updatedAt: company.updatedAt.toISOString(),
     }

@@ -1,3 +1,5 @@
+import type { InvoiceTemplateType } from '../schemas/invoices'
+
 export enum TaxRegime {
   MEI = 'MEI',
   EI = 'EI',
@@ -62,6 +64,7 @@ export interface CompanyResponse {
   bankAccountNumber: string | null
   bankSwiftCode: string | null
   invoicePrefix: string
+  defaultTemplate: InvoiceTemplateType | null
   createdAt: string
   updatedAt: string
 }

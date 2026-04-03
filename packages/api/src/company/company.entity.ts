@@ -10,6 +10,7 @@ import {
 } from 'typeorm'
 import { TaxRegime, AccountType, BrazilianState } from '@qcontabil/shared'
 import { User } from '../auth/entities/user.entity'
+import { InvoiceTemplate } from '../invoices/templates/template.types'
 
 @Entity('companies')
 @Unique(['cnpj'])
@@ -139,6 +140,16 @@ export class Company {
     comment: 'Prefix for invoice numbers (e.g. INV, ACME)',
   })
   invoicePrefix!: string
+
+  @Column({
+    name: 'default_template',
+    type: 'enum',
+    enum: InvoiceTemplate,
+    default: InvoiceTemplate.CLASSIC,
+    nullable: true,
+    comment: 'Default PDF template for new invoices created by this company',
+  })
+  defaultTemplate!: InvoiceTemplate | null
 
   @CreateDateColumn({ name: 'created_at', comment: 'Data de criacao do registro' })
   createdAt!: Date
