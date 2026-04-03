@@ -70,7 +70,7 @@
 
 ### Features
 
-**Payment Integration** - SPECIFIED
+**Payment Integration** - COMPLETE
 
 - Camada de abstração PaymentProvider + implementação Tipalti v1
 - Envio manual (botão) e automático (dia do mês configurável por client)

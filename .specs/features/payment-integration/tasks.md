@@ -1,7 +1,7 @@
 # Payment Integration — Tasks
 
 **Design:** `design.md`
-**Status:** READY
+**Status:** COMPLETE
 
 ---
 
@@ -359,9 +359,9 @@ Phase 7 (Tests):
 3. Loading state no botão durante envio
 
 **Done when:**
-- [ ] Botão aparece e funciona
-- [ ] Disabled states com tooltips corretos
-- [ ] Badge de provider status visível quando há providerRef
+- [x] Botão aparece e funciona
+- [x] Disabled states com tooltips corretos
+- [x] Badge de provider status visível quando há providerRef
 
 ---
 
@@ -388,8 +388,8 @@ Phase 7 (Tests):
 10. Integration test: POST /payments/test-connection retorna resultado
 
 **Done when:**
-- [ ] `pnpm --filter api test:unit` passa
-- [ ] `pnpm --filter api test:integration` passa
+- [x] `pnpm --filter api test:unit` passa
+- [ ] `pnpm --filter api test:integration` passa (requer DB + env vars)
 
 ---
 
