@@ -205,9 +205,9 @@ Phase 7 (Tests):
    - Busca company, decrypt config, instancia provider, chama validateConnection()
 
 **Done when:**
-- [ ] Todos os métodos implementados
-- [ ] Validações corretas (missing payeeId, missing provider, etc.)
-- [ ] TypeScript compila sem erros
+- [x] Todos os métodos implementados
+- [x] Validações corretas (missing payeeId, missing provider, etc.)
+- [x] TypeScript compila sem erros
 
 ---
 
