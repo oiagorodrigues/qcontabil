@@ -1,7 +1,7 @@
 # Dashboard — Tasks
 
 **Design:** `design.md`
-**Status:** READY
+**Status:** COMPLETE
 
 ---
 
@@ -57,8 +57,8 @@ Phase 6 (Tests):
 3. Exportar tudo em `index.ts`
 
 **Done when:**
-- [ ] `pnpm --filter shared build` passa sem erros
-- [ ] Types e schemas exportados corretamente
+- [x] `pnpm --filter shared build` passa sem erros
+- [x] Types e schemas exportados corretamente
 
 ---
 
@@ -84,8 +84,8 @@ Phase 6 (Tests):
 4. Retornar `DashboardSummaryResponse`
 
 **Done when:**
-- [ ] Método retorna dados corretos com mocks manuais (unit test)
-- [ ] TypeScript compila sem erros
+- [x] Método retorna dados corretos com mocks manuais (unit test)
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -103,8 +103,8 @@ Phase 6 (Tests):
    - Preencher meses sem dados com total = 0
 
 **Done when:**
-- [ ] Retorna array de ChartDataPoint com meses corretos
-- [ ] Meses sem invoices retornam total = 0
+- [x] Retorna array de ChartDataPoint com meses corretos
+- [x] Meses sem invoices retornam total = 0
 
 ---
 
@@ -122,8 +122,8 @@ Phase 6 (Tests):
    - Calcular grandTotal e percentage por client
 
 **Done when:**
-- [ ] Retorna top 5 clients com nome, total e percentage
-- [ ] Percentage soma ~100% (pode ser < 100% se há mais de 5 clients)
+- [x] Retorna top 5 clients com nome, total e percentage
+- [x] Percentage soma ~100% (pode ser < 100% se há mais de 5 clients)
 
 ---
 
@@ -147,8 +147,8 @@ Phase 6 (Tests):
 3. Adicionar DashboardModule em app.module.ts
 
 **Done when:**
-- [ ] `pnpm --filter api build` compila sem erros
-- [ ] Endpoints respondem com curl/httpie (manual test)
+- [x] `pnpm --filter api build` compila sem erros
+- [x] Endpoints respondem com curl/httpie (manual test)
 
 ---
 
@@ -168,8 +168,8 @@ Phase 6 (Tests):
 3. Query keys: `['dashboard', 'summary', params]`, etc.
 
 **Done when:**
-- [ ] Hooks exportados com types corretos
-- [ ] TypeScript compila sem erros
+- [x] Hooks exportados com types corretos
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -187,8 +187,8 @@ Phase 6 (Tests):
 3. Card de invoices mostra breakdown por status
 
 **Done when:**
-- [ ] Componente renderiza sem erros com dados mock
-- [ ] Valores formatados com moeda correta
+- [x] Componente renderiza sem erros com dados mock
+- [x] Valores formatados com moeda correta
 
 ---
 
@@ -206,9 +206,9 @@ Phase 6 (Tests):
 4. Empty state quando não há dados
 
 **Done when:**
-- [ ] Chart renderiza com dados mock
-- [ ] Responsivo (ResponsiveContainer width 100%)
-- [ ] Empty state funciona
+- [x] Chart renderiza com dados mock
+- [x] Responsivo (ResponsiveContainer width 100%)
+- [x] Empty state funciona
 
 ---
 
@@ -227,8 +227,8 @@ Phase 6 (Tests):
 4. Empty state
 
 **Done when:**
-- [ ] Tabela renderiza com dados mock
-- [ ] Links funcionam
+- [x] Tabela renderiza com dados mock
+- [x] Links funcionam
 
 ---
 
@@ -248,9 +248,9 @@ Phase 6 (Tests):
 5. Empty state
 
 **Done when:**
-- [ ] Lista renderiza com dados mock
-- [ ] Links funcionam
-- [ ] StatusBadge reutilizado corretamente
+- [x] Lista renderiza com dados mock
+- [x] Links funcionam
+- [x] StatusBadge reutilizado corretamente
 
 ---
 
@@ -275,10 +275,10 @@ Phase 6 (Tests):
 4. Loading states e error handling
 
 **Done when:**
-- [ ] Dashboard renderiza com dados reais da API
-- [ ] Filtros atualizam os dados
-- [ ] Rota `/` carrega o dashboard
-- [ ] Loading skeleton enquanto carrega
+- [x] Dashboard renderiza com dados reais da API
+- [x] Filtros atualizam os dados
+- [x] Rota `/` carrega o dashboard
+- [x] Loading skeleton enquanto carrega
 
 ---
 
@@ -301,8 +301,8 @@ Phase 6 (Tests):
 7. Integration test: endpoints retornam 401 sem auth
 
 **Done when:**
-- [ ] `pnpm --filter api test:unit` passa
-- [ ] `pnpm --filter api test:integration` passa
+- [x] `pnpm --filter api test:unit` passa
+- [x] `pnpm --filter api test:integration` passa
 
 ---
 

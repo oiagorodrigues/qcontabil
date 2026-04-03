@@ -85,7 +85,7 @@
 - Preview do PDF com template antes de salvar
 - Template padrão configurável por company
 
-**Dashboard** - IN PROGRESS
+**Dashboard** - COMPLETE
 
 - Summary cards (faturado, pendente, recebido, contagem)
 - Filtro por período (mês, trimestre, ano, últimos 12 meses)

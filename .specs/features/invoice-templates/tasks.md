@@ -2,7 +2,7 @@
 
 **Feature:** Invoice Templates
 **Design:** design.md
-**Status:** READY
+**Status:** COMPLETE
 
 ---
 
