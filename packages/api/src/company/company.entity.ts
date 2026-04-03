@@ -151,6 +151,23 @@ export class Company {
   })
   defaultTemplate!: InvoiceTemplate | null
 
+  @Column({
+    name: 'payment_provider',
+    type: 'varchar',
+    length: 20,
+    nullable: true,
+    comment: 'Payment provider name (e.g., tipalti)',
+  })
+  paymentProvider!: string | null
+
+  @Column({
+    name: 'payment_provider_config',
+    type: 'text',
+    nullable: true,
+    comment: 'Encrypted JSON with provider API credentials (AES-256-GCM)',
+  })
+  paymentProviderConfig!: string | null
+
   @CreateDateColumn({ name: 'created_at', comment: 'Data de criacao do registro' })
   createdAt!: Date
 

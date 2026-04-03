@@ -125,8 +125,8 @@ Phase 7 (Tests):
 4. Todos com `comment` nos `@Column()`
 
 **Done when:**
-- [ ] Entities compilam sem erros
-- [ ] DB sync cria colunas novas (verificar com query)
+- [x] Entities compilam sem erros
+- [x] DB sync cria colunas novas (verificar com query)
 
 ---
 

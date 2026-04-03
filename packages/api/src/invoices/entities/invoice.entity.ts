@@ -120,6 +120,22 @@ export class Invoice {
   })
   template!: InvoiceTemplate
 
+  @Column({
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+    comment: 'External reference ID from payment provider (e.g., Tipalti invoice ID)',
+  })
+  paymentProviderRef!: string | null
+
+  @Column({
+    type: 'varchar',
+    length: 50,
+    nullable: true,
+    comment: 'Raw status string from payment provider',
+  })
+  paymentProviderStatus!: string | null
+
   @CreateDateColumn()
   createdAt!: Date
 

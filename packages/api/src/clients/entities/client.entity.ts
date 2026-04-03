@@ -68,6 +68,23 @@ export class Client {
   @OneToMany('Contact', 'client', { cascade: true })
   contacts!: Contact[]
 
+  @Column({
+    name: 'payment_provider_payee_id',
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+    comment: "Client's ID in the payment platform (e.g., Tipalti payee ID)",
+  })
+  paymentProviderPayeeId!: string | null
+
+  @Column({
+    name: 'auto_send_day',
+    type: 'smallint',
+    nullable: true,
+    comment: 'Day of month (1-28) for automatic invoice submission',
+  })
+  autoSendDay!: number | null
+
   @CreateDateColumn()
   createdAt!: Date
 
