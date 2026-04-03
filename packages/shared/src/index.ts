@@ -40,9 +40,9 @@ export type { CompanyResponse } from './types/company'
 export { isValidCnpj } from './validators/cnpj'
 
 // Company schemas and types
-export { createCompanySchema, updateCompanySchema } from './schemas/company'
+export { createCompanySchema, updateCompanySchema, paymentProviderConfigSchema } from './schemas/company'
 
-export type { CreateCompanyInput, UpdateCompanyInput } from './schemas/company'
+export type { CreateCompanyInput, UpdateCompanyInput, PaymentProviderConfigInput } from './schemas/company'
 
 // Client schemas, enums, and types
 export {

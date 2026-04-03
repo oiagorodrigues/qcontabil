@@ -145,8 +145,8 @@ Phase 7 (Tests):
 3. Exportar novo schema
 
 **Done when:**
-- [ ] `pnpm --filter shared build` passa sem erros
-- [ ] Validation funciona (parse com dados válidos e inválidos)
+- [x] `pnpm --filter shared build` passa sem erros
+- [x] Validation funciona (parse com dados válidos e inválidos)
 
 ---
 

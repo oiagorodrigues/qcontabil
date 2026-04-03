@@ -31,6 +31,9 @@ export const clientObjectSchema = z.object({
   currency: currencySchema,
   status: clientStatusSchema,
   contacts: z.array(contactSchema).min(1, 'At least one contact is required'),
+  // Payment settings
+  paymentProviderPayeeId: z.string().max(255).nullable().optional(),
+  autoSendDay: z.number().int().min(1).max(28).nullable().optional(),
 })
 
 /** Full create schema with primary contact refinement — used by backend validation */
