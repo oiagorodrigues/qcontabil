@@ -427,6 +427,7 @@ export class InvoicesService {
         address: invoice.client?.address ?? null,
         country: invoice.client?.country ?? '',
         countryCode: invoice.client?.countryCode ?? '',
+        paymentProviderPayeeId: invoice.client?.paymentProviderPayeeId ?? null,
       },
       lineItems: lineItems.map((li) => this.toLineItemResponse(li)),
       extraItems: extraItems.map((e) => this.toExtraResponse(e)),

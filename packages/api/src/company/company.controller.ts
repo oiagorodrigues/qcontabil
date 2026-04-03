@@ -8,8 +8,8 @@ import {
   HttpStatus,
   NotFoundException,
 } from '@nestjs/common'
-import { createCompanySchema, updateCompanySchema } from '@qcontabil/shared'
-import type { CreateCompanyInput, UpdateCompanyInput } from '@qcontabil/shared'
+import { createCompanySchema, updateCompanySchema, paymentProviderConfigSchema } from '@qcontabil/shared'
+import type { CreateCompanyInput, UpdateCompanyInput, PaymentProviderConfigInput } from '@qcontabil/shared'
 import { CompanyService } from './company.service'
 import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { ZodValidationPipe } from '../common/pipes/zod-validation.pipe'
@@ -43,5 +43,13 @@ export class CompanyController {
     @Body(new ZodValidationPipe(updateCompanySchema)) dto: UpdateCompanyInput,
   ) {
     return this.companyService.update(user.id, dto)
+  }
+
+  @Put('me/payment-config')
+  async updatePaymentConfig(
+    @CurrentUser() user: User,
+    @Body(new ZodValidationPipe(paymentProviderConfigSchema)) dto: PaymentProviderConfigInput,
+  ) {
+    return this.companyService.updatePaymentConfig(user.id, dto)
   }
 }

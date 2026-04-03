@@ -53,6 +53,7 @@ export interface InvoiceDetail {
     address: string | null
     country: string
     countryCode: string
+    paymentProviderPayeeId: string | null
   }
   lineItems: InvoiceLineItemResponse[]
   extraItems: InvoiceExtraResponse[]

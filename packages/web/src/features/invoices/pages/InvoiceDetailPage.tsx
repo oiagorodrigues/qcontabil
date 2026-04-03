@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Download, Edit, ArrowLeft } from 'lucide-react'
+import { Download, Edit, ArrowLeft, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Loading } from '@/components/Loading'
 import { invoicesApi } from '../api/invoices.api'
 import { companyApi } from '@/features/company/api/company.api'
@@ -49,6 +50,16 @@ export default function InvoiceDetailPage() {
     },
   })
 
+  const sendToProviderMutation = useMutation({
+    mutationFn: () => invoicesApi.submitToPaymentProvider(id!),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['invoices', id] })
+    },
+    onError: () => {
+      console.error('Failed to send invoice to payment provider')
+    },
+  })
+
   if (isLoading) return <Loading />
 
   if (!invoice) {
@@ -65,6 +76,10 @@ export default function InvoiceDetailPage() {
   const canSend = isDraft
   const canPay = isSent
   const canCancel = isDraft || isSent
+
+  const canSendViaProvider = (isDraft || isSent) && !invoice.paymentProviderRef
+  const hasPayeeId = !!invoice.client?.paymentProviderPayeeId
+  const hasProvider = !!company?.hasPaymentProvider
 
   const previewClient = invoice.client
     ? {
@@ -99,6 +114,11 @@ export default function InvoiceDetailPage() {
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold">{invoice.invoiceNumber}</h1>
             <InvoiceStatusBadge status={invoice.status} />
+            {invoice.paymentProviderStatus && (
+              <Badge variant="outline" className="capitalize">
+                {invoice.paymentProviderStatus}
+              </Badge>
+            )}
           </div>
           <p className="text-muted-foreground text-sm">{invoice.client.fantasyName}</p>
         </div>
@@ -119,6 +139,26 @@ export default function InvoiceDetailPage() {
             <Button variant="destructive" onClick={() => setDialogAction('cancel')}>
               Cancel
             </Button>
+          )}
+          {canSendViaProvider && (
+            <span
+              title={
+                !hasProvider
+                  ? 'Payment provider not configured — go to Company Settings'
+                  : !hasPayeeId
+                    ? 'Client has no Payment Platform ID configured'
+                    : undefined
+              }
+            >
+              <Button
+                variant="outline"
+                onClick={() => sendToProviderMutation.mutate()}
+                disabled={!hasPayeeId || !hasProvider || sendToProviderMutation.isPending}
+              >
+                <Send className="mr-2 h-4 w-4" />
+                {sendToProviderMutation.isPending ? 'Sending...' : 'Send via Payment Platform'}
+              </Button>
+            </span>
           )}
           <Button
             variant="outline"

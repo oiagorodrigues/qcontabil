@@ -31,6 +31,7 @@ function makeInvoiceDetail(overrides: Partial<InvoiceDetail> = {}): InvoiceDetai
       address: null,
       country: 'United States',
       countryCode: 'US',
+      paymentProviderPayeeId: null,
     },
     lineItems: [
       {

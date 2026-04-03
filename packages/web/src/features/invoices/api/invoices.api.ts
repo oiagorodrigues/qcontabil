@@ -58,4 +58,8 @@ export const invoicesApi = {
   listByClient(clientId: string) {
     return httpClient.get<InvoiceClientSummary[]>(`/invoices/by-client/${clientId}`)
   },
+
+  submitToPaymentProvider(id: string) {
+    return httpClient.post<{ message: string }>(`/payments/send/${id}`)
+  },
 }
