@@ -169,9 +169,9 @@ Phase 7 (Tests):
 8. **Nota**: implementação usa stubs/placeholders para endpoints exatos — será ajustado quando tivermos sandbox access
 
 **Done when:**
-- [ ] Implementa todos os 4 métodos da interface
-- [ ] Registrado no factory
-- [ ] TypeScript compila sem erros
+- [x] Implementa todos os 4 métodos da interface
+- [x] Registrado no factory (via module em T11)
+- [x] TypeScript compila sem erros
 
 ---
 
