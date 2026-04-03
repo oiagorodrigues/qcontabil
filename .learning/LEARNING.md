@@ -51,3 +51,9 @@
 23. [PDF Template Registry Pattern (PDFKit)](references/backend/pdf-template-registry-pattern.md)
 24. [TypeScript: Intersection Cast para Campos Ausentes no Tipo](references/backend/typescript-intersection-cast-missing-field.md)
 25. [TypeORM: Migration Manual para Enum Column](references/backend/typeorm-manual-enum-migration.md)
+
+## Backend (2026-04-03)
+
+26. [AES-256-GCM Encryption in Node.js](references/backend/aes-256-gcm-node-encryption.md)
+27. [HMAC-SHA256 Webhook Signature Validation with timingSafeEqual](references/backend/webhook-hmac-timing-safe.md)
+28. [Payment Provider Adapter Pattern with Factory Registry](references/backend/payment-provider-adapter-pattern.md)
