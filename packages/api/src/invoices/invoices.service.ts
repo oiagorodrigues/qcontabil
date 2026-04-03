@@ -431,6 +431,8 @@ export class InvoicesService {
       lineItems: lineItems.map((li) => this.toLineItemResponse(li)),
       extraItems: extraItems.map((e) => this.toExtraResponse(e)),
       template: invoice.template as InvoiceDetail['template'],
+      paymentProviderRef: invoice.paymentProviderRef ?? null,
+      paymentProviderStatus: invoice.paymentProviderStatus ?? null,
       createdAt: invoice.createdAt.toISOString(),
       updatedAt: invoice.updatedAt.toISOString(),
     }

@@ -72,6 +72,8 @@ export class CompanyService {
       bankSwiftCode: company.bankSwiftCode,
       invoicePrefix: company.invoicePrefix,
       defaultTemplate: company.defaultTemplate,
+      paymentProvider: company.paymentProvider ?? null,
+      hasPaymentProvider: company.paymentProviderConfig != null,
       createdAt: company.createdAt.toISOString(),
       updatedAt: company.updatedAt.toISOString(),
     }

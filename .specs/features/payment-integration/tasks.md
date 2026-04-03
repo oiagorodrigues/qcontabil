@@ -102,9 +102,9 @@ Phase 7 (Tests):
 4. Validar que key tem tamanho correto
 
 **Done when:**
-- [ ] Roundtrip: encrypt → decrypt retorna texto original
-- [ ] Chave inválida lança erro
-- [ ] Ciphertext adulterado lança erro (GCM auth tag)
+- [x] Roundtrip: encrypt → decrypt retorna texto original
+- [x] Chave inválida lança erro
+- [x] Ciphertext adulterado lança erro (GCM auth tag)
 
 ---
 
