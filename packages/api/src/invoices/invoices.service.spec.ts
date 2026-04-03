@@ -57,6 +57,8 @@ const COMPANY: CompanyResponse = {
   bankSwiftCode: null,
   invoicePrefix: 'INV',
   defaultTemplate: null,
+  paymentProvider: null,
+  hasPaymentProvider: false,
   createdAt: NOW.toISOString(),
   updatedAt: NOW.toISOString(),
 }

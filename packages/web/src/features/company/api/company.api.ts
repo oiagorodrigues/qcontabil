@@ -1,4 +1,9 @@
-import type { CompanyResponse, CreateCompanyInput, UpdateCompanyInput } from '@qcontabil/shared'
+import type {
+  CompanyResponse,
+  CreateCompanyInput,
+  UpdateCompanyInput,
+  PaymentProviderConfigInput,
+} from '@qcontabil/shared'
 import { httpClient } from '../../../lib/http-client'
 
 export const companyApi = {
@@ -12,5 +17,13 @@ export const companyApi = {
 
   updateCompany(data: UpdateCompanyInput) {
     return httpClient.put<CompanyResponse>('/companies/me', data)
+  },
+
+  updatePaymentConfig(data: PaymentProviderConfigInput) {
+    return httpClient.put<CompanyResponse>('/companies/me/payment-config', data)
+  },
+
+  testConnection() {
+    return httpClient.post<{ valid: boolean; message?: string }>('/payments/test-connection', {})
   },
 }

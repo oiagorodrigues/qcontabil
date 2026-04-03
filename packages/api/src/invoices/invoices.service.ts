@@ -427,10 +427,13 @@ export class InvoicesService {
         address: invoice.client?.address ?? null,
         country: invoice.client?.country ?? '',
         countryCode: invoice.client?.countryCode ?? '',
+        paymentProviderPayeeId: invoice.client?.paymentProviderPayeeId ?? null,
       },
       lineItems: lineItems.map((li) => this.toLineItemResponse(li)),
       extraItems: extraItems.map((e) => this.toExtraResponse(e)),
       template: invoice.template as InvoiceDetail['template'],
+      paymentProviderRef: invoice.paymentProviderRef ?? null,
+      paymentProviderStatus: invoice.paymentProviderStatus ?? null,
       createdAt: invoice.createdAt.toISOString(),
       updatedAt: invoice.updatedAt.toISOString(),
     }

@@ -74,6 +74,8 @@ export default function EditInvoicePage() {
         country: selectedClient.country,
         countryCode: selectedClient.countryCode,
         contacts: [],
+        paymentProviderPayeeId: null,
+        autoSendDay: null,
         createdAt: '',
         updatedAt: '',
       }

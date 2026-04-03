@@ -45,3 +45,13 @@ export const updateCompanySchema = createCompanySchema
 
 export type CreateCompanyInput = z.infer<typeof createCompanySchema>
 export type UpdateCompanyInput = z.infer<typeof updateCompanySchema>
+
+// Payment provider configuration schema (separate from company profile)
+export const paymentProviderConfigSchema = z.object({
+  paymentProvider: z.enum(['tipalti']),
+  apiKey: z.string().min(1, 'API Key is required'),
+  payerEntity: z.string().min(1, 'Payer Entity is required'),
+  sandboxMode: z.boolean().default(true),
+})
+
+export type PaymentProviderConfigInput = z.infer<typeof paymentProviderConfigSchema>

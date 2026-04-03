@@ -202,6 +202,8 @@ export class ClientsService {
       currency: client.currency as ClientDetail['currency'],
       status: client.status as ClientDetail['status'],
       contacts: contacts.map((c) => this.toContactResponse(c)),
+      paymentProviderPayeeId: client.paymentProviderPayeeId ?? null,
+      autoSendDay: client.autoSendDay ?? null,
       createdAt: client.createdAt.toISOString(),
       updatedAt: client.updatedAt.toISOString(),
     }

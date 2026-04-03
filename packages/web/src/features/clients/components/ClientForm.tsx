@@ -55,6 +55,8 @@ export function ClientForm({ initialData, onSubmit, isSubmitting }: ClientFormPr
         role: c.role || '',
         isPrimary: c.isPrimary,
       })) || [{ name: '', email: '', phone: '', role: '', isPrimary: true }],
+      paymentProviderPayeeId: initialData?.paymentProviderPayeeId ?? null,
+      autoSendDay: initialData?.autoSendDay ?? null,
     } as CreateClientInput,
     validators: {
       onSubmit: clientObjectSchema,
@@ -300,6 +302,57 @@ export function ClientForm({ initialData, onSubmit, isSubmitting }: ClientFormPr
             />
           )}
         </form.Field>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold">Payment Settings</h3>
+        <Separator className="mt-2 mb-4" />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <form.Field name="paymentProviderPayeeId">
+            {(field) => (
+              <div className="space-y-1 sm:col-span-2">
+                <Label htmlFor="paymentProviderPayeeId">Payment Platform ID</Label>
+                <Input
+                  id="paymentProviderPayeeId"
+                  value={field.state.value ?? ''}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value || null)}
+                  placeholder="e.g. Tipalti Payee ID"
+                />
+                <p className="text-xs text-muted-foreground">
+                  The client's ID in your payment platform. Required to send invoices automatically.
+                </p>
+              </div>
+            )}
+          </form.Field>
+
+          <form.Field name="autoSendDay">
+            {(field) => (
+              <div className="space-y-1">
+                <Label htmlFor="autoSendDay">Auto-Send Day</Label>
+                <Select
+                  value={field.state.value != null ? String(field.state.value) : 'disabled'}
+                  onValueChange={(v) => field.handleChange(v === 'disabled' ? null : Number(v))}
+                >
+                  <SelectTrigger id="autoSendDay">
+                    <SelectValue placeholder="Disabled" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="disabled">Disabled</SelectItem>
+                    {Array.from({ length: 28 }, (_, i) => i + 1).map((day) => (
+                      <SelectItem key={day} value={String(day)}>
+                        Day {day}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Day of month to automatically submit draft invoices.
+                </p>
+              </div>
+            )}
+          </form.Field>
+        </div>
       </div>
 
       <div className="flex justify-end gap-2">

@@ -31,6 +31,7 @@ function makeInvoiceDetail(overrides: Partial<InvoiceDetail> = {}): InvoiceDetai
       address: null,
       country: 'United States',
       countryCode: 'US',
+      paymentProviderPayeeId: null,
     },
     lineItems: [
       {
@@ -51,6 +52,8 @@ function makeInvoiceDetail(overrides: Partial<InvoiceDetail> = {}): InvoiceDetai
       },
     ],
     template: 'classic',
+    paymentProviderRef: null,
+    paymentProviderStatus: null,
     createdAt: NOW,
     updatedAt: NOW,
     ...overrides,
@@ -78,6 +81,8 @@ const COMPANY: CompanyResponse = {
   bankSwiftCode: null,
   invoicePrefix: 'INV',
   defaultTemplate: null,
+  paymentProvider: null,
+  hasPaymentProvider: false,
   createdAt: NOW,
   updatedAt: NOW,
 }

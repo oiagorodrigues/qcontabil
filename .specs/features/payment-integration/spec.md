@@ -115,3 +115,50 @@ cancelled → (terminal)
 - **Sandbox:** verificar se Tipalti oferece sandbox gratuito para dev/test
 - **Webhook reliability:** precisa de retry/idempotency no handler
 - **Credentials storage:** `paymentProviderConfig` deve ser encrypted at rest
+
+---
+
+## Configuração Manual Necessária (Pós-Implementação)
+
+Esta feature é implementada com **stubs** no `TipaltiProvider`. Para ativar a integração real, as seguintes etapas manuais são necessárias:
+
+### 1. Acesso ao Tipalti
+
+- [ ] Criar conta Tipalti e solicitar acesso ao sandbox de desenvolvimento
+- [ ] Obter credenciais: `API Key`, `Payer Entity` (nome da entidade pagadora no Tipalti)
+- [ ] Confirmar URL do sandbox (ex: `https://api.sandbox.tipalti.com`) e da produção
+- [ ] Verificar se Tipalti usa SOAP (v5/v6) ou REST para o fluxo de submissão de invoices — ajustar `TipaltiProvider` conforme API real
+
+### 2. Variáveis de Ambiente
+
+Adicionar ao `.env` (e configurar no ambiente de deploy):
+
+```env
+# Payment — Encryption
+PAYMENT_ENCRYPTION_KEY=<32 bytes aleatórios em base64>  # gerar com: openssl rand -base64 32
+
+# Payment — Webhook secret (fornecido pelo Tipalti ao configurar o webhook endpoint)
+TIPALTI_WEBHOOK_SECRET=<secret fornecido pelo Tipalti>
+```
+
+### 3. Webhook no Tipalti
+
+- [ ] Registrar o endpoint `POST https://<seu-dominio>/webhooks/tipalti` no painel do Tipalti
+- [ ] Copiar o webhook secret gerado pelo Tipalti para `TIPALTI_WEBHOOK_SECRET`
+- [ ] Confirmar o formato do payload e do header de assinatura (`X-Tipalti-Signature` ou similar)
+
+### 4. Ajuste do TipaltiProvider
+
+Após obter acesso ao sandbox, revisar e ajustar em `tipalti.provider.ts`:
+- Endpoints reais das operações (submitInvoice, getInvoiceStatus, etc.)
+- Formato do payload (multipart com PDF, ou base64, ou outro)
+- Headers de autenticação exatos
+- Mapeamento de status Tipalti → status interno (`paid`, etc.)
+
+### 5. Configurar no App
+
+Na tela de Settings da empresa:
+- [ ] Inserir API Key do Tipalti
+- [ ] Inserir Payer Entity
+- [ ] Ativar Sandbox Mode para testes, desativar para produção
+- [ ] Clicar em "Test Connection" para validar

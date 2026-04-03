@@ -14,7 +14,7 @@
 
 ## Blockers
 
-_(none)_
+- **TS pré-existentes em spec files**: `clients.service.spec.ts:115` (`null` não é `string | undefined`) e `company.service.spec.ts:34` (`invoicePrefix` ausente no mock de `CreateCompanyInput`). Não relacionados ao Payment Integration — corrigir em tarefa separada.
 
 ## Lessons
 

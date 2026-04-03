@@ -1,7 +1,7 @@
 # Payment Integration — Tasks
 
 **Design:** `design.md`
-**Status:** READY
+**Status:** COMPLETE
 
 ---
 
@@ -62,8 +62,8 @@ Phase 7 (Tests):
 3. Exportar tudo
 
 **Done when:**
-- [ ] TypeScript compila sem erros
-- [ ] Interface tem 4 métodos: submitInvoice, getInvoiceStatus, cancelInvoice, validateConnection
+- [x] TypeScript compila sem erros
+- [x] Interface tem 4 métodos: submitInvoice, getInvoiceStatus, cancelInvoice, validateConnection
 
 ---
 
@@ -83,8 +83,8 @@ Phase 7 (Tests):
 3. `ClientDetail`: adicionar `paymentProviderPayeeId: string | null`, `autoSendDay: number | null`
 
 **Done when:**
-- [ ] `pnpm --filter shared build` passa sem erros
-- [ ] Types exportados corretamente
+- [x] `pnpm --filter shared build` passa sem erros
+- [x] Types exportados corretamente
 
 ---
 
@@ -102,9 +102,9 @@ Phase 7 (Tests):
 4. Validar que key tem tamanho correto
 
 **Done when:**
-- [ ] Roundtrip: encrypt → decrypt retorna texto original
-- [ ] Chave inválida lança erro
-- [ ] Ciphertext adulterado lança erro (GCM auth tag)
+- [x] Roundtrip: encrypt → decrypt retorna texto original
+- [x] Chave inválida lança erro
+- [x] Ciphertext adulterado lança erro (GCM auth tag)
 
 ---
 
@@ -125,8 +125,8 @@ Phase 7 (Tests):
 4. Todos com `comment` nos `@Column()`
 
 **Done when:**
-- [ ] Entities compilam sem erros
-- [ ] DB sync cria colunas novas (verificar com query)
+- [x] Entities compilam sem erros
+- [x] DB sync cria colunas novas (verificar com query)
 
 ---
 
@@ -145,8 +145,8 @@ Phase 7 (Tests):
 3. Exportar novo schema
 
 **Done when:**
-- [ ] `pnpm --filter shared build` passa sem erros
-- [ ] Validation funciona (parse com dados válidos e inválidos)
+- [x] `pnpm --filter shared build` passa sem erros
+- [x] Validation funciona (parse com dados válidos e inválidos)
 
 ---
 
@@ -169,9 +169,9 @@ Phase 7 (Tests):
 8. **Nota**: implementação usa stubs/placeholders para endpoints exatos — será ajustado quando tivermos sandbox access
 
 **Done when:**
-- [ ] Implementa todos os 4 métodos da interface
-- [ ] Registrado no factory
-- [ ] TypeScript compila sem erros
+- [x] Implementa todos os 4 métodos da interface
+- [x] Registrado no factory (via module em T11)
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -205,9 +205,9 @@ Phase 7 (Tests):
    - Busca company, decrypt config, instancia provider, chama validateConnection()
 
 **Done when:**
-- [ ] Todos os métodos implementados
-- [ ] Validações corretas (missing payeeId, missing provider, etc.)
-- [ ] TypeScript compila sem erros
+- [x] Todos os métodos implementados
+- [x] Validações corretas (missing payeeId, missing provider, etc.)
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -225,8 +225,8 @@ Phase 7 (Tests):
 4. ParseUUIDPipe para invoiceId
 
 **Done when:**
-- [ ] 3 endpoints definidos com decorators corretos
-- [ ] TypeScript compila sem erros
+- [x] 3 endpoints definidos com decorators corretos
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -244,9 +244,9 @@ Phase 7 (Tests):
 4. Retorna 200 OK em todos os casos (sucesso ou skip)
 
 **Done when:**
-- [ ] Endpoint marcado como @Public()
-- [ ] Retorna 200 sem exigir auth
-- [ ] TypeScript compila sem erros
+- [x] Endpoint marcado como @Public()
+- [x] Retorna 200 sem exigir auth
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -267,9 +267,9 @@ Phase 7 (Tests):
 7. Não interromper se um falhar — continuar com próximos
 
 **Done when:**
-- [ ] Cron registrado com schedule correto
-- [ ] Loga resultados
-- [ ] Falha individual não para o batch
+- [x] Cron registrado com schedule correto
+- [x] Loga resultados
+- [x] Falha individual não para o batch
 
 ---
 
@@ -289,8 +289,8 @@ Phase 7 (Tests):
 4. Adicionar PaymentsModule e ScheduleModule.forRoot() em app.module.ts
 
 **Done when:**
-- [ ] `pnpm --filter api build` compila sem erros
-- [ ] App inicia sem erros de DI
+- [x] `pnpm --filter api build` compila sem erros
+- [x] App inicia sem erros de DI
 
 ---
 
@@ -310,9 +310,9 @@ Phase 7 (Tests):
 5. Garantir que valores são enviados no payload
 
 **Done when:**
-- [ ] Campos aparecem no form
-- [ ] Create e edit enviam os novos campos
-- [ ] Campos são opcionais
+- [x] Campos aparecem no form
+- [x] Create e edit enviam os novos campos
+- [x] Campos são opcionais
 
 ---
 
@@ -335,9 +335,9 @@ Phase 7 (Tests):
 5. Adicionar seção no CompanyPage
 
 **Done when:**
-- [ ] Form renderiza e submete
-- [ ] Test Connection funciona (mostra sucesso/falha)
-- [ ] API Key mascarado no form (type=password)
+- [x] Form renderiza e submete
+- [x] Test Connection funciona (mostra sucesso/falha)
+- [x] API Key mascarado no form (type=password)
 
 ---
 
@@ -359,9 +359,9 @@ Phase 7 (Tests):
 3. Loading state no botão durante envio
 
 **Done when:**
-- [ ] Botão aparece e funciona
-- [ ] Disabled states com tooltips corretos
-- [ ] Badge de provider status visível quando há providerRef
+- [x] Botão aparece e funciona
+- [x] Disabled states com tooltips corretos
+- [x] Badge de provider status visível quando há providerRef
 
 ---
 
@@ -388,8 +388,8 @@ Phase 7 (Tests):
 10. Integration test: POST /payments/test-connection retorna resultado
 
 **Done when:**
-- [ ] `pnpm --filter api test:unit` passa
-- [ ] `pnpm --filter api test:integration` passa
+- [x] `pnpm --filter api test:unit` passa
+- [ ] `pnpm --filter api test:integration` passa (requer DB + env vars)
 
 ---
 

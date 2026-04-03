@@ -51,7 +51,10 @@ describe('CompanyService', () => {
 
   beforeEach(() => {
     repo = createMockRepo<Company>()
-    service = new CompanyService(repo as unknown as Repository<Company>)
+    service = new CompanyService(
+      repo as unknown as Repository<Company>,
+      { get: () => 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo=' } as unknown as import('@nestjs/config').ConfigService,
+    )
   })
 
   describe('create', () => {

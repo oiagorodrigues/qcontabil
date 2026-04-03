@@ -1,14 +1,17 @@
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import type { CreateCompanyInput, UpdateCompanyInput, CompanyResponse } from '@qcontabil/shared'
+import { ConfigService } from '@nestjs/config'
+import type { CreateCompanyInput, UpdateCompanyInput, CompanyResponse, PaymentProviderConfigInput } from '@qcontabil/shared'
 import { Company } from './company.entity'
+import { encrypt } from '../common/utils/encryption'
 
 @Injectable()
 export class CompanyService {
   constructor(
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
+    private readonly configService: ConfigService,
   ) {}
 
   async create(userId: string, data: CreateCompanyInput): Promise<CompanyResponse> {
@@ -50,6 +53,20 @@ export class CompanyService {
     return this.toResponse(saved)
   }
 
+  async updatePaymentConfig(userId: string, data: PaymentProviderConfigInput): Promise<CompanyResponse> {
+    const company = await this.companyRepository.findOneBy({ userId })
+    if (!company) {
+      throw new NotFoundException('Empresa nao encontrada')
+    }
+
+    const encryptionKey = this.configService.get<string>('PAYMENT_ENCRYPTION_KEY')!
+    const plaintext = JSON.stringify(data)
+    company.paymentProvider = data.paymentProvider
+    company.paymentProviderConfig = encrypt(plaintext, encryptionKey)
+    const saved = await this.companyRepository.save(company)
+    return this.toResponse(saved)
+  }
+
   private toResponse(company: Company): CompanyResponse {
     return {
       id: company.id,
@@ -72,6 +89,8 @@ export class CompanyService {
       bankSwiftCode: company.bankSwiftCode,
       invoicePrefix: company.invoicePrefix,
       defaultTemplate: company.defaultTemplate,
+      paymentProvider: company.paymentProvider ?? null,
+      hasPaymentProvider: company.paymentProviderConfig != null,
       createdAt: company.createdAt.toISOString(),
       updatedAt: company.updatedAt.toISOString(),
     }

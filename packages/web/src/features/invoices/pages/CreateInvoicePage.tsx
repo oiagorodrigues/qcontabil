@@ -100,6 +100,8 @@ export default function CreateInvoicePage() {
         country: selectedClient.country,
         countryCode: selectedClient.countryCode,
         contacts: [],
+        paymentProviderPayeeId: null,
+        autoSendDay: null,
         createdAt: '',
         updatedAt: '',
       }
