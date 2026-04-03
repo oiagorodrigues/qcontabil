@@ -289,8 +289,8 @@ Phase 7 (Tests):
 4. Adicionar PaymentsModule e ScheduleModule.forRoot() em app.module.ts
 
 **Done when:**
-- [ ] `pnpm --filter api build` compila sem erros
-- [ ] App inicia sem erros de DI
+- [x] `pnpm --filter api build` compila sem erros
+- [x] App inicia sem erros de DI
 
 ---
 
