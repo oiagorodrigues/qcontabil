@@ -310,9 +310,9 @@ Phase 7 (Tests):
 5. Garantir que valores são enviados no payload
 
 **Done when:**
-- [ ] Campos aparecem no form
-- [ ] Create e edit enviam os novos campos
-- [ ] Campos são opcionais
+- [x] Campos aparecem no form
+- [x] Create e edit enviam os novos campos
+- [x] Campos são opcionais
 
 ---
 

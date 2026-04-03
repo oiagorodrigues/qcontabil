@@ -81,6 +81,8 @@ export default function InvoiceDetailPage() {
         currency: invoice.currency,
         status: 'active' as const,
         contacts: [],
+        paymentProviderPayeeId: null,
+        autoSendDay: null,
         createdAt: '',
         updatedAt: '',
       }
