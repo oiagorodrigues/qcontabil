@@ -225,8 +225,8 @@ Phase 7 (Tests):
 4. ParseUUIDPipe para invoiceId
 
 **Done when:**
-- [ ] 3 endpoints definidos com decorators corretos
-- [ ] TypeScript compila sem erros
+- [x] 3 endpoints definidos com decorators corretos
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -244,9 +244,9 @@ Phase 7 (Tests):
 4. Retorna 200 OK em todos os casos (sucesso ou skip)
 
 **Done when:**
-- [ ] Endpoint marcado como @Public()
-- [ ] Retorna 200 sem exigir auth
-- [ ] TypeScript compila sem erros
+- [x] Endpoint marcado como @Public()
+- [x] Retorna 200 sem exigir auth
+- [x] TypeScript compila sem erros
 
 ---
 
@@ -267,9 +267,9 @@ Phase 7 (Tests):
 7. Não interromper se um falhar — continuar com próximos
 
 **Done when:**
-- [ ] Cron registrado com schedule correto
-- [ ] Loga resultados
-- [ ] Falha individual não para o batch
+- [x] Cron registrado com schedule correto
+- [x] Loga resultados
+- [x] Falha individual não para o batch
 
 ---
 
