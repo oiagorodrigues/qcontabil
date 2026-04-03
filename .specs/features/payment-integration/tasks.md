@@ -62,8 +62,8 @@ Phase 7 (Tests):
 3. Exportar tudo
 
 **Done when:**
-- [ ] TypeScript compila sem erros
-- [ ] Interface tem 4 métodos: submitInvoice, getInvoiceStatus, cancelInvoice, validateConnection
+- [x] TypeScript compila sem erros
+- [x] Interface tem 4 métodos: submitInvoice, getInvoiceStatus, cancelInvoice, validateConnection
 
 ---
 
